@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+
+p{
+    font-size: medium;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a{
+    font-size: medium;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.BaseBackground{
+    background-color: #BBD9F2;
+}
+
+.ArticalBackground{
+
+}
+
+.Bordered{
+    border: 2px solid #3D555E;
+    margin: 1em;
+}
+
+.ImportantBtn{
+    background-color: #0B4F8F;
+    color: #C5DFF6;
+}
+
+.DetailBtn{
+    background-color: #72B8F0;
+    color: #3D555E;   
+    border: #3D555E 1px solid;
+}
+
+.RegularBtn{
+    border: #3D555E 1px solid;
+    background-color: #36B8F0;
+    color: #3D555E;   
+}
+
+.CancelBtn{
+    background-color: #C5DFF6;
+    color: #0B518F;   
+    border: #0B518F 1px solid;
+}
