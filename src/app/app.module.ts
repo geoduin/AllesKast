@@ -7,13 +7,12 @@ import { AboutMeComponent } from './features/about-me/about-me.component';
 import { HomeComponent } from './features/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { FollowBtnComponent } from './features/follow-btn/follow-btn.component';
-import { DetailBtnComponent } from './features/detail-btn/detail-btn.component';
 import { NormalComicsListComponent } from './features/normal-comics-list/normal-comics-list.component';
 import { OwnListComponent } from './features/own-list/own-list.component';
 import { RecommendedlistComponent } from './features/recommendedlist/recommendedlist.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DetailComicComponent } from './features/detail-comic/detail-comic.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +21,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     NavbarComponent,
     FooterComponent,
-    FollowBtnComponent,
-    DetailBtnComponent,
     NormalComicsListComponent,
     OwnListComponent,
     RecommendedlistComponent,
-    LoginComponent
+    LoginComponent,
+    DetailComicComponent
   ],
   imports: [
     BrowserModule,

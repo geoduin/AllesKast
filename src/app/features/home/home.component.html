@@ -1,1 +1,24 @@
-<p>home works!</p>
+<div class="Bordered">
+    <div class="Bordered">
+        <div *ngFor="let items of StoryList">
+            <span>{{ items.name }}</span>
+            <span> {{ items.Nr}}</span>
+            <span>{{items.country}}</span>
+            <a routerLink="Story/{{items.Nr}}">Bekijk</a>
+        </div> 
+    </div>
+    <div class="Bordered" >
+        <div *ngFor="let items of RecommendedList">
+            <span>{{ items.name }}</span>
+            <span> {{ items.Nr}}</span>
+            <span>{{items.country}}</span>
+            <a routerLink="Story/{{items.Nr}}">Bekijk</a>
+        </div>
+    </div>
+    <div class="Bordered">
+        <div *ngFor="let items of RecommendedUserList">
+            <span>{{ items }}</span>
+        </div>
+        
+    </div>
+</div>
