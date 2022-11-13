@@ -13,6 +13,7 @@ import { NormalComicsListComponent } from './features/normal-comics-list/normal-
 import { OwnListComponent } from './features/own-list/own-list.component';
 import { RecommendedlistComponent } from './features/recommendedlist/recommendedlist.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { LoginComponent } from './authentication/login/login.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
