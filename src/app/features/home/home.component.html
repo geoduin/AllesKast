@@ -1,5 +1,6 @@
 <div class="Bordered">
     <div class="Bordered">
+        <h2>Verhalen</h2>
         <div *ngFor="let items of StoryList">
             <span>{{ items.name }}</span>
             <span> {{ items.Nr}}</span>
@@ -8,6 +9,7 @@
         </div> 
     </div>
     <div class="Bordered" >
+        <h2>Aanbevelingen</h2>
         <div *ngFor="let items of RecommendedList">
             <span>{{ items.name }}</span>
             <span> {{ items.Nr}}</span>
@@ -16,6 +18,7 @@
         </div>
     </div>
     <div class="Bordered">
+        <h2>Volgen</h2>
         <div *ngFor="let items of RecommendedUserList">
             <span>{{ items }}</span>
         </div>

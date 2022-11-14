@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #BBD9F2;
+    margin: 0px auto;
+    min-height: 100vh;
+    display:flex;
+    flex-direction: column;
+}
+
+main{
+    flex: 1;
+}
 
 p{
     font-size: medium;

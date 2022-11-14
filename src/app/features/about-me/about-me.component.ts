@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about-me.component.css']
 })
 export class AboutMeComponent implements OnInit {
+  imagePath!: string;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.imagePath = "./staticImages/ERD.png"
   }
 
 }

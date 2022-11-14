@@ -13,6 +13,7 @@ import { RecommendedlistComponent } from './features/recommendedlist/recommended
 import { LoginComponent } from './authentication/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailComicComponent } from './features/detail-comic/detail-comic.component';
+import { RegistrationComponent } from './authentication/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DetailComicComponent } from './features/detail-comic/detail-comic.compo
     OwnListComponent,
     RecommendedlistComponent,
     LoginComponent,
-    DetailComicComponent
+    DetailComicComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

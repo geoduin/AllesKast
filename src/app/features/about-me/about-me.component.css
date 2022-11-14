@@ -1,0 +1,25 @@
+.persoonlijk{
+    border: 1px solid;
+}
+
+.Entity{
+    margin: 1em;
+    border: 1px solid;
+}
+
+.EntityTitle{
+    text-align: center;
+}
+
+.EntityContent{
+    text-align: left;
+    text-decoration: none;
+}
+
+.EntityContent > ul > li {
+    list-style-type:square;
+}
+
+.EntityNotes{
+    text-align: center;
+}
