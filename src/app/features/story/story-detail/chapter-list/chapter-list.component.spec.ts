@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetailComicComponent } from './detail-comic.component';
+import { ChapterListComponent } from './chapter-list.component';
 
-describe('DetailComicComponent', () => {
-  let component: DetailComicComponent;
-  let fixture: ComponentFixture<DetailComicComponent>;
+describe('ChapterListComponent', () => {
+  let component: ChapterListComponent;
+  let fixture: ComponentFixture<ChapterListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DetailComicComponent ]
+      declarations: [ ChapterListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DetailComicComponent);
+    fixture = TestBed.createComponent(ChapterListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
