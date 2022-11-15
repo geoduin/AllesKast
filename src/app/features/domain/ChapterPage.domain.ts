@@ -6,12 +6,12 @@ export class ChapterPage{
     }
 
     GetImage64():string{
-        try{
+        /*try{
             let buffer = Buffer.from(this.ImageArray);
             return 'data:image/png;base64, ' + buffer.toString('base64');
         } catch(Error){
             return 'assets/staticImages/Placeholder Image.png';
-        }
-        
+        }*/
+        return 'data:image/png;base64, assets/staticImages/Placeholder Image.png';
     }
 }

@@ -1,28 +1,34 @@
 import { Chapter } from "./Chapter.domain"
+import { Reaction } from "./Comment.domain"
 import { User } from "./User.domain"
 
 export class Story{
     //Are editable
     Id: string | undefined
-    Title: string | undefined
+    Title: string | null
     StoryLine: string | undefined
     Writer: User | undefined
     IsAdultOnly: boolean = false
-    Genres: string[] = []
+    Genres: string[] | undefined
+    PublishDate: Date | undefined
+
     ChapterList: Chapter[] = []
     //Misschien een thumbnail.
 
     //Lists of Story domain, cannot be edited by writer
     Rating: number[] = []
-    CommentSection: Comment[] = []
+    CommentSection: Reaction[] = []
     Followers: User[] = []
     
-    constructor(){
-
+    constructor(title: string, storyline: string, IsAdult: boolean, publishDate: Date){
+        this.Title = title;
+        this.StoryLine = storyline;
+        this.IsAdultOnly = IsAdult;
+        this.PublishDate = publishDate;
     }
     //Average of given ratings
     GetRating(): number{
-        return this.Rating.length;
+        return 5;
     }
     //Once per user.
     SubmitRating(rate: number): boolean{
@@ -52,7 +58,7 @@ export class Story{
         }
     }
 
-    AddComment(Comment: Comment){
+    AddComment(Comment: Reaction){
         try {
             this.CommentSection.push(Comment);
             return true;
