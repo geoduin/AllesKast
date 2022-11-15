@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DummyDB } from 'src/app/services/DummyDb';
+import { Story } from '../domain/Story.domain';
+import { User } from '../domain/User.domain';
 import { DummyData } from './Dummy';
 
 @Component({
@@ -7,23 +10,20 @@ import { DummyData } from './Dummy';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  StoryList:DummyData[] = [new DummyData("Dummy", -1, '', 'Nederland')];
-  RecommendedList:DummyData[] = [];
-  RecommendedUserList:string[] = [];
   
-  
-  constructor() { 
+  StoryList:Story[] = []
+  RecommendedList:Story[] = []
+  RecommendedUserList:User[] = []
+
+  constructor(private dummyDb: DummyDB) { 
     
   }
 
   ngOnInit(): void {
-    var amount = 0;
-    while (amount < 8) {
-      this.StoryList.push(new DummyData("Dummy", amount, '', 'Nederland'));
-      this.RecommendedList.push(new DummyData("Dummy", amount, '', 'Nederland'));
-      this.RecommendedUserList.push('Niks');
-      amount++;
-    }
+    this.StoryList = this.dummyDb.GetAllStories();
+    this.RecommendedList = this.dummyDb.GetAllStories();
+    this.RecommendedUserList = this.dummyDb.GetAllDummyUsers();
+    const user =this.StoryList[0].Title
   }
 
 }

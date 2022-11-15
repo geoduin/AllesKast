@@ -15,6 +15,7 @@ import { StoryDetailComponent } from './features/story/story-detail/story-detail
 import { StoryEditComponent } from './features/story/story-edit/story-edit.component';
 import { ChapterListComponent } from './features/story/story-detail/chapter-list/chapter-list.component';
 import { ChapterEditComponent } from './features/story/story-detail/chapter-edit/chapter-edit.component';
+import { DummyDB } from './services/DummyDb';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { ChapterEditComponent } from './features/story/story-detail/chapter-edit
     AppRoutingModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [DummyDB],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
