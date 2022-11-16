@@ -62,7 +62,6 @@ export class DummyDB{
             Genres: ["Romantiek"],
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
-            Rating: [7,8,9],
             CommentSection: [new Reaction("001", "0", "First"), new Reaction("001", "0", "Second"), new Reaction("001", "0", "Third"), new Reaction("001", "0", "Last reaction"), new Reaction("001", "0", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
             Followers: [this.UserArray[0] as User, this.UserArray[2] as User]
         },
@@ -75,7 +74,6 @@ export class DummyDB{
             Genres: ["Actie"],
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
-            Rating: [7,8,9],
             CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
             Followers: [this.UserArray[0] as User, this.UserArray[2] as User]
         },
@@ -88,7 +86,6 @@ export class DummyDB{
             Genres: ["Mysterie"],
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
-            Rating: [7,8,9],
             CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],            Followers: [this.UserArray[0] as User, this.UserArray[2] as User]
         }
         ,
@@ -101,7 +98,6 @@ export class DummyDB{
             Genres: ["Romantiek"],
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
-            Rating: [7,8,9],
             CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
             Followers: [this.UserArray[0] as User, this.UserArray[2] as User]
         }
@@ -114,7 +110,6 @@ export class DummyDB{
             Genres: ["Non-Fictie"],
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
-            Rating: [6,6,6],
             CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
             Followers: [this.UserArray[0] as User, this.UserArray[2] as User]
         }

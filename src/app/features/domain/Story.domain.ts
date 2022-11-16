@@ -14,9 +14,6 @@ export interface IStory{
 
     ChapterList: Chapter[]| undefined
     //Misschien een thumbnail.
-
-    //Lists of Story domain, cannot be edited by writer
-    Rating: number[] | undefined
     CommentSection: Reaction[] | undefined
     Followers: User[] | undefined
 
@@ -39,9 +36,6 @@ export class Story implements IStory{
 
     ChapterList: Chapter[] = []
     //Misschien een thumbnail.
-
-    //Lists of Story domain, cannot be edited by writer
-    Rating: number[] = []
     CommentSection: Reaction[] = []
     Followers: User[] = []
     
@@ -50,45 +44,5 @@ export class Story implements IStory{
         this.StoryLine = storyline;
         this.IsAdultOnly = IsAdult;
         this.PublishDate = publishDate;
-    }
-    //Average of given ratings
-    GetRating(): number{
-        return 5;
-    }
-    //Once per user.
-    SubmitRating(rate: number): boolean{
-        try{
-            this.Rating.push(rate);
-            return true;
-        }catch(error){
-            return false;
-        }
-    }
-
-    AddChapterToStory(Chapter: Chapter): boolean{
-        try {
-            this.ChapterList.push(Chapter);
-            return true;
-        } catch (error) {
-            return false;
-        }
-    }
-
-    FollowStory(User: User): boolean{
-        try {
-            this.Followers.push(User);
-            return true;
-        } catch (error) {
-            return false;
-        }
-    }
-
-    AddComment(Comment: Reaction){
-        try {
-            this.CommentSection.push(Comment);
-            return true;
-        } catch (error) {
-            return false;
-        }
     }
 }
