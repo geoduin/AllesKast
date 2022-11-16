@@ -1,0 +1,9 @@
+<div class="list">
+    <h2>Gebruikerlijst</h2>
+    <!--If statement voor wachtwoordveld-->
+    <!--If statement voor rol-->
+    <div *ngFor="let user of UserList;">
+        <p>Gebruikersnaam: {{user.UserName}}</p>
+        <a routerLink="{{user.Id}}">Details</a>
+    </div>
+</div>

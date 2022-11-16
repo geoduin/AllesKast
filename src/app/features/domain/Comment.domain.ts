@@ -1,4 +1,11 @@
-export class Reaction{
+export interface IComment{
+    ChapterId: string| undefined | null
+    UserId: string | undefined | null
+    Content: string | undefined | null
+    PublishDate: Date | undefined | null
+}
+
+export class Reaction implements IComment{
     
     ChapterId: string| undefined
     UserId: string | undefined
@@ -11,4 +18,6 @@ export class Reaction{
         this.UserId = userId;
         this.Content = content;
     }
+
 }
+

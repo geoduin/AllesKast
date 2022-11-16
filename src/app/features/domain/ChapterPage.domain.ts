@@ -1,4 +1,11 @@
-export class ChapterPage{
+
+export interface IPage{
+    ImageArray: ArrayBuffer
+
+    GetImage64():string
+}
+
+export class ChapterPage implements IPage{
     ImageArray: ArrayBuffer
 
     constructor(bytes: ArrayBuffer){

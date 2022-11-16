@@ -16,6 +16,9 @@ import { StoryEditComponent } from './features/story/story-edit/story-edit.compo
 import { ChapterListComponent } from './features/story/story-detail/chapter-list/chapter-list.component';
 import { ChapterEditComponent } from './features/story/story-detail/chapter-edit/chapter-edit.component';
 import { DummyDB } from './services/DummyDb';
+import { UserListComponent } from './features/user/user-list/user-list.component';
+import { UserDetailComponent } from './features/user/user-detail/user-detail.component';
+import { UserEditComponent } from './features/user/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { DummyDB } from './services/DummyDb';
     StoryEditComponent,
     ChapterListComponent,
     ChapterEditComponent,
+    UserListComponent,
+    UserDetailComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,

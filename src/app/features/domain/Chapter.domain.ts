@@ -1,11 +1,30 @@
 import { ChapterPage } from "./ChapterPage.domain"
 
-export class Chapter{
+export interface IChapter {
+    Id: string | undefined
+    ChapterTitle:string| undefined
+    PublishDate: Date| undefined
+    Chapter: number | undefined
+    
+    
+    //Moet nog besloten worden of er maar 1 of meerdere paginas opgeslagen wordt.
+    /*ChapterPages: ChapterPage[] | undefined
+    //ChapterPage: ChapterPage | undefined
+    Comic: ChapterPage | undefined;
+
+    GetComic():string
+    AssignComicToChapter(Comic: ChapterPage):void
+    AddPages(page: ChapterPage):void*/
+}
+
+
+export class Chapter implements IChapter{
     Id: string | undefined
     ChapterTitle:string| undefined
     PublishDate: Date| undefined
     Chapter: number | undefined
     //Moet nog besloten worden of er maar 1 of meerdere paginas opgeslagen wordt.
+    //ChapterPage: ChapterPage | undefined
     ChapterPages: ChapterPage[] = []
     Comic: ChapterPage | undefined;
     

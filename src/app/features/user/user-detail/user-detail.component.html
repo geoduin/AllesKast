@@ -1,0 +1,17 @@
+
+<div>
+
+    <h2>Gebruiker {{ user?.UserName }}</h2>
+    <p>Naam: {{user?.UserName}}<br/>Geboortedatum: {{user?.DateOfBirth}}</p>
+    <!--Dit mag alleen een admin wijzigen-->
+    <a routerLink="Edit">Wijzig gebruiker</a>
+    <div>
+        <h3>Verhalen gevolgd</h3>
+        <div *ngFor="let stories of user?.FollowedStories">
+            <p>Naam: {{stories?.Title}}</p>
+            <p>Genres: {{stories?.Genres}}</p>
+            <a routerLink="/Story/{{stories.Id}}">Details</a>
+        </div>
+    </div>
+    
+</div>

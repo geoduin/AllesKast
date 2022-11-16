@@ -1,1 +1,7 @@
 <p>story-list works!</p>
+<div class="list" *ngFor="let Story of StoryList;">
+    <div class="Story">
+        <h3>{{Story?.Title}}</h3>
+        <a routerLink="{{Story.Id}}/Detail">Details</a>
+    </div>
+</div>

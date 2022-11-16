@@ -16,7 +16,7 @@ export class StoryDetailComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.route.paramMap.subscribe((param)=>{
-        const UserId = param.get("UserId");
+        const UserId = param.get("StoryId");
         console.log(UserId);
         if(UserId){
           this.story = this.Db.FindOneStory(UserId);

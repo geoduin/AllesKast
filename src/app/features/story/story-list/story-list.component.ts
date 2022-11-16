@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DummyDB } from 'src/app/services/DummyDb';
+import { IStory } from '../../domain/Story.domain';
 
 @Component({
   selector: 'app-story-list',
@@ -7,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StoryListComponent implements OnInit {
 
-  constructor() { }
+  StoryList: IStory[] = this.Db.GetAllStories();
+  constructor(private Db: DummyDB) { }
 
   ngOnInit(): void {
   }

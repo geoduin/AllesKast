@@ -1,12 +1,29 @@
 import { Story } from "./Story.domain"
 
-export class User{
-    Id: string | undefined
-    Name: string | undefined
-    DateOfBirth: Date| undefined
-    Email: string | undefined
-    Password: string | undefined
-    Role: string | undefined
+export interface IUser {
+    Id: string |  null | undefined
+    UserName: string | null | undefined
+    DateOfBirth: Date | null
+    Email: string | null | undefined
+    Password: string | null | undefined
+    Role: string | null
+
+    /*
+    Followers: User[] | null
+    //Note: Will be decided if user will hold the whole story, partial or only the ids.
+    FollowedStories: Story[] | null
+    //User will have references to his own published stories
+    PublishedStories: string[] | null
+    */
+}
+
+export class User implements IUser{
+    Id: string | null | undefined
+    UserName: string | null | undefined
+    DateOfBirth: Date| null 
+    Email: string | null | undefined
+    Password: string | null| undefined
+    Role: string | null
 
     Followers: User[] = []
     //Note: Will be decided if user will hold the whole story, partial or only the ids.
@@ -15,7 +32,7 @@ export class User{
     PublishedStories: string[] = []
 
     constructor(name: string, DateOfBirth: Date, Password: string, Email: string){
-        this.Name = name;
+        this.UserName = name;
         this.DateOfBirth = DateOfBirth;
         this.Password = Password;
         this.Role = "User"
