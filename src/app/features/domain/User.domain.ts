@@ -3,18 +3,9 @@ import { Story } from "./Story.domain"
 export interface IUser {
     Id: string |  null | undefined
     UserName: string | null | undefined
-    DateOfBirth: Date | null
+    DateOfBirth: Date | null| undefined
     Email: string | null | undefined
-    Password: string | null | undefined
-    Role: string | null
-
-    /*
-    Followers: User[] | null
-    //Note: Will be decided if user will hold the whole story, partial or only the ids.
-    FollowedStories: Story[] | null
-    //User will have references to his own published stories
-    PublishedStories: string[] | null
-    */
+    Role: string | null| undefined
 }
 
 export class User implements IUser{
@@ -39,4 +30,13 @@ export class User implements IUser{
         this.Email = Email;
     }
 
+}
+
+export class IdentityUser implements IUser {
+    Id: string | null | undefined
+    UserName: string | null | undefined
+    DateOfBirth: Date | null | undefined
+    Email: string | null | undefined
+    Role: string | null | undefined
+    Password: string | undefined
 }

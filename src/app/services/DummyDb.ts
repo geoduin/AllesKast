@@ -3,7 +3,7 @@ import { Chapter } from "../features/domain/Chapter.domain";
 import { ChapterPage } from "../features/domain/ChapterPage.domain";
 import { Reaction } from "../features/domain/Comment.domain";
 import { IStory, Story } from "../features/domain/Story.domain";
-import { IUser, User } from "../features/domain/User.domain";
+import { IdentityUser, IUser, User } from "../features/domain/User.domain";
 
 @Injectable()
 export class DummyDB{
@@ -13,7 +13,6 @@ export class DummyDB{
             UserName: "Generiek1",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
-            Password: "undefined",
             Role:  "Student"
         },
         {
@@ -21,7 +20,6 @@ export class DummyDB{
             UserName: "Generiek2",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
-            Password: "undefined",
             Role:  "Student"
         },
 
@@ -30,7 +28,6 @@ export class DummyDB{
             UserName: "Generiek3",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
-            Password: "undefined",
             Role:  "Student"
         },
         {
@@ -38,7 +35,6 @@ export class DummyDB{
             UserName: "Generiek4",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
-            Password: "undefined",
             Role:  "Student"
         },
 
@@ -47,7 +43,6 @@ export class DummyDB{
             UserName: "Generiek5",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
-            Password: "undefined",
             Role:  "Student"
         },
     ]
@@ -138,6 +133,7 @@ export class DummyDB{
     }
 
     GetAllStories(){
+        const ius:IUser = new IdentityUser();
         return this.StoryArray as Story[];
     }
 
@@ -155,15 +151,15 @@ export class DummyDB{
         return this.GetAllDummyUsers().filter(u => u.Id == id)[0];
     }
 
-    AddUser(user: User){
+    AddUser(user: IUser){
         this.UserArray.push(user);
     }
 
-    UpdateUser(user: User){
-        let CurrentUser = this.FindOneUser(user.Id!);
+    UpdateUser(user: IUser){
+        let CurrentUser:User = this.FindOneUser(user.Id!);
         if(CurrentUser){
             //Updates user if user is found
-            CurrentUser = user;
+            CurrentUser = user as User;
         } else{
             console.warn("User update has failed");
         }
