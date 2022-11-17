@@ -32,11 +32,13 @@ export class UserEditComponent implements OnInit {
         let StringedUser = JSON.stringify(retrievedUser);
         //Creates deep copy of user.
         this.User = JSON.parse(StringedUser);
+        this.Pagina = "Wijziging gegevens van " + this.User?.UserName;
       } else{
         //Otherwise it will receive the registration form
         //Sets user on non-editable. Is used to differiate with the edit url. 
         this.IsEdit = false;
         const randomId = (Math.random() * 100) - 12;
+        this.Pagina = "Registratieformulier"
         this.User = {
           Id: randomId.toLocaleString(),
           UserName: "",
