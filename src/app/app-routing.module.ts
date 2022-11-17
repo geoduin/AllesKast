@@ -21,7 +21,8 @@ const routes: Routes = [
   {path:"Users/:UserId/Edit", component: UserEditComponent}
   ,
   {path: "Home", component: HomeComponent, children:[
-    {path: "Story/:StoryId/Detail", pathMatch: 'full', component: StoryDetailComponent}
+    {path: "Story/:StoryId/Detail", pathMatch: 'full', component: StoryDetailComponent},
+    {path:"Users/:UserId", component: UserDetailComponent},
   ]},
   {path: "Story", component: StoryListComponent}
   ,

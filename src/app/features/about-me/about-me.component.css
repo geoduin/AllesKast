@@ -1,5 +1,21 @@
-.persoonlijk{
-    border: 1px solid;
+article{
+    background-color: white;
+    padding: 1em;
+}
+section{
+    padding: 1em;
+}
+
+h2, h3, h4{
+    border-bottom: #355570 solid 2px;
+}
+
+.Persoonlijk{
+    border: #355570 2px solid;
+    background-color: #FFA82E;
+    color: #355570;
+    border-radius: 1pc;
+    margin-left: 1em;
 }
 
 .Entity{
@@ -22,4 +38,14 @@
 
 .EntityNotes{
     text-align: center;
+    
+}
+.Image{
+ width: 100%;
+ border: #355570 3px solid;
+}
+.EntityNotes p{
+    font-size: smaller;
+    padding: 10px;
+    text-align: start;
 }

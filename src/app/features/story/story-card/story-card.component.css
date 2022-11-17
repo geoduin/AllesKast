@@ -1,0 +1,19 @@
+.Card{
+    max-width: 270px;
+    margin: 1em;
+}
+
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    background-color: darkslategrey;
+    color: aliceblue;
+}
+
+.Card-Title{
+    text-align: center;
+    font-size: large;
+}

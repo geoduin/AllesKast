@@ -1,18 +1,24 @@
-<p>story-detail works!</p>
-<h1>{{story?.Title}}</h1>
+<div class="container">
 
-<h2>Verhaallijn</h2>
-<p>{{story?.StoryLine}}</p>
+    <h1>{{story?.Title}}</h1>
+    
+    <h2>Verhaallijn</h2>
+    <p>{{story?.StoryLine}}</p>
+    
+    <h2>Publicatiedatum</h2>
+    <p>{{story?.PublishDate}}</p>
+    <p>{{story?.IsAdultOnly}}</p>
+    
+    <a routerLink="/Story/(DummyId)/Edit">Wijzigen</a>
+    
+    <div class="chapterSection">
+        <!--For loop door hoofdstukken-->
+    </div>
 
-<h2>Publicatiedatum</h2>
-<p>{{story?.PublishDate}}</p>
-<p>{{story?.IsAdultOnly}}</p>
-
-<a routerLink="/Story/(DummyId)/Edit">Wijzigen</a>
-
-<h2>Comments</h2>
-<div *ngFor="let comment of story?.CommentSection">
-    <p>{{comment?.UserId}}</p>
-    <p>{{comment?.Content}}</p>
-    <p>{{comment?.PublishDate}}</p>
+    <h2>Comments</h2>
+    <div *ngFor="let comment of story?.CommentSection">
+        <p>{{comment?.UserId}}</p>
+        <p>{{comment?.Content}}</p>
+        <p>{{comment?.PublishDate}}</p>
+    </div>
 </div>

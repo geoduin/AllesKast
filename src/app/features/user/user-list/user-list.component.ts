@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DummyDB } from 'src/app/services/DummyDb';
-import { IUser } from '../../domain/User.domain';
+import { IdentityUser, IUser } from '../../domain/User.domain';
 
 @Component({
   selector: 'app-user-list',
@@ -9,7 +9,7 @@ import { IUser } from '../../domain/User.domain';
 })
 export class UserListComponent implements OnInit {
 
-  UserList: IUser[] = [];
+  UserList: IdentityUser[] = [];
 
   constructor(private UserDb: DummyDB) { }
 

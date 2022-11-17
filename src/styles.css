@@ -21,13 +21,19 @@ a{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.CardImage{
+    aspect-ratio: 16 / 9;;
+}
 
 .BaseBackground{
     background-color: #BBD9F2;
 }
 
-.ArticalBackground{
-
+button{
+    margin: auto;
+    padding: 8px 1em 8px 1em;
+    border-radius: 6%;
+    font-size: medium;
 }
 
 .Bordered{
@@ -40,10 +46,20 @@ a{
     color: #C5DFF6;
 }
 
+.ImportantBtn:hover{
+    background-color: #C5DFF6;
+    color: #0B4F8F;
+}
+
 .DetailBtn{
     background-color: #72B8F0;
     color: #3D555E;   
     border: #3D555E 1px solid;
+}
+
+.DetailBtn:hover{
+    background-color: #3D555E;
+    color: #72B8F0;   
 }
 
 .RegularBtn{
@@ -59,3 +75,171 @@ a{
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.container{
+    margin: 0px auto;
+    margin-top: 2em;
+    max-width: 85%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    justify-items: start;
+    clear: both;
+  }
+
+  [class*="col-"] {
+    float: left;
+    padding: 10px;
+  }
+
+.column-2{
+    float: left;
+    width: 16.66%;
+}
+
+.column-3{
+    float: left;
+    width: 20%;
+}  
+
+.column-4{
+    float: left;
+  width: 33.33%;
+}
+.column-8{
+    float: left;
+    width: 66.66%;
+}
+
+.column-12{
+    float: left;
+    width: 100%;
+}
+
+@media screen and (max-width:1400px) {
+    .container{
+        margin: 0px auto;
+        max-width: 90%;
+    }
+
+    .column-2{
+        float: left;
+        width: 20%;
+    }
+    
+    .column-3{
+        float: left;
+        width: 33%;
+    }  
+    
+    .column-4{
+        float: left;
+        width: 40%;
+    }
+    .column-8{
+        float: left;
+        width: 100%;
+    }
+  }
+  @media screen and (max-width:1000px) {
+    .container{
+        margin: 0px auto;
+        max-width: 90%;
+    }
+    .column-2{
+        float: left;
+        width: 33%;
+    }
+    
+    .column-3{
+        float: center;
+        width: 50%;
+    }  
+    
+    .column-4{
+        float: left;
+      width: 100%;
+    }
+    .column-8{
+        float: left;
+        width: 100%;
+    }
+  }
+
+@media screen and (max-width:600px) {
+    .container{
+        max-width: 100%;
+    }
+    .column-2{
+        float: left;
+        width: 100%;
+        padding: 15px;
+    }
+    
+    .column-3{
+        float: left;
+        width: 100%;
+        padding: 15px;
+    }  
+    
+    .column-4{
+        float: left;
+      width: 100%;
+      padding: 15px;
+    }
+    .column-8{
+        float: left;
+        width: 100%;
+        padding: 15px;
+    }
+    
+    .column-12{
+        float: left;
+        width: 100%;
+        padding: 10px;
+    }
+  }
+
+
+
+  /* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+  }
+  
+  @media only screen and (min-width: 600px) {
+    /* For tablets: */
+    .col-s-1 {width: 8.33%;}
+    .col-s-2 {width: 16.66%;}
+    .col-s-3 {width: 25%;}
+    .col-s-4 {width: 33.33%;}
+    .col-s-5 {width: 41.66%;}
+    .col-s-6 {width: 50%;}
+    .col-s-7 {width: 58.33%;}
+    .col-s-8 {width: 66.66%;}
+    .col-s-9 {width: 75%;}
+    .col-s-10 {width: 83.33%;}
+    .col-s-11 {width: 91.66%;}
+    .col-s-12 {width: 100%;}
+  }
+  @media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+  }

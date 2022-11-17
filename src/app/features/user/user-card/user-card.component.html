@@ -1,0 +1,10 @@
+<mat-card class="Card">
+    <mat-card-header class="Card-Title">
+        <mat-card-title><a routerLink="/Users/{{User!.Id}}">{{User!.UserName}}</a></mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="assets/staticImages/Placeholder Image.png" height="150" width="230">
+    <mat-card-actions>
+        <button class="ImportantBtn" mat-raised-button>Volg</button>
+        <button class="DetailBtn" mat-raised-button routerLink="/Users/{{User!.Id}}">Details</button>
+    </mat-card-actions>
+</mat-card>
