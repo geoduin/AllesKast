@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Component, OnInit, } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DummyDB } from 'src/app/services/DummyDb';
-import { IdentityUser,IUser, PrivateUser } from '../../domain/User.domain';
+import { IdentityUser} from '../../domain/User.domain';
 
 @Component({
   selector: 'app-user-edit',
