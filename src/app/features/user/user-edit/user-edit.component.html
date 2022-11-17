@@ -1,33 +1,64 @@
 
 
 <div class="Bordered">
-    <h2>{{Pagina}}</h2>
-    <form action="" method="get">
+    <h2>Gebruiker wijziging</h2>
+    <form 
+    #UserForm="ngForm"
+    name="userForm"
+    (ngSubmit)="onSubmit()"
+    novalidate>
         <div>
-            <label for="Username">Gebruikersnaam</label>
-            <input type="text" name="Username" for="Username" id="Userfield">
+            <label for="UserName">Gebruikersnaam</label>
+            <input 
+            type="text" 
+            name="Username" 
+            for="UserName" 
+            id="Userfield"
+            [(ngModel)] = 'User!.UserName'
+            #UserName = "ngModel"
+            minlength=6
+            required>
         </div>
 
         <div>
             <label for="Email">Emailadres</label>
-            <input type="email" for="Email" name="Email" id="EmailField">
+            <input 
+            type="email" 
+            for="Email" 
+            name="Email" 
+            id="EmailField"
+            [(ngModel)]='User!.Email'
+            #Email="ngModel"
+            required
+            >
         </div>
 
         <div>
             <label for="Birthdate">Geboortedatum</label>
-            <input type="date" for="Birthdate" name="Birthdate" id="BirthdateField">
+            <input 
+            type="date" 
+            for="Birthdate" 
+            name="Birthdate" 
+            id="BirthdateField"
+            [(ngModel)]="User!.DateOfBirth"
+            #Birthdate="ngModel"
+            required>
         </div>
-
+        <!--Password change may be moved to another component-->
         <div>
             <label for="Password">Wachtwoord</label>
-            <input type="password" name="Password" id="PasswordField" for="Password">
+            <input 
+            type="password" 
+            name="Password" 
+            id="PasswordField" 
+            for="Password"
+            [(ngModel)]="User!.Password"
+            #Password="ngModel"
+            minlength="10"
+            required
+            >
         </div>
 
-        <div>
-            <label for="PasswordConfirmation">Wachtwoord bevestiging</label>
-            <input type="password" name="PasswordConfirmation" id="PasswordConfirmationField" for="Password">
-        </div>
-
-        <button type="submit" (click)="onSubmit()">Bevestig</button>
+        <button type="submit" (click)="onSubmit()" [disabled]="!UserForm.valid">Bevestig</button>
     </form>
 </div>

@@ -1,6 +1,6 @@
 import { Chapter } from "./Chapter.domain"
 import { Reaction } from "./Comment.domain"
-import { User } from "./User.domain"
+import { SiteUser, User } from "./User.domain"
 
 export interface IStory{
     //Are editable
@@ -15,7 +15,7 @@ export interface IStory{
     ChapterList: Chapter[]| undefined
     //Misschien een thumbnail.
     CommentSection: Reaction[] | undefined
-    Followers: User[] | undefined
+    Followers: SiteUser[] | undefined
 
     /*
     GetRating(): number
@@ -37,7 +37,7 @@ export class Story implements IStory{
     ChapterList: Chapter[] = []
     //Misschien een thumbnail.
     CommentSection: Reaction[] = []
-    Followers: User[] = []
+    Followers: SiteUser[] = []
     
     constructor(title: string, storyline: string, IsAdult: boolean, publishDate: Date){
         this.Title = title;

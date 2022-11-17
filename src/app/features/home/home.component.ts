@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DummyDB } from 'src/app/services/DummyDb';
 import { IStory, Story } from '../domain/Story.domain';
-import { User } from '../domain/User.domain';
+import { IdentityUser, SiteUser, User } from '../domain/User.domain';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   
   StoryList:Story[] = []
   RecommendedList:Story[] = []
-  RecommendedUserList:User[] = []
+  RecommendedUserList:IdentityUser[] = []
 
   constructor(private dummyDb: DummyDB) {
   }

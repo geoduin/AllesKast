@@ -3,24 +3,26 @@ import { Chapter } from "../features/domain/Chapter.domain";
 import { ChapterPage } from "../features/domain/ChapterPage.domain";
 import { Reaction } from "../features/domain/Comment.domain";
 import { IStory, Story } from "../features/domain/Story.domain";
-import { IdentityUser, IUser, User } from "../features/domain/User.domain";
+import { IdentityUser, IUser, SiteUser, User } from "../features/domain/User.domain";
 
 @Injectable()
 export class DummyDB{
-    UserArray: IUser[] = [
+    UserArray: IdentityUser[] = [
         {
             Id: "1234",
             UserName: "Generiek1",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
-            Role:  "Student"
+            Role:  "Student",
+            Password: undefined
         },
         {
             Id: "1236",
             UserName: "Generiek2",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
-            Role:  "Student"
+            Role:  "Student",
+            Password: undefined
         },
 
         {
@@ -28,14 +30,16 @@ export class DummyDB{
             UserName: "Generiek3",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
-            Role:  "Student"
+            Role:  "Student",
+            Password: undefined
         },
         {
             Id: "1250",
             UserName: "Generiek4",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
-            Role:  "Student"
+            Role:  "Student",
+            Password: undefined
         },
 
         {
@@ -43,7 +47,8 @@ export class DummyDB{
             UserName: "Generiek5",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
-            Role:  "Student"
+            Role:  "Student",
+            Password: undefined
         },
     ]
 
@@ -58,7 +63,7 @@ export class DummyDB{
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
             CommentSection: [new Reaction("001", "0", "First"), new Reaction("001", "0", "Second"), new Reaction("001", "0", "Third"), new Reaction("001", "0", "Last reaction"), new Reaction("001", "0", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
-            Followers: [this.UserArray[0] as User, this.UserArray[2] as User]
+            Followers: [this.UserArray[0]as unknown as SiteUser, this.UserArray[2] as unknown as SiteUser]
         },
         {
             Id: "003",
@@ -70,7 +75,7 @@ export class DummyDB{
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
             CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
-            Followers: [this.UserArray[0] as User, this.UserArray[2] as User]
+            Followers: [this.UserArray[0] as unknown as SiteUser, this.UserArray[2] as unknown as SiteUser]
         },
         {
             Id: "004",
@@ -81,7 +86,8 @@ export class DummyDB{
             Genres: ["Mysterie"],
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
-            CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],            Followers: [this.UserArray[0] as User, this.UserArray[2] as User]
+            CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],            
+            Followers: [this.UserArray[0]as unknown as SiteUser, this.UserArray[2] as unknown as SiteUser]
         }
         ,
         {
@@ -94,7 +100,7 @@ export class DummyDB{
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
             CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
-            Followers: [this.UserArray[0] as User, this.UserArray[2] as User]
+            Followers: [this.UserArray[0] as unknown as SiteUser, this.UserArray[2] as unknown as SiteUser]
         }
         ,{
             Id: "006",
@@ -106,7 +112,7 @@ export class DummyDB{
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
             CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
-            Followers: [this.UserArray[0] as User, this.UserArray[2] as User]
+            Followers: [this.UserArray[0] as unknown as SiteUser, this.UserArray[2] as unknown as SiteUser]
         }
 
     ]
@@ -129,11 +135,10 @@ export class DummyDB{
     }
 
     GetAllDummyUsers(){
-        return this.UserArray as User[];
+        return this.UserArray as IdentityUser[];
     }
 
     GetAllStories(){
-        const ius:IUser = new IdentityUser();
         return this.StoryArray as Story[];
     }
 
@@ -147,21 +152,35 @@ export class DummyDB{
         return this.GetAllStories().filter(s => s.Id == id)[0] as Story;
     }
 
-    FindOneUser(id: string): User{
+    FindOneUser(id: string): IdentityUser{
         return this.GetAllDummyUsers().filter(u => u.Id == id)[0];
     }
 
-    AddUser(user: IUser){
+    AddUser(user: IdentityUser){
         this.UserArray.push(user);
     }
 
-    UpdateUser(user: IUser){
-        let CurrentUser:User = this.FindOneUser(user.Id!);
+    UpdateUser(user: IdentityUser){
+        let CurrentUser:IdentityUser = this.FindOneUser(user.Id!);
         if(CurrentUser){
             //Updates user if user is found
-            CurrentUser = user as User;
+            CurrentUser.UserName = user?.UserName;
+            CurrentUser.Password = user?.Password;
+            CurrentUser.DateOfBirth =user?.DateOfBirth;
+            CurrentUser.Email = user?.Email;
+            
+            //Update commando naar de API!
+
         } else{
             console.warn("User update has failed");
+        }
+    }
+
+    DeleteUser(userId: string){
+        try{
+            this.UserArray = this.UserArray.filter(u => u.Id != userId);
+        } catch(error: any){
+            throw new Error(error);
         }
     }
 }

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { DummyDB } from 'src/app/services/DummyDb';
-import { IUser } from '../../domain/User.domain';
+import { IdentityUser,IUser, PrivateUser } from '../../domain/User.domain';
 
 @Component({
   selector: 'app-user-edit',
@@ -9,47 +9,80 @@ import { IUser } from '../../domain/User.domain';
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
-  @Input() Editable:boolean = true;
+  TempID: number = 1
   //For the edit of the user
   Pagina: string = ""
+  //user
+  User: IdentityUser | undefined | null;
 
-  User: IUser | undefined;
-
-  submitted:boolean = true;
-  constructor(private router: ActivatedRoute, private Db: DummyDB) { }
+  IsEdit:boolean = true;
+  constructor(private router: ActivatedRoute, private Db: DummyDB, private nav: Router) { }
   
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    console.log("Changes made");
-  }
-
   ngOnInit(): void {
     //Loads in user to edit
     this.router.paramMap.subscribe((url)=>{
       const UserId = url.get("UserId");
-      if(this.Editable){
-        this.User = this.Db.GetAllDummyUsers().filter(v => v.Id == UserId)[0];
-        this.Pagina = `Wijziging gegevens van ${this.User.UserName}`
-        console.log(this.User);
+      //If UserId is present, it will act as 
+      if(UserId){
+        console.log("User is to be edited")
+        //Sets user on editable
+        this.IsEdit = true;
+        //Check if user does not edit if it closes the form
+        const retrievedUser = this.Db.FindOneUser(UserId);
+        let StringedUser = JSON.stringify(retrievedUser);
+        //Creates deep copy of user.
+        this.User = JSON.parse(StringedUser);
       } else{
-        this.Pagina = "Registratieformulier";
-        console.warn("Is een registratie formulier")
+        //Otherwise it will receive the registration form
+        //Sets user on non-editable. Is used to differiate with the edit url. 
+        this.IsEdit = false;
+        const randomId = (Math.random() * 100) - 12;
+        this.User = {
+          Id: randomId.toLocaleString(),
+          UserName: "",
+          DateOfBirth: new Date(),
+          Role: "Regular",
+          Email: "",
+          Password: ""
+        }
       }
     })
 
   }
+
+  //Aangeroepen methode bij het drukken van de knop.
   onSubmit() {
     
-    console.log("This button works")
+    if(this.IsEdit){
+      this.EditUser();
+      this.nav.navigate([".."]);
+    } else{
+      this.RegisterUser();
+      this.nav.navigate([".."]);
+    }
     //If it is a edit page, edit user and move on to own page.
-    
+    console.log(this.User);
   }
-
+  //Voegt gebruiker toe aan database.
   RegisterUser(){
-    console.log("Registratie voltooid");
+    try {
+      this.Db.AddUser(this.User!);
+      console.log("Registratie voltooid");
+    } catch (error) {
+      console.error(error);
+    }
   }
 
+  //Wijzigt gebruiker
   EditUser(){
-    console.log("Wijziging voltooid");
+    try {
+      //Update commando naar de api.
+      this.Db.UpdateUser(this.User!);
+      console.log("Wijziging voltooid");
+    } catch (error) {
+      //Fail save als het toch een null waarde meestuurt.
+      console.error(error);
+    }
+    
   }
 }

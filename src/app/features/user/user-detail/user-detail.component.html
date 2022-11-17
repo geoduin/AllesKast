@@ -5,13 +5,14 @@
     <p>Naam: {{user?.UserName}}<br/>Geboortedatum: {{user?.DateOfBirth}}</p>
     <!--Dit mag alleen een admin wijzigen-->
     <a routerLink="Edit">Wijzig gebruiker</a>
+    <User-DeleteButton [Id]='user?.Id'></User-DeleteButton>
     <div>
         <h3>Verhalen gevolgd</h3>
-        <div *ngFor="let stories of user?.FollowedStories">
+        <!--<div *ngFor="let stories of user?.FollowedStories">
             <p>Naam: {{stories?.Title}}</p>
             <p>Genres: {{stories?.Genres}}</p>
             <a routerLink="/Story/{{stories.Id}}">Details</a>
-        </div>
+        </div> -->
     </div>
     
 </div>

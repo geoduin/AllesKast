@@ -19,6 +19,9 @@ import { DummyDB } from './services/DummyDb';
 import { UserListComponent } from './features/user/user-list/user-list.component';
 import { UserDetailComponent } from './features/user/user-detail/user-detail.component';
 import { UserEditComponent } from './features/user/user-edit/user-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import { UserDeleteBtnComponent } from './features/user/user-delete-btn/user-delete-btn.component'
 
 @NgModule({
   declarations: [
@@ -37,11 +40,16 @@ import { UserEditComponent } from './features/user/user-edit/user-edit.component
     UserListComponent,
     UserDetailComponent,
     UserEditComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    UserDeleteBtnComponent,
   ],
   providers: [DummyDB],
   bootstrap: [AppComponent]
