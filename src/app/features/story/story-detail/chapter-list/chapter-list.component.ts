@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Story } from 'src/app/features/domain/Story.domain';
 
 @Component({
   selector: 'app-chapter-list',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chapter-list.component.css']
 })
 export class ChapterListComponent implements OnInit {
+
+  @Input()
+  Story: Story | undefined;
 
   constructor() { }
 

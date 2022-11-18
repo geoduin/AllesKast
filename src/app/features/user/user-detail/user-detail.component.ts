@@ -11,7 +11,8 @@ import { IdentityUser, SiteUser, User } from '../../domain/User.domain';
 export class UserDetailComponent implements OnInit {
   
   user: IdentityUser | undefined;
-  
+  DetailUser: SiteUser | undefined;
+
   constructor(private router: ActivatedRoute, private Db: DummyDB) { }
 
   ngOnInit(): void {
@@ -19,6 +20,9 @@ export class UserDetailComponent implements OnInit {
       const Userid = params.get("UserId")
       console.log(Userid);
       this.user = this.Db.GetAllDummyUsers().filter(u => u.Id == Userid)[0];
+      //As a example of followed story list
+      this.DetailUser = new SiteUser(this.user.Id!, this.user.UserName!, this.user.DateOfBirth!, this.user.Email!, this.user.Role!);
+      this.DetailUser.FollowedStories = this.Db.GetAllStories();
     })
   }
 

@@ -1,18 +1,40 @@
 
-<div>
+<div class="row">
 
-    <h2>Gebruiker {{ user?.UserName }}</h2>
-    <p>Naam: {{user?.UserName}}<br/>Geboortedatum: {{user?.DateOfBirth}}</p>
-    <!--Dit mag alleen een admin wijzigen-->
-    <a routerLink="Edit">Wijzig gebruiker</a>
-    <User-DeleteButton [Id]='user?.Id'></User-DeleteButton>
-    <div>
-        <h3>Verhalen gevolgd</h3>
+    
+        <div class="col-3 DummyBackground">
+            <img src="assets/staticImages/Placeholder Image.png" alt="Comic-Afbeelding" srcset="" height="190" width="300">
+            <button mat-raised-button routerLink="Edit">Wijzig gebruiker</button>
+            <User-DeleteButton [Id]='user?.Id'></User-DeleteButton>
+        </div>
+        <div class="col-8 BackGround Shadow">
+            <BackBtn></BackBtn>
+            <h2>Gebruiker {{ user?.UserName }}</h2>
+            <p>Naam: {{user?.UserName}}
+                <br/>Geboortedatum: {{user?.DateOfBirth?.toLocaleDateString()}}
+            <br/>Rol: {{user?.Role}}</p>
+            <!--Dit mag alleen een admin wijzigen-->
+            <div  class="col-12 EmptyList">
+                
+                <h3>Verhalen gevolgd<button mat-button>Alle gevolgde series</button></h3>
         <!--<div *ngFor="let stories of user?.FollowedStories">
             <p>Naam: {{stories?.Title}}</p>
             <p>Genres: {{stories?.Genres}}</p>
             <a routerLink="/Story/{{stories.Id}}">Details</a>
         </div> -->
-    </div>
+
+                <div class="FlexBox">
+                    <div *ngFor="let stories of DetailUser?.FollowedStories">
+                        <app-story-card [Story]="stories"></app-story-card>
+                    </div>
+                </div>
+        
+            </div>
+            
+        </div>
+
+    
+    
+    
     
 </div>

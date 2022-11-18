@@ -2,23 +2,65 @@
 
     <h1>{{story?.Title}}</h1>
     
-    <h2>Verhaallijn</h2>
-    <p>{{story?.StoryLine}}</p>
-    
-    <h2>Publicatiedatum</h2>
-    <p>{{story?.PublishDate}}</p>
-    <p>{{story?.IsAdultOnly}}</p>
-    
-    <a routerLink="/Story/(DummyId)/Edit">Wijzigen</a>
-    
-    <div class="chapterSection">
-        <!--For loop door hoofdstukken-->
+    <div class="row">
+        <div class="col-3">
+            <img src="assets/staticImages/Placeholder Image.png" alt="Comic-Afbeelding" srcset="" height="450" width="300">
+            <div class="Edit buttons">
+                <h3>Verhaalinstelling</h3>
+                <button mat-raised-button class="ImportantBtn m-1"  routerLink="/Story/(DummyId)/Edit">Edit</button>
+                <button mat-raised-button class="CancelBtn m-1">Verwijderen</button>
+            </div>
+        </div>
+        <div class="col-8">
+            <BackBtn></BackBtn>
+            <article class="Shadow">
+                <h2>Verhaallijn</h2>
+                <p>{{story?.StoryLine}}</p>
+            </article>
+            <article class="Shadow">
+                <h2>Overige informatie</h2>
+                <p>Publicatiedatum: {{story?.PublishDate?.toLocaleDateString()}}</p>
+                <div *ngIf="story?.IsAdultOnly">
+                    <p>Volwassen: Ja</p>
+                </div>
+            
+                <div *ngIf="!story?.IsAdultOnly">
+                    <p>Volwassen: Nee</p>
+                </div>
+            </article>
+            <div class="chapterSection">
+                <!--For loop door hoofdstukken-->
+                <h2>Hoofdstukken</h2>
+                <app-chapter-list [Story]="story!"></app-chapter-list>
+            </div>
+            <div>
+                <h2>Comments</h2>
+                <button class="ImportantBtn" mat-raised-button>Reageer</button>
+                <div class="row FlexBox">
+                    <div  class="Comment Shadow" *ngFor="let comment of story?.CommentSection">
+                        <div class="Content">
+                            <h3 class="Text-Center">{{comment?.Title}}</h3>
+                                <div class="Own content">
+            
+                                </div>
+                                <p class="m-1">Gebruiker: {{comment?.UserId}}
+                                <br/>{{comment?.Content}}
+                                <br/>{{comment?.PublishDate!.toLocaleDateString()}}</p>
+                            <button mat-button class="Hidden-Btn">Wijzig</button>
+                            <button mat-button class="Hidden-Btn">Verwijderen</button>
+                        </div>        
+                    </div>
+                </div>
+                
+            </div>
     </div>
+    
+    
 
-    <h2>Comments</h2>
-    <div *ngFor="let comment of story?.CommentSection">
-        <p>{{comment?.UserId}}</p>
-        <p>{{comment?.Content}}</p>
-        <p>{{comment?.PublishDate}}</p>
-    </div>
-</div>
+    
+    
+    
+    
+
+    
+    

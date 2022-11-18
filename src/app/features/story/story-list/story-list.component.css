@@ -1,0 +1,11 @@
+
+
+.FlexBox{
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
+
+.EmptyList{
+    min-height: 700px;
+}

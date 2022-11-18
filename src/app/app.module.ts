@@ -32,6 +32,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { ProfileDropdownComponent } from './shared/side-nav/profile-dropdown/profile-dropdown.component';
 import { StoryCardComponent } from './features/story/story-card/story-card.component';
+import { BackBtnComponent } from './shared/back-btn/back-btn.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { StoryCardComponent } from './features/story/story-card/story-card.compo
     SideNavComponent,
     ProfileDropdownComponent,
     StoryCardComponent,
+    BackBtnComponent,
     
   ],
   imports: [

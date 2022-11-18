@@ -1,0 +1,74 @@
+
+h2{
+    border-bottom: 1px solid black;
+}
+h3{
+    color: #355570;
+}
+article{
+    background-color: white;
+    padding: 1em;
+    border-radius: 1pc;
+    margin-top: 1em;
+}
+
+.Expanded h3{
+    color: #BBD9F2;
+}
+.Expanded h3:focus-within{
+    color: #355570;
+}
+
+.Expanded{
+    background-color: #355570;
+    color: #BBD9F2;
+}
+.Expanded:hover{
+    color: #355570;
+    background-color: #BBD9F2;
+}
+
+
+.Expanded:focus{
+    color: #BBD9F2;
+    background-color: #355570;
+}
+
+.Expanded:active{
+    background-color: royalblue;
+}
+
+.m-1{
+    margin: 5px;
+}
+
+.mat-expansion-panel-header-title:focus{
+    background-color: #355570;
+}
+
+.mat-expansion-panel-header-title:focus h3:focus{
+    background-color: #355570;
+}
+
+.Comment{
+    background-color: white;
+    color: #355570;
+    margin-top: 1em;
+    margin-left: 5px;
+    width: 49%;
+}
+.Text-Center{
+    margin: 10px;
+}
+
+.Content{
+    padding: 1em;
+}
+
+.Hidden-Btn{
+    z-index: 0;
+}
+
+.Hidden-Btn:hover{
+    z-index: 1;
+}

@@ -7,6 +7,7 @@ body {
     flex-direction: column;
 }
 
+
 main{
     flex: 1;
 }
@@ -28,7 +29,10 @@ a{
 .BaseBackground{
     background-color: #BBD9F2;
 }
-
+.Shadow{
+    -webkit-box-shadow: 3px 3px 15px -8px #000000; 
+    box-shadow: 3px 3px 15px -8px #000000;
+}
 button{
     margin: auto;
     padding: 8px 1em 8px 1em;
@@ -67,6 +71,11 @@ button{
     background-color: #36B8F0;
     color: #3D555E;   
 }
+.FlexBox{
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
 
 .CancelBtn{
     background-color: #C5DFF6;
@@ -97,6 +106,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     float: left;
     padding: 10px;
   }
+
 
 .column-2{
     float: left;

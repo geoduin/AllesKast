@@ -11,7 +11,8 @@ import { Story } from '../../domain/Story.domain';
 export class StoryDetailComponent implements OnInit {
 
   story: Story | undefined | null;
-
+  panelOpenState: boolean = false;
+  
   constructor(private route: ActivatedRoute,private router: Router, private Db: DummyDB) { }
 
   async ngOnInit(): Promise<void> {

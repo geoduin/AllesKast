@@ -1,8 +1,12 @@
-<div class="list row">
+<div class="row">
+    <BackBtn></BackBtn>
     <h2>Gebruikerlijst</h2>
     <!--If statement voor wachtwoordveld-->
     <!--If statement voor rol-->
-    <div *ngFor="let user of UserList;">
-        <app-user-card class="column-2" [User]="user"></app-user-card>
+    <div class="EmptyList">
+        <div *ngFor="let user of UserList;">
+            <app-user-card class="column-2" [User]="user"></app-user-card>
+        </div>
     </div>
+    
 </div>

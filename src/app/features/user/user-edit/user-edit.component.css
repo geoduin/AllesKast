@@ -1,0 +1,19 @@
+.flex{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 3em;
+    width: 90%;
+}
+.User-Edit-Form{
+    background-color: white;
+    border-radius: 1pc;
+}
+.Inputfield{
+    background-color: aliceblue;
+}
+
+
+  .example-full-width {
+    width: 100%;
+  }

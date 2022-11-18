@@ -1,15 +1,21 @@
 
-
-<div class="Bordered">
-    <h2>{{Pagina}}</h2>
-    <form 
+<div class="container">
+  <div class="Shadow User-Edit-Form flex">
+    <div class="row">
+        <BackBtn></BackBtn>
+      <h2 class="col-12">{{Pagina}}</h2>
+        
+       <form 
+       class="col-12 example-form"
     #UserForm="ngForm"
     name="userForm"
     (ngSubmit)="onSubmit()"
     novalidate>
-        <div>
+
+    <p>
+        <mat-form-field appearance="fill" class="example-full-width">
             <label for="UserName">Gebruikersnaam</label>
-            <input 
+            <input  matInput color="primary"
             type="text" 
             name="Username" 
             for="UserName" 
@@ -18,47 +24,56 @@
             #UserName = "ngModel"
             minlength=6
             required>
-        </div>
-
-        <div>
-            <label for="Email">Emailadres</label>
-            <input 
-            type="email" 
-            for="Email" 
-            name="Email" 
-            id="EmailField"
-            [(ngModel)]='User!.Email'
-            #Email="ngModel"
-            required
-            >
-        </div>
-
-        <div>
-            <label for="Birthdate">Geboortedatum</label>
-            <input 
-            type="date" 
-            for="Birthdate" 
-            name="Birthdate" 
-            id="BirthdateField"
-            [(ngModel)]="User!.DateOfBirth"
-            #Birthdate="ngModel"
-            required>
-        </div>
+        </mat-form-field>
+    </p>
+        
+<p>
+    <mat-form-field appearance="fill"  class="example-full-width">
+        <label for="Email">Emailadres</label>
+        <input  matInput 
+        type="email" 
+        for="Email" 
+        name="Email" 
+        id="EmailField"
+        [(ngModel)]='User!.Email'
+        #Email="ngModel"
+        required
+        >
+    </mat-form-field>
+</p>
+<p>
+    <mat-form-field  appearance="fill" class="example-full-width">
+        <mat-label>Geboortedatum</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="User!.DateOfBirth" #Birthdate="ngModel" name="Birthdate" required> 
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</p>
+        
         <!--Password change may be moved to another component-->
-        <div>
-            <label for="Password">Wachtwoord</label>
-            <input 
-            type="password" 
-            name="Password" 
-            id="PasswordField" 
-            for="Password"
-            [(ngModel)]="User!.Password"
-            #Password="ngModel"
-            minlength="10"
-            required
-            >
-        </div>
+        <p>
+            <mat-form-field appearance="fill" class="example-full-width">
+                <label for="Password">Wachtwoord</label>
+                <input  matInput 
+                
+                type="password" 
+                name="Password" 
+                id="PasswordField" 
+                for="Password"
+                [(ngModel)]="User!.Password"
+                #Password="ngModel"
+                minlength="10"
+                required
+                >
+            </mat-form-field>
+        </p>
+        
 
-        <button type="submit" (click)="onSubmit()" [disabled]="!UserForm.valid">Bevestig</button>
-    </form>
+        <button type="submit" class="ImportantBtn" (click)="onSubmit()" mat-raised-button [disabled]="!UserForm.valid">Bevestig</button>
+    </form> 
+    </div>
+    
+</div>  
 </div>
+

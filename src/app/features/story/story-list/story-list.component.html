@@ -1,5 +1,10 @@
-<div class="row">
-    <div *ngFor="let Story of StoryList;">
-        <app-story-card [Story]="Story" class="column-4"></app-story-card>
+<BackBtn></BackBtn>
+<div class="EmptyList">
+    <h1>Serielijst</h1>
+    <div class="row" class="FlexBox">
+        <div *ngFor="let Story of StoryList;">
+            <app-story-card [Story]="Story"></app-story-card>
+        </div>
     </div>
+ 
 </div>

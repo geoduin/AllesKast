@@ -1,18 +1,31 @@
-
-<form method="get">
-    <div>
-        <label for="UserName">Gebruikersnaam</label>
-        <input type="text" name="UserName" id="UserName">
-    </div>
-    <div>
-        <label for="Password">Wachtwoord</label>
-        <input type="password" name="Password" id="Password">
-    </div>
-    <button type="submit">Login</button>
-</form>
-
-<div>
-    <h3>Nog geen account?</h3>
-    <p>Maak dan een nieuw account aan!</p>
-    <a routerLink="/Registration">Registratie</a>
+<div class="Login">
+    
+    <form class="LoginForm  Shadow"  method="get">
+        <BackBtn></BackBtn>
+        <p>
+            <mat-form-field appearance="fill"  class="example-full-width">
+                <label for="UserName">Gebruikersnaam</label>
+                <input type="text" name="UserName" id="UserName" matInput class="InputField">
+            </mat-form-field>
+        </p>
+            
+        <p>
+            <mat-form-field appearance="fill"  class="example-full-width">
+                <label for="Password">Wachtwoord</label>
+                <input type="password" name="Password" id="Password" matInput  class="InputField">
+            </mat-form-field>
+        </p>
+        
+        <button mat-raised-button class="ImportantBtn" type="submit">Login</button>
+    </form>
 </div>
+    
+
+<article class="Login">
+    <div class="Register Shadow">
+        <h3>Nog geen account?</h3>
+        <p>Maak dan een nieuw account aan!</p>
+        <button mat-raised-button routerLink="/Registration" class="ImportantBtn">Registratie</button>
+    </div>
+    
+</article>

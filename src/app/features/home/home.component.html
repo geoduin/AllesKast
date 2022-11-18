@@ -1,20 +1,30 @@
 
-    <div class="Bordered row">
+    <div class="row ">
         <h2>Verhalen</h2>
-        <div *ngFor="let Story of StoryList">
-            <app-story-card class="column-3" [Story]="Story"></app-story-card>
-        </div> 
-    </div>
-    <div class="Bordered row" >
-        <h2>Aanbevelingen</h2>
-        <div *ngFor="let Story of RecommendedList">
-            <app-story-card  class="column-3" [Story]="Story"></app-story-card>
+        <div class="FlexBox">
+
+            <div *ngFor="let Story of StoryList">
+                <app-story-card 
+                 [Story]="Story"></app-story-card>
+            </div> 
         </div>
     </div>
-    <div class="Bordered  row">
-        <h2>Volgen</h2>
-        <div *ngFor="let Users of RecommendedUserList">
-            <app-user-card class="column-2" [User]="Users"></app-user-card>
+    <div class="row" >
+        <h2>Aanbevelingen</h2>
+        <div class="FlexBox">
+            <div *ngFor="let Story of RecommendedList">
+            <app-story-card [Story]="Story"></app-story-card>
+        </div>
         </div>
         
+    </div>
+    <div class="row">
+        <h2>Volgen</h2>
+        <div class="FlexBox">
+
+            <div *ngFor="let Users of RecommendedUserList">
+                <app-user-card [User]="Users"></app-user-card>
+            </div>
+            
+        </div>
     </div>

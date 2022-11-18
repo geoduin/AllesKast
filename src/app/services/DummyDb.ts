@@ -7,6 +7,7 @@ import { IdentityUser, IUser, SiteUser, User } from "../features/domain/User.dom
 
 @Injectable()
 export class DummyDB{
+
     UserArray: IdentityUser[] = [
         {
             Id: "1234",
@@ -62,7 +63,7 @@ export class DummyDB{
             Genres: ["Romantiek"],
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
-            CommentSection: [new Reaction("001", "0", "First"), new Reaction("001", "0", "Second"), new Reaction("001", "0", "Third"), new Reaction("001", "0", "Last reaction"), new Reaction("001", "0", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
+            CommentSection: [new Reaction("001", "0","Title", "First"), new Reaction("001", "0", "Title","Second"), new Reaction("001", "0","Title", "Third"), new Reaction("001", "0","Title", "Last reaction"), new Reaction("001", "0", "Title","Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
             Followers: [this.UserArray[0]as unknown as SiteUser, this.UserArray[2] as unknown as SiteUser]
         },
         {
@@ -74,7 +75,7 @@ export class DummyDB{
             Genres: ["Actie"],
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
-            CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
+            CommentSection: [new Reaction("001", "0","Title", "First"), new Reaction("001", "0", "Title","Second"), new Reaction("001", "0","Title", "Third"), new Reaction("001", "0","Title", "Last reaction"), new Reaction("001", "0", "Title","Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
             Followers: [this.UserArray[0] as unknown as SiteUser, this.UserArray[2] as unknown as SiteUser]
         },
         {
@@ -86,7 +87,7 @@ export class DummyDB{
             Genres: ["Mysterie"],
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
-            CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],            
+            CommentSection: [new Reaction("001", "0","Title", "First"), new Reaction("001", "0", "Title","Second"), new Reaction("001", "0","Title", "Third"), new Reaction("001", "0","Title", "Last reaction"), new Reaction("001", "0", "Title","Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],           
             Followers: [this.UserArray[0]as unknown as SiteUser, this.UserArray[2] as unknown as SiteUser]
         }
         ,
@@ -99,7 +100,7 @@ export class DummyDB{
             Genres: ["Romantiek"],
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
-            CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
+            CommentSection: [new Reaction("001", "0","Title", "First"), new Reaction("001", "0", "Title","Second"), new Reaction("001", "0","Title", "Third"), new Reaction("001", "0","Title", "Last reaction"), new Reaction("001", "0", "Title","Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
             Followers: [this.UserArray[0] as unknown as SiteUser, this.UserArray[2] as unknown as SiteUser]
         }
         ,{
@@ -111,10 +112,9 @@ export class DummyDB{
             Genres: ["Non-Fictie"],
             PublishDate: new Date(),
             ChapterList: this.GenerateChaptersWithPages(),
-            CommentSection: [new Reaction("001", "1234", "First"), new Reaction("001", "1234", "Second"), new Reaction("001", "1234", "Third"), new Reaction("001", "1234", "Last reaction"), new Reaction("001", "1234", "Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
+            CommentSection: [new Reaction("001", "0","Title", "First"), new Reaction("001", "0", "Title","Second"), new Reaction("001", "0","Title", "Third"), new Reaction("001", "0","Title", "Last reaction"), new Reaction("001", "0", "Title","Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum")],
             Followers: [this.UserArray[0] as unknown as SiteUser, this.UserArray[2] as unknown as SiteUser]
         }
-
     ]
 
 

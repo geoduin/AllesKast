@@ -73,6 +73,14 @@ export class SiteUser implements GUser{
     Email: string | undefined
     Role: string | undefined
 
+    constructor(id: string, name: string, DateOfBirth: Date, Email: string, Role: string ){
+        this.Id = id;
+        this.DateOfBirth = DateOfBirth;
+        this.Email = Email;
+        this.UserName = name;
+        this.Role;
+    }
+
     Follow: SiteUser[] = []
     FollowedStories: IStory[] = []
 }
