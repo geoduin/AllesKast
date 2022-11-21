@@ -1,0 +1,27 @@
+import { Component, OnInit } from '@angular/core';
+import { DummyDB } from '../../services/DummyDb';
+import { IStory, Story } from '../domain/Story.domain';
+import { IdentityUser, SiteUser, User } from '../domain/User.domain';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent implements OnInit {
+  
+  StoryList:Story[] = []
+  RecommendedList:Story[] = []
+  RecommendedUserList:IdentityUser[] = []
+
+  constructor(private dummyDb: DummyDB) {
+  }
+
+  ngOnInit(): void {
+    this.StoryList = this.dummyDb.GetAllStories();
+    this.RecommendedList = this.dummyDb.GetAllStories();
+    this.RecommendedUserList = this.dummyDb.GetAllDummyUsers();
+    console.log(this.dummyDb.GetAllStories())
+  }
+
+}
