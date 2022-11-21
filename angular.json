@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
-    "AllesKast": "apps/AllesKast"
+    "AllesKast": "apps/AllesKast",
+    "alles-api": "apps/alles-api"
   }
 }
