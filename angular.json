@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "AllesKast": "apps/AllesKast",
-    "alles-api": "apps/alles-api"
+    "alles-api": "apps/alles-api",
+    "ui": "libs/ui"
   }
 }
