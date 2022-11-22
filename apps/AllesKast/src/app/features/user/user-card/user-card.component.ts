@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IStory } from '../../domain/Story.domain';
-import { IdentityUser, SiteUser } from '../../domain/User.domain';
+import { IdentityUser } from '../../../../../../../libs/data/src';
+
 
 @Component({
   selector: 'app-user-card',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DummyDB } from '../../../services/DummyDb';
-import { Story } from '../../domain/Story.domain';
+import { StoryDetail } from '../../../../../../../libs/data/src';
+import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
 
 @Component({
   selector: 'app-story-detail',
@@ -10,10 +10,10 @@ import { Story } from '../../domain/Story.domain';
 })
 export class StoryDetailComponent implements OnInit {
 
-  story: Story | undefined | null;
+  story: StoryDetail | undefined | null;
   panelOpenState: boolean = false;
   
-  constructor(private route: ActivatedRoute,private router: Router, private Db: DummyDB) { }
+  constructor(private route: ActivatedRoute,private router: Router, private Db: DummyRepo) { }
 
   async ngOnInit(): Promise<void> {
     this.route.paramMap.subscribe((param)=>{

@@ -3,6 +3,8 @@
   "projects": {
     "AllesKast": "apps/AllesKast",
     "alles-api": "apps/alles-api",
+    "data": "libs/data",
+    "services": "libs/services",
     "ui": "libs/ui"
   }
 }

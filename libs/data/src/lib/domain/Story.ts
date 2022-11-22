@@ -1,27 +1,25 @@
-import { Chapter } from "./Chapter.domain"
-import { Reaction } from "./Comment.domain"
-import { SiteUser, User } from "./User.domain"
+import { Chapter } from "./Chapter"
+import { Reaction } from "./Comment"
+import { GUser, SiteUser } from "./User"
 
 export interface IStory{
     //Are editable
     Id: string | undefined
     Title: string | null
     StoryLine: string | undefined
-    Writer: User | undefined
+    Writer: GUser | undefined
     IsAdultOnly: boolean | undefined
-    Genres: string[] | undefined
+    Genres: string | undefined
     PublishDate: Date | undefined
 
-    ChapterList: Chapter[]| undefined
-    //Misschien een thumbnail.
-    CommentSection: Reaction[] | undefined
-    Followers: SiteUser[] | undefined
+}
 
-    /*
-    GetRating(): number
-    SubmitRating(rate: number): boolean
-    AddChapterToStory(Chapter: Chapter): boolean
-    */
+export interface StoryDetail extends IStory{
+    //Misschien een thumbnail.
+    
+    ChapterList: Chapter[]| undefined
+    CommentSection: Reaction[] | undefined
+    Followers: GUser[] | undefined
 }
 
 export class Story implements IStory{
@@ -29,15 +27,15 @@ export class Story implements IStory{
     Id: string | undefined
     Title: string | null
     StoryLine: string | undefined
-    Writer: User | undefined
+    Writer: GUser | undefined
     IsAdultOnly: boolean = false
-    Genres: string[] | undefined
+    Genres: string | undefined
     PublishDate: Date | undefined
 
     ChapterList: Chapter[] = []
     //Misschien een thumbnail.
     CommentSection: Reaction[] = []
-    Followers: SiteUser[] = []
+    Followers: GUser[] = []
     
     constructor(title: string, storyline: string, IsAdult: boolean, publishDate: Date){
         this.Title = title;

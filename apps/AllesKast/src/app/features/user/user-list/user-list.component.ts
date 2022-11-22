@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DummyDB } from '../../../services/DummyDb';
-import { IdentityUser, IUser } from '../../domain/User.domain';
+import { IdentityUser } from '../../../../../../../libs/data/src';
+import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
 
 @Component({
   selector: 'app-user-list',
@@ -11,7 +11,7 @@ export class UserListComponent implements OnInit {
 
   UserList: IdentityUser[] = [];
 
-  constructor(private UserDb: DummyDB) { }
+  constructor(private UserDb: DummyRepo) { }
 
   ngOnInit(): void {
     this.UserList = this.UserDb.GetAllDummyUsers();

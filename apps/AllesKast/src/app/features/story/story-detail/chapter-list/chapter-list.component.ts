@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Story } from '../../../domain/Story.domain';
+import { StoryDetail } from '../../../../../../../../libs/data/src';
+
 
 @Component({
   selector: 'app-chapter-list',
@@ -9,7 +10,7 @@ import { Story } from '../../../domain/Story.domain';
 export class ChapterListComponent implements OnInit {
 
   @Input()
-  Story: Story | undefined;
+  Story: StoryDetail | undefined;
 
   constructor() { }
 

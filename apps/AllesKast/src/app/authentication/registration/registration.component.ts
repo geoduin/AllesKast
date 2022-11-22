@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IUser } from '../../features/domain/User.domain';
+import { IdentityUser } from '../../../../../../libs/data/src';
+import { DummyRepo } from '../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
 import { UserEditComponent } from '../../features/user/user-edit/user-edit.component';
-import { DummyDB } from '../../services/DummyDb';
 
 @Component({
   selector: 'app-registration',
@@ -14,10 +14,10 @@ export class RegistrationComponent implements OnInit, OnChanges {
   //For the edit of the user
   Pagina: string = ""
 
-  User: IUser | undefined;
+  User: IdentityUser | undefined;
 
   submitted = false;
-  constructor(private router: ActivatedRoute, private Db: DummyDB) { }
+  constructor(private router: ActivatedRoute, private Db: DummyRepo) { }
   
   
   ngOnChanges(changes: SimpleChanges): void {
@@ -32,7 +32,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
       if(UserId){
         
         this.User = this.Db.GetAllDummyUsers().filter(v => v.Id == UserId)[0];
-        this.Pagina = `Wijziging gegevens van ${this.User.UserName}`
+        this.Pagina = `Wijziging gegevens van ${this.User!.UserName}`
         console.log(this.User);
       }else{
         this.Pagina = "Registratieformulier";

@@ -1,4 +1,4 @@
-import { ChapterPage } from "./ChapterPage.domain"
+import { ChapterPage } from "./Page"
 
 export interface IChapter {
     Id: string | undefined
@@ -10,11 +10,12 @@ export interface IChapter {
     //Moet nog besloten worden of er maar 1 of meerdere paginas opgeslagen wordt.
     /*ChapterPages: ChapterPage[] | undefined
     //ChapterPage: ChapterPage | undefined
-    Comic: ChapterPage | undefined;
+    Comic: ChapterPage | undefined;*/
+}
 
-    GetComic():string
-    AssignComicToChapter(Comic: ChapterPage):void
-    AddPages(page: ChapterPage):void*/
+export interface ChapterDetails extends IChapter{
+    ChapterPage: ChapterPage | undefined
+    ChapterPages: ChapterPage[] | undefined
 }
 
 

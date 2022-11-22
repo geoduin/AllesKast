@@ -23,7 +23,7 @@
             <a routerLink="/Story/{{stories.Id}}">Details</a>
         </div> -->
 
-                <div class="FlexBox">
+               <div class="FlexBox">
                     <div *ngFor="let stories of DetailUser?.FollowedStories">
                         <app-story-card [Story]="stories"></app-story-card>
                     </div>

@@ -1,27 +1,27 @@
 <div>
 
     <h1>Verhaal Aanmaken/Wijzigen</h1>
-    <form action="" method="post">
+    <form #StoryForm="ngForm" name="Form" (ngSubmit)="OnSubmit()" method="post" novalidate>
         <div>
             <label for="Title">Titel</label>
-            <input type="text" name="Title" id="TitleComic">
+            <input type="text" name="Title" [(ngModel)]="NewStory!.Title" id="TitleComic" maxlength="25" minlength="1" required>
         </div>
         
         <div>
             <label for="StoryLine">Verhaallijn</label>
-            <input type="text" name="StoryLine" id="TitleComic">
+            <input type="text" name="StoryLine" [(ngModel)]="NewStory!.StoryLine" id="TitleComic" required>
         </div>
         
         <div>
             <label for="IsAdultOnly">18+?</label>
-            <input type="checkbox" name="IsAdultOnly" id="IsAdultOnlyId" value=true>
+            <input type="checkbox" name="IsAdultOnly" [(ngModel)]="NewStory!.IsAdultOnly" id="IsAdultOnlyId" required>
         </div>
         
         <div>
             <label for="Genre">Genres</label>
-            <input type="text" name="Genre" id="GenreId">
+            <input type="text" name="Genre" id="GenreId" [(ngModel)]="NewStory!.Genres" required>
         </div>
-        <button type="submit" (click)="OnSubmit()">Toevoegen</button>
+        <button type="submit">Toevoegen</button>
     </form>
- 
+    <pre>{{NewStory | json}}</pre>
 </div>

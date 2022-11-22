@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DummyDB } from '../../services/DummyDb';
-import { IStory, Story } from '../domain/Story.domain';
-import { IdentityUser, SiteUser, User } from '../domain/User.domain';
+import { IdentityUser, StoryDetail } from '../../../../../../libs/data/src';
+import { DummyRepo } from '../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
 
 @Component({
   selector: 'app-home',
@@ -10,11 +9,11 @@ import { IdentityUser, SiteUser, User } from '../domain/User.domain';
 })
 export class HomeComponent implements OnInit {
   
-  StoryList:Story[] = []
-  RecommendedList:Story[] = []
+  StoryList:StoryDetail[] = []
+  RecommendedList:StoryDetail[] = []
   RecommendedUserList:IdentityUser[] = []
 
-  constructor(private dummyDb: DummyDB) {
+  constructor(private dummyDb: DummyRepo) {
   }
 
   ngOnInit(): void {

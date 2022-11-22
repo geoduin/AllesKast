@@ -1,42 +1,4 @@
-import { IStory, Story } from "./Story.domain"
-
-export enum Roles{
-    Guest = "Guest",
-    Regular = "Regular",
-    Admin = "Admin"
-}
-
-export interface IUser {
-    Id: string |  null | undefined
-    UserName: string | null | undefined
-    DateOfBirth: Date | null| undefined
-    Email: string | null | undefined
-    Role: string | null| undefined
-}
-
-export class User implements IUser{
-    Id: string | null | undefined
-    UserName: string | null | undefined
-    DateOfBirth: Date| null 
-    Email: string | null | undefined
-    Password: string | null| undefined
-    Role: string | null
-
-    Followers: User[] = []
-    //Note: Will be decided if user will hold the whole story, partial or only the ids.
-    FollowedStories: Story[] = []
-    //User will have references to his own published stories
-    PublishedStories: string[] = []
-
-    constructor(name: string, DateOfBirth: Date, Password: string, Email: string){
-        this.UserName = name;
-        this.DateOfBirth = DateOfBirth;
-        this.Password = Password;
-        this.Role = "User"
-        this.Email = Email;
-    }
-
-}
+import { IStory, StoryDetail } from "./Story"
 
 //General user model
 export interface GUser{

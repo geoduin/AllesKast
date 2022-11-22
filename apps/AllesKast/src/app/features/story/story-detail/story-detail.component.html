@@ -7,8 +7,8 @@
             <img src="assets/staticImages/Placeholder Image.png" alt="Comic-Afbeelding" srcset="" height="450" width="300">
             <div class="Edit buttons">
                 <h3>Verhaalinstelling</h3>
-                <button mat-raised-button class="ImportantBtn m-1"  routerLink="/Story/(DummyId)/Edit">Edit</button>
-                <button mat-raised-button class="CancelBtn m-1">Verwijderen</button>
+                <button mat-raised-button class="ImportantBtn m-1"  routerLink="/Story/{{story?.Id}}/Edit">Edit</button>
+                <app-story-btn [SId]="story?.Id"></app-story-btn>
             </div>
         </div>
         <div class="col-8">

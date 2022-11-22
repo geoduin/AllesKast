@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DummyDB } from '../../../services/DummyDb';
+import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
 
 @Component({
   selector: 'User-DeleteButton',
@@ -13,7 +13,7 @@ export class UserDeleteBtnComponent implements OnInit {
   @Input()
   Id: string | undefined | null
 
-  constructor(private Db: DummyDB, private router: Router) { }
+  constructor(private Db: DummyRepo, private router: Router) { }
 
   ngOnInit(): void {
   }

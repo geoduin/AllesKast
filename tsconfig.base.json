@@ -19,6 +19,8 @@
     "module": "es2020",
     "lib": ["es2020", "dom"],
     "paths": {
+      "data": ["libs/data/src/index.ts"],
+      "services": ["libs/services/src/index.ts"],
       "ui": ["libs/ui/src/index.ts"]
     },
     "rootDir": "."

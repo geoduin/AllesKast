@@ -1,7 +1,7 @@
 import { Component, OnInit, } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DummyDB } from '../../../services/DummyDb';
-import { IdentityUser} from '../../domain/User.domain';
+import { IdentityUser } from '../../../../../../../libs/data/src';
+import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
 
 @Component({
   selector: 'app-user-edit',
@@ -16,7 +16,7 @@ export class UserEditComponent implements OnInit {
   User: IdentityUser | undefined | null;
 
   IsEdit:boolean = true;
-  constructor(private router: ActivatedRoute, private Db: DummyDB, private nav: Router) { }
+  constructor(private router: ActivatedRoute, private Db: DummyRepo, private nav: Router) { }
   
   ngOnInit(): void {
     //Loads in user to edit
@@ -54,7 +54,7 @@ export class UserEditComponent implements OnInit {
 
   //Aangeroepen methode bij het drukken van de knop.
   onSubmit() {
-    
+
     if(this.IsEdit){
       this.EditUser();
       this.nav.navigate([".."]);

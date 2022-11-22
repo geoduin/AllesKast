@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IStory } from '../../domain/Story.domain';
+import { StoryDetail, IStory } from '../../../../../../../libs/data/src';
 
 @Component({
   selector: 'app-story-card',
