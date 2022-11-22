@@ -26,6 +26,7 @@ const routes: Routes = [
   ]},
   {path: "Story", component: StoryListComponent}
   ,
+  {path: "Story/Add", providers: [], component: StoryEditComponent},
   {path: "Story/:StoryId/Detail", component: StoryDetailComponent},
   {path: "Story/:StoryId/Edit", component: StoryEditComponent},
   {path: "AboutUs", component: AboutMeComponent},
