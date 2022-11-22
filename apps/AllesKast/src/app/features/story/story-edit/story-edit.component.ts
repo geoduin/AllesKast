@@ -27,4 +27,14 @@ export class StoryEditComponent implements OnInit {
     })
   }
 
+  OnSubmit():void{
+    	try {
+        
+
+        this.Router.navigate([".."]);
+      } catch (error) {
+        
+      }
+  }
+
 }
