@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IStory } from '../../../../../../../libs/data/src';
+import { StoryClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
+
 
 
 @Component({
@@ -11,7 +13,7 @@ import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/Dumm
 export class StoryListComponent implements OnInit {
 
   StoryList: IStory[] = this.Db.GetAllStories();
-  constructor(private Db: DummyRepo) { }
+  constructor(private Db: DummyRepo, private client: StoryClient) { }
 
   ngOnInit(): void {
   }

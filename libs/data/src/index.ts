@@ -1,4 +1,3 @@
-export * from './lib/data.module';
 export * from './lib/domain/Chapter';
 export * from './lib/domain/Comment';
 export * from './lib/domain/Page';

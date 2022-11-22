@@ -2,7 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { IStory, StoryDetail } from '../../../../../../../libs/data/src';
+import { StoryClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
+
 
 @Component({
   selector: 'app-story-edit',
@@ -14,7 +16,7 @@ export class StoryEditComponent implements OnInit {
   IsEdit = false;
   Sign:string | null | undefined;
   NewStory: IStory | undefined;
-  constructor(private route: ActivatedRoute, private Router: Router, private Repo: DummyRepo) { }
+  constructor(private route: ActivatedRoute, private Router: Router, private Repo: DummyRepo, private client: StoryClient) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((param)=>{
