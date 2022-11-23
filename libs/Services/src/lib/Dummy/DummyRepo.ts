@@ -6,7 +6,7 @@ export class DummyRepo{
 
     UserArray: IdentityUser[] = [
         {
-            Id: "1234",
+            _id: "1234",
             UserName: "Generiek1",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
@@ -14,7 +14,7 @@ export class DummyRepo{
             Password: undefined
         },
         {
-            Id: "1236",
+            _id: "1236",
             UserName: "Generiek2",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
@@ -23,7 +23,7 @@ export class DummyRepo{
         },
 
         {
-            Id: "1238",
+            _id: "1238",
             UserName: "Generiek3",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
@@ -31,7 +31,7 @@ export class DummyRepo{
             Password: undefined
         },
         {
-            Id: "1250",
+            _id: "1250",
             UserName: "Generiek4",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
@@ -40,7 +40,7 @@ export class DummyRepo{
         },
 
         {
-            Id: "1260",
+            _id: "1260",
             UserName: "Generiek5",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
@@ -142,7 +142,7 @@ export class DummyRepo{
     }
 
     FindOneUser(id: string): IdentityUser{
-        return this.GetAllDummyUsers().filter(u => u.Id == id)[0];
+        return this.GetAllDummyUsers().filter(u => u._id == id)[0];
     }
 
     AddUser(user: IdentityUser){
@@ -151,7 +151,7 @@ export class DummyRepo{
 
     UpdateUser(user: IdentityUser){
         // eslint-disable-next-line prefer-const, @typescript-eslint/no-non-null-assertion
-        let CurrentUser:IdentityUser = this.FindOneUser(user.Id!);
+        let CurrentUser:IdentityUser = this.FindOneUser(user._id!);
         if(CurrentUser){
             //Updates user if user is found
             CurrentUser.UserName = user?.UserName;
@@ -168,7 +168,7 @@ export class DummyRepo{
 
     DeleteUser(userId: string){
         try{
-            this.UserArray = this.UserArray.filter(u => u.Id != userId);
+            this.UserArray = this.UserArray.filter(u => u._id != userId);
         } catch(error: any){
             throw new Error(error);
         }

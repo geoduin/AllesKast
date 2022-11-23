@@ -18,9 +18,9 @@ export class UserDetailComponent implements OnInit {
   ngOnInit(): void {
     this.router.paramMap.subscribe((params)=>{
       const Userid = params.get("UserId")
-      this.user = this.Db.GetAllDummyUsers().filter(u => u.Id == Userid)[0];
+      this.user = this.Db.GetAllDummyUsers().filter(u => u._id == Userid)[0];
       //As a example of followed story list
-      this.DetailUser = new SiteUser(this.user!.Id!, this.user!.UserName!, this.user!.DateOfBirth!, this.user!.Email!, this.user!.Role!);
+      this.DetailUser = new SiteUser(this.user!._id!, this.user!.UserName!, this.user!.DateOfBirth!, this.user!.Email!, this.user!.Role!);
       this.DetailUser.FollowedStories = this.Db.GetAllStories();
     })
   }

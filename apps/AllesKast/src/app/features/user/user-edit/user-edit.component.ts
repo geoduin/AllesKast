@@ -42,7 +42,7 @@ export class UserEditComponent implements OnInit {
         const randomId = (Math.random() * 100) - 12;
         this.Pagina = "Registratieformulier"
         this.User = {
-          Id: randomId.toLocaleString(),
+          _id: randomId.toLocaleString(),
           UserName: "",
           DateOfBirth: new Date(),
           Role: "Regular",

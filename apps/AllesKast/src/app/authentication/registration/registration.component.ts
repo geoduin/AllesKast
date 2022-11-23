@@ -31,7 +31,7 @@ export class RegistrationComponent implements OnInit, OnChanges {
       const UserId = url.get("UserId");
       if(UserId){
         
-        this.User = this.Db.GetAllDummyUsers().filter(v => v.Id == UserId)[0];
+        this.User = this.Db.GetAllDummyUsers().filter(v => v._id == UserId)[0];
         this.Pagina = `Wijziging gegevens van ${this.User!.UserName}`
         console.log(this.User);
       }else{
