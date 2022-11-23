@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IdentityUser } from '../../../../../../../libs/data/src';
+import { IdentityUser, SiteUser } from '../../../../../../../libs/data/src';
+import { UserClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
 
 @Component({
@@ -9,12 +10,17 @@ import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/Dumm
 })
 export class UserListComponent implements OnInit {
 
-  UserList: IdentityUser[] = [];
+  UserList: SiteUser[] = [];
 
-  constructor(private UserDb: DummyRepo) { }
+  constructor(private UserDb: DummyRepo, private userRepo: UserClient) { }
 
   ngOnInit(): void {
-    this.UserList = this.UserDb.GetAllDummyUsers();
+    this.userRepo.GetAll().subscribe((list)=>{
+      this.UserList = list;
+    });
   }
 
+  TestButton(){
+    console.log(this.userRepo.Test());
+  }
 }

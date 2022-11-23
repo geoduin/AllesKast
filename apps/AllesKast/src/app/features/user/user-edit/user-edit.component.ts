@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs';
-import { IdentityUser } from '../../../../../../../libs/data/src';
+import { catchError, map } from 'rxjs';
+import { EditUserVM, IdentityUser } from '../../../../../../../libs/data/src';
+import { UserClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
 
 @Component({
@@ -16,9 +17,9 @@ export class UserEditComponent implements OnInit {
   Pagina: string = ""
   //user
   User: IdentityUser | undefined | null;
-
+  EditVM : EditUserVM | undefined;
   IsEdit:boolean = true;
-  constructor(private router: ActivatedRoute, private Db: DummyRepo, private nav: Router, private http: HttpClient) { }
+  constructor(private router: ActivatedRoute, private Db: DummyRepo, private nav: Router, private userClient: UserClient) { }
   
   ngOnInit(): void {
     //Loads in user to edit
@@ -26,26 +27,24 @@ export class UserEditComponent implements OnInit {
       const UserId = url.get("UserId");
       //If UserId is present, it will act as 
       if(UserId){
-        console.log("User is to be edited")
         //Sets user on editable
         this.IsEdit = true;
         //Check if user does not edit if it closes the form
-        const retrievedUser = this.Db.FindOneUser(UserId);
-        let StringedUser = JSON.stringify(retrievedUser);
-        //Creates deep copy of user.
-        this.User = JSON.parse(StringedUser);
-        this.Pagina = "Wijziging gegevens van " + this.User?.UserName;
+        this.userClient.GetOne(UserId).subscribe((u)=>{
+          this.User = u;
+          this.Pagina = "Wijziging gegevens van " + this.User?.UserName;
+        });
+        
       } else{
         //Otherwise it will receive the registration form
         //Sets user on non-editable. Is used to differiate with the edit url. 
         this.IsEdit = false;
-        const randomId = (Math.random() * 100) - 12;
         this.Pagina = "Registratieformulier"
         this.User = {
-          _id: randomId.toLocaleString(),
+          _id: "",
           UserName: "",
           DateOfBirth: new Date(),
-          Role: "Regular",
+          Role: "Student",
           Email: "",
           Password: ""
         }
@@ -59,7 +58,7 @@ export class UserEditComponent implements OnInit {
     console.log()
     if(this.IsEdit){
       this.EditUser();
-      this.nav.navigate([".."]);
+      
     } else{
       this.RegisterUser();
       this.nav.navigate([".."]);
@@ -68,10 +67,20 @@ export class UserEditComponent implements OnInit {
     console.log(this.User);
   }
   //Voegt gebruiker toe aan database.
-  RegisterUser(){
+  async RegisterUser(){
     try {
-      this.Db.AddUser(this.User!);
-      console.log("Registratie voltooid");
+      const a = (await this.userClient.CreateOne({ _id: undefined, UserName: this.User?.UserName, Password: this.User?.Password, Email: this.User?.Email, Role: this.User?.Role, DateOfBirth: this.User?.DateOfBirth })).pipe(
+        map((result) => {
+          console.log(result);
+          this.Db.AddUser(this.User!);
+          console.log("Registratie voltooid");
+          this.nav.navigate([".."]);
+        }),
+        catchError((error) => {
+          throw error;
+        })
+      )
+      const b = a.subscribe((waarde)=>{console.log(waarde)});
     } catch (error) {
       console.error(error);
     }
@@ -81,8 +90,11 @@ export class UserEditComponent implements OnInit {
   EditUser(){
     try {
       //Update commando naar de api.
-      this.Db.UpdateUser(this.User!);
-      console.log("Wijziging voltooid");
+      this.userClient.UpdateOne(this.User?._id!, this.User as EditUserVM).subscribe((done) => {
+        console.log("Wijziging voltooid");
+        console.log(done);
+        this.nav.navigate([".."]);
+      });
     } catch (error) {
       //Fail save als het toch een null waarde meestuurt.
       console.error(error);

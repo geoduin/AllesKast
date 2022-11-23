@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
 
 @Component({
@@ -13,7 +14,7 @@ export class UserDeleteBtnComponent implements OnInit {
   @Input()
   Id: string | undefined | null
 
-  constructor(private Db: DummyRepo, private router: Router) { }
+  constructor(private Db: DummyRepo, private router: Router, private userClient:UserClient) { }
 
   ngOnInit(): void {
   }
@@ -22,12 +23,12 @@ export class UserDeleteBtnComponent implements OnInit {
     try{
       //If user Id is present. Delete user
       if(this.Id){
+        this.userClient.DeleteOne(this.Id).subscribe((deleted)=>{
+          console.log(`Deletion of ${this.Id}`)
+          //Returns to homepage
+          this.router.navigate([".."]); 
+        });
         
-        //Deletion command
-        this.Db.DeleteUser(this.Id);
-        console.log(`Deletion of ${this.Id}`)
-        //Returns to homepage
-        this.router.navigate([".."]);
       } else{
         console.error("No user found");
          //Returns to homepage

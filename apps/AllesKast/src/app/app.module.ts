@@ -34,6 +34,8 @@ import { StoryCardComponent } from './features/story/story-card/story-card.compo
 import { BackBtnComponent } from './shared/back-btn/back-btn.component';
 import { DummyRepo } from './../../../../libs/Services/src/lib/Dummy/DummyRepo';
 import { StoryBtnComponent } from './features/story/story-btn/story-btn.component';
+import { ConfigModule, UserClient } from '../../../../libs/services/src';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +68,7 @@ import { StoryBtnComponent } from './features/story/story-btn/story-btn.componen
     ReactiveFormsModule,
     HttpClientModule,
     UserDeleteBtnComponent,
+    ConfigModule.ForRoot({apiEndpoint: environment.NestJSUrl}),
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -73,7 +76,7 @@ import { StoryBtnComponent } from './features/story/story-btn/story-btn.componen
     MatIconModule,
     MatListModule,
   ],
-  providers: [DummyRepo],
+  providers: [DummyRepo, UserClient],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

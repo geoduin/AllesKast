@@ -1,6 +1,7 @@
 import { IStory, StoryDetail } from "./Story"
 
 //General user model
+//Used to list users in a list.
 export interface GUser{
     _id: string| undefined
     UserName : string | undefined
@@ -10,11 +11,18 @@ export interface GUser{
 }
 
 //User interface with password
+//Used to create new users.
 export interface IdentityUser extends GUser {
     Password: string | undefined
 }
 
+export interface EditUserVM extends IdentityUser{
+    PasswordConfirmation: string;
+    EditPassword: boolean;
+}
+
 //User object that only his own can see. Used to edit object. 
+//@Used for profile editing.
 export class PrivateUser implements IdentityUser{
     _id: string | undefined
     UserName: string | undefined
@@ -28,6 +36,7 @@ export class PrivateUser implements IdentityUser{
 }
 
 //The user object that everybody can see. Used to see own and other users.
+//@Used for profile and user details
 export class SiteUser implements GUser{
     _id: string | undefined
     UserName: string | undefined

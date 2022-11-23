@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IdentityUser } from '../../../../../../../libs/data/src';
+import { IdentityUser, SiteUser } from '../../../../../../../libs/data/src';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { IdentityUser } from '../../../../../../../libs/data/src';
 export class UserCardComponent implements OnInit {
 
   @Input()
-  User: IdentityUser | undefined
+  User: SiteUser | undefined
   
   constructor() { }
 

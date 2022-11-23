@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IdentityUser, StoryDetail } from '../../../../../../libs/data/src';
+import { IdentityUser, SiteUser, StoryDetail } from '../../../../../../libs/data/src';
+import { UserClient } from '../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
 
 @Component({
@@ -11,16 +12,17 @@ export class HomeComponent implements OnInit {
   
   StoryList:StoryDetail[] = []
   RecommendedList:StoryDetail[] = []
-  RecommendedUserList:IdentityUser[] = []
+  RecommendedUserList:SiteUser[] = []
 
-  constructor(private dummyDb: DummyRepo) {
+  constructor(private dummyDb: DummyRepo, private userRepo: UserClient) {
   }
 
   ngOnInit(): void {
     this.StoryList = this.dummyDb.GetAllStories();
     this.RecommendedList = this.dummyDb.GetAllStories();
-    this.RecommendedUserList = this.dummyDb.GetAllDummyUsers();
-    console.log(this.dummyDb.GetAllStories())
+    this.userRepo.GetAll().subscribe((UL)=>{
+      this.RecommendedUserList = UL;
+    });
   }
 
 }

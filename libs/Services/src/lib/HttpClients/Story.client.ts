@@ -3,7 +3,5 @@ import {HttpClient} from '@angular/common/http';
 
 @Injectable({providedIn: "root"})
 export class StoryClient{
-    constructor(private client: HttpClient){
-
-    }
+    constructor(private client: HttpClient){}
 }

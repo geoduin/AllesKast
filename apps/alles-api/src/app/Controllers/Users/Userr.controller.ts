@@ -12,6 +12,8 @@ export class UserController{
     @Post()
     async CreateUser(@Body() user: User){
         try {
+            console.log("User api creation started");
+            console.log(user);
             this.repo.Create(user);
             return {message: "Creation succeeded"};
         } catch (error:any) {
@@ -36,7 +38,7 @@ export class UserController{
             }
             
         } catch (error) {
-            return {message: error.message}
+            return {message: error}
         }
         
     }
