@@ -7,8 +7,8 @@ import { UserController } from "./Users/Userr.controller";
 
 @Module({
     //Legt database connectie met de cloud database van mongodb.
-    imports: [MongooseModule.forRoot(`mongodb+srv://User33:Das4reich@beifang.mwlxo7r.mongodb.net/?retryWrites=true&w=majority`)],
+    imports: [MongooseModule.forFeature()],
     controllers: [AppController, UserController, AuthController],
     providers: [AppService],
   })
-export class AuthModule {}
+export class DataModule {}
