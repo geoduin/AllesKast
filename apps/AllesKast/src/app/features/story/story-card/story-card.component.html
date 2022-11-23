@@ -1,8 +1,9 @@
 <mat-card class="Card">
+    
+    <img mat-card-image class="CardImage" src="assets/staticImages/Placeholder Image.png" height="390">
     <mat-card-header class="Card-Title">
         <mat-card-title><a routerLink="/Story/{{Story!.Id}}/Detail">{{Story!.Title}}</a></mat-card-title>
     </mat-card-header>
-    <img mat-card-image class="CardImage" src="assets/staticImages/Placeholder Image.png" height="150" width="200">
     <mat-card-actions>
         <button class="ImportantBtn" mat-raised-button>Volg</button>
         <button class="DetailBtn" mat-raised-button routerLink="/Story/{{Story!.Id}}/Detail">Details</button>
