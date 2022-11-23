@@ -3,7 +3,7 @@
 
     
         <div class="col-3 DummyBackground">
-            <img src="assets/staticImages/Placeholder Image.png" alt="Comic-Afbeelding" srcset="" height="190" width="300">
+            <img src="assets/staticImages/Placeholder Image.png" alt="Comic-Afbeelding" srcset="" height="300" width="300">
             <button mat-raised-button routerLink="Edit">Wijzig gebruiker</button>
             <User-DeleteButton [Id]='user?._id'></User-DeleteButton>
         </div>
@@ -11,7 +11,7 @@
             <BackBtn></BackBtn>
             <h2>Gebruiker {{ user?.UserName }}</h2>
             <p>Naam: {{user?.UserName}}
-                <br/>Geboortedatum: {{user?.DateOfBirth?.toLocaleDateString()}}
+                <br/>Geboortedatum: {{user?.DateOfBirth}}
             <br/>Rol: {{user?.Role}}</p>
             <!--Dit mag alleen een admin wijzigen-->
             <div  class="col-12 EmptyList">
