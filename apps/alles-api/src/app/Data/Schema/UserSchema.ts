@@ -1,24 +1,32 @@
-import { Prop, Schema } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { IdentityUser } from "data";
+import mongoose, { HydratedDocument } from "mongoose";
+import { type } from "os";
 import { v4 as uuid } from 'uuid';
+
+export type UserDocument = HydratedDocument<User>;
+
 @Schema()
-export class UserSchema{
+export class User{
+    
     @Prop({default: uuid, index: true})
-    Id: string | undefined;
-    
-    @Prop({required: true, unique: true,})
-    UserName: string | undefined;
-    
-    @Prop({required: true})
-    Password: string | undefined;
+    Id!: string;
+
+    @Prop({ required: true, unique: true, })
+    UserName!: string;
     
     @Prop({required: true})
-    DateOfBirth: Date | undefined;
+    Password!: string;
+    
+    @Prop({required: true})
+    DateOfBirth!: Date;
     
     @Prop({required: true, unique: true})
-    Email: string | undefined;
+    Email!: string;
     
     @Prop()
-    Role: string | undefined;
+    Role!: string;
 
 }
+
+export const UserSchema = SchemaFactory.createForClass(User);

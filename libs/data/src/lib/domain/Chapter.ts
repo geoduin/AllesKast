@@ -6,11 +6,8 @@ export interface IChapter {
     PublishDate: Date| undefined
     Chapter: number | undefined
     
+
     
-    //Moet nog besloten worden of er maar 1 of meerdere paginas opgeslagen wordt.
-    /*ChapterPages: ChapterPage[] | undefined
-    //ChapterPage: ChapterPage | undefined
-    Comic: ChapterPage | undefined;*/
 }
 
 export interface ChapterDetails extends IChapter{
