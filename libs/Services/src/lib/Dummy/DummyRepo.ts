@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Chapter, ChapterPage, IdentityUser, IStory, Reaction, Story, StoryDetail } from "data";
+import { Chapter, ChapterPage, IdentityUser, IStory, Reaction, StoryDetail } from "data";
 
 @Injectable()
 export class DummyRepo{
@@ -150,6 +150,7 @@ export class DummyRepo{
     }
 
     UpdateUser(user: IdentityUser){
+        // eslint-disable-next-line prefer-const, @typescript-eslint/no-non-null-assertion
         let CurrentUser:IdentityUser = this.FindOneUser(user.Id!);
         if(CurrentUser){
             //Updates user if user is found
@@ -179,6 +180,7 @@ export class DummyRepo{
 
     Update(User:IStory){
         try {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, prefer-const
             let FoundUser = this.FindOneStory(User.Id!);
             FoundUser.Title = User.Title;
             FoundUser.Genres = User.Genres;
@@ -193,7 +195,7 @@ export class DummyRepo{
         try {
             this.StoryArray = this.StoryArray.filter(s => s.Id != id);
         } catch (error) {
-            
+            throw new Error();
         }
     }
 }
