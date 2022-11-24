@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { IStory, StoryDetail } from '../../../../../../../libs/data/src';
 import { StoryClient } from '../../../../../../../libs/services/src';
@@ -15,7 +15,8 @@ export class StoryEditComponent implements OnInit {
  
   IsEdit = false;
   Sign:string | null | undefined;
-  NewStory: IStory | undefined;
+  NewStory!: IStory;
+
   constructor(private route: ActivatedRoute, private Router: Router, private Repo: DummyRepo, private client: StoryClient) { }
 
   ngOnInit(): void {
@@ -48,11 +49,34 @@ export class StoryEditComponent implements OnInit {
             DateOfBirth: new Date(),
           },
           IsAdultOnly: false,
-          Thumbnail: ""
+          Thumbnail: {
+            ImageName: "",
+            Base64Image: ""
+          }
         }
         
       }
     })
+  }
+
+  onSelectFile(event:any) {
+    console.log('onSelectFile')
+    if (event.target.files && event.target.files[0]) {
+      const imageFile: File = event.target.files[0]
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      console.dir(event.target.files[0])
+      reader.onload = (event) => {
+        // called once readAsDataURL is completed
+        // set the image value to the Base64 string -> can be saved in dtb
+        const image = reader.result as string;
+        console.log(image)
+        this.NewStory.Thumbnail = {
+          ImageName: imageFile.name,
+          Base64Image: image
+        }
+      }
+    }
   }
 
   OnSubmit():void{

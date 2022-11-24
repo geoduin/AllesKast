@@ -21,6 +21,15 @@
             <label for="Genre">Genres</label>
             <input type="text" name="Genre" id="GenreId" [(ngModel)]="NewStory!.Genres" required>
         </div>
+
+        <div>
+            <label for="Thumbnail">Thumbnail</label>
+            <input 
+            type="file"
+            id="file"
+            (change)="onSelectFile($event)"
+            required>
+        </div>
         <button type="submit">Toevoegen</button>
     </form>
     <pre>{{NewStory | json}}</pre>
