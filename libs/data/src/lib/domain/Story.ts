@@ -11,6 +11,7 @@ export interface IStory{
     IsAdultOnly: boolean | undefined
     Genres: string | undefined
     PublishDate: Date | undefined
+    Thumbnail: string | undefined
 }
 
 export interface StoryDetail extends IStory{

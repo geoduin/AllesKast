@@ -1,26 +1,29 @@
 import { ChapterPage } from "./Page"
 
+//Abstract chapter interface
 export interface IChapter {
-    Id: string | undefined
-    ChapterTitle:string| undefined
-    PublishDate: Date| undefined
-    Chapter: number | undefined
-    
-
-    
+    Id: string
+    ChapterTitle:string
+    PublishDate: Date
+    ChapterNr: number
 }
 
-export interface ChapterDetails extends IChapter{
+//Chapter 
+export interface IFullChapter extends IChapter{
+    _id: string;
+}
+
+export interface ChapterDetails extends IFullChapter{
     ChapterPage: ChapterPage | undefined
     ChapterPages: ChapterPage[] | undefined
 }
 
 
 export class Chapter implements IChapter{
-    Id: string | undefined
-    ChapterTitle:string| undefined
-    PublishDate: Date| undefined
-    Chapter: number | undefined
+    Id!: string
+    ChapterTitle:string
+    PublishDate: Date
+    ChapterNr: number
     //Moet nog besloten worden of er maar 1 of meerdere paginas opgeslagen wordt.
     //ChapterPage: ChapterPage | undefined
     ChapterPages: ChapterPage[] = []
@@ -28,7 +31,7 @@ export class Chapter implements IChapter{
     
     constructor(Title: string, Chapter: number){
         this.ChapterTitle = Title;
-        this.Chapter = Chapter;
+        this.ChapterNr = Chapter;
         this.PublishDate = new Date();
     }
 

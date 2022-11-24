@@ -5,6 +5,7 @@
     "alles-api": "apps/alles-api",
     "data": "libs/data",
     "services": "libs/services",
+    "shared-entities": "libs/shared/entities",
     "ui": "libs/ui"
   }
 }

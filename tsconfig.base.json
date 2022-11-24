@@ -21,6 +21,7 @@
     "paths": {
       "data": ["libs/data/src/index.ts"],
       "services": ["libs/services/src/index.ts"],
+      "shared/entities": ["libs/shared/entities/src/index.ts"],
       "ui": ["libs/ui/src/index.ts"]
     },
     "rootDir": "."

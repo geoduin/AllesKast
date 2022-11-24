@@ -35,13 +35,20 @@ export class StoryEditComponent implements OnInit {
         this.IsEdit = false
         let random = Math.random() * 120;
         this.NewStory = {
-          Id: random.toFixed(),
+          Id: "oojoj2342",
           Title: "",
           PublishDate: new Date(),
           StoryLine: "",
           Genres: "",
-          Writer: undefined,
+          Writer: {
+            _id: "0001",
+            UserName: "Anon",
+            Email: "Anon@Example.com",
+            Role: "Regular",
+            DateOfBirth: new Date(),
+          },
           IsAdultOnly: false,
+          Thumbnail: ""
         }
         
       }
