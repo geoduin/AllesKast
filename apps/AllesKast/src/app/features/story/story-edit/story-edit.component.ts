@@ -36,7 +36,7 @@ export class StoryEditComponent implements OnInit {
         this.IsEdit = false
         let random = Math.random() * 120;
         this.NewStory = {
-          Id: "oojoj2342",
+          StoryId: "oojoj2342",
           Title: "",
           PublishDate: new Date(),
           StoryLine: "",

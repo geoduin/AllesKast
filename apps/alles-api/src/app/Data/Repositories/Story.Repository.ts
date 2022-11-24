@@ -9,20 +9,37 @@ export class StoryRepository implements IRepo<Story>{
 
     constructor(@InjectModel(Story.name) private Stories: Model<StoryDocument>){
     }
-    async GetOne(Id: string): Promise<Story | null> {
-        throw new Error("Method not implemented.");
+    async GetOne(Id: string): Promise<Story | null| unknown> {
+        try {
+            return this.Stories.findById({_id: Id});
+        } catch (error) {
+            return null;
+        }
     }
-    async Create(object: Story): Promise<void | null> {
-        throw new Error("Method not implemented.");
+    async Create(object: Story): Promise<unknown| unknown> {
+       try {
+        console.log(object);
+         return this.Stories.create(object);
+       } catch (error) {
+        return error;
+       }
     }
-    async Update(Id: string, UpdatedElement: Story): Promise<Story | null> {
-        throw new Error("Method not implemented.");
+    async Update(Id: string, UpdatedElement: Partial<Story>): Promise<Story | null| unknown> {
+        try {
+            return this.Stories.findByIdAndUpdate({_id: Id}, UpdatedElement, {new: true});
+        } catch (error) {
+            return error;
+        }
     }
-    async Delete(Id: string): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    async Delete(Id: string): Promise<boolean | unknown> {
+        try {
+            return this.Stories.findByIdAndDelete({_id: Id});
+        } catch (error) {
+            return false;
+        }
     }
-    async GetAll(): Promise<Story[]> {
-        throw new Error("Method not implemented.");
+    async GetAll(): Promise<Story[]| unknown> {
+        return this.Stories.find().exec();
     }
 
 }

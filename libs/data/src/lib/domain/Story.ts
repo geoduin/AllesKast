@@ -1,20 +1,18 @@
 import { Chapter } from "./Chapter"
 import { Reaction } from "./Comment"
+import { ImageHolder } from "./Image"
 import { GUser, SiteUser } from "./User"
 
 export interface IStory{
     //Are editable
-    Id: string | undefined
+    StoryId: string | undefined
     Title: string | null | undefined
     StoryLine: string | undefined
     Writer: GUser | undefined
     IsAdultOnly: boolean | undefined
     Genres: string | undefined
     PublishDate: Date | undefined
-    Thumbnail: {
-        ImageName: string
-        Base64Image: string
-    }
+    Thumbnail: ImageHolder
 }
 
 export interface StoryDetail extends IStory{

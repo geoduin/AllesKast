@@ -16,6 +16,7 @@ export interface IdentityUser extends GUser {
     Password: string | undefined
 }
 
+//Used as edit user viewmodel class, during the user edit process.
 export interface EditUserVM extends IdentityUser{
     PasswordConfirmation: string;
     EditPassword: boolean;
@@ -54,4 +55,13 @@ export class SiteUser implements GUser{
 
     Follow: SiteUser[] = []
     FollowedStories: IStory[] = []
+}
+
+//Writer class to hold values to put in during the story creation
+export class Writer implements GUser{
+    _id: string | undefined
+    UserName: string | undefined
+    DateOfBirth: Date | undefined
+    Email: string | undefined
+    Role: string | undefined
 }

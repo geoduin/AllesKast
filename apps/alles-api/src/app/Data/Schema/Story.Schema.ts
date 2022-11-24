@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 import { v4 as uuid } from 'uuid';
-import { IChapter, IComment, Reaction} from "data";
+import { GUser, IChapter, IComment, IStory, Reaction, SiteUser, Writer, ImageHolder, Image, ComicPage} from "data";
 import { User } from './UserSchema';
 
 export type StoryDocument = HydratedDocument<Story>;
@@ -10,7 +10,8 @@ export type CommentSchema = HydratedDocument<Comments>;
 
 //Parent entity
 @Schema()
-export class Story{
+export class Story implements IStory{
+    
     
     @Prop({default: uuid, index: true})
     StoryId!: string;
@@ -19,10 +20,10 @@ export class Story{
     Title!: string
 
     @Prop({required: true})
-    Storyline!: string
+    StoryLine!: string
     
-    @Prop({required: true})
-    Writer!: User
+    @Prop({required: true, type: Writer})
+    Writer!: Writer
 
     @Prop({required: true, default: true})
     IsAdultOnly!: boolean
@@ -33,6 +34,9 @@ export class Story{
     @Prop({default: new Date()})
     PublishDate!: Date
 
+    @Prop({required: true, type: Image})
+    Thumbnail!: Image
+    
     @Prop({default: []})
     Comments!: Reaction[]
 
@@ -54,7 +58,6 @@ export class Chapter implements IChapter {
 
     @Prop()
     ChapterNr!: number
-    //Array full of references to chapterpage
 }
 
 //Child and embedded object within story

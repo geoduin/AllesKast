@@ -2,10 +2,12 @@ import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { AppController } from "../app.controller";
 import { AppService } from "../app.service";
+import { StoryRepository } from "../Data/Repositories/Story.Repository";
 import { UserRepository } from "../Data/Repositories/User.Repository";
 import { Story, StorySchema } from "../Data/Schema/Story.Schema";
 import { User, UserSchema } from "../Data/Schema/UserSchema";
 import { AuthController } from "./Auth/Auth.controller";
+import { StoryController } from "./Stories/Story.controller";
 import { UserController } from "./Users/Userr.controller";
 
 @Module({
@@ -18,7 +20,7 @@ import { UserController } from "./Users/Userr.controller";
         name:Story.name, schema: StorySchema
       }
     ])],
-    controllers: [AppController, UserController, AuthController],
-    providers: [AppService, UserRepository],
+    controllers: [AppController, UserController, AuthController, StoryController],
+    providers: [AppService, UserRepository, StoryRepository],
   })
 export class DataModule {}

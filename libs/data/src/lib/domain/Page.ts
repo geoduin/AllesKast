@@ -22,3 +22,17 @@ export class ChapterPage implements IPage{
         return 'data:image/png;base64, assets/staticImages/Placeholder Image.png';
     }
 }
+
+export interface IntfPage{
+    StoryId: string;
+    ChapterId: string;
+    PageNr: number;
+    ComicImage: string;
+}
+
+export class ComicPage implements IntfPage{
+    StoryId!: string;
+    ChapterId!: string;
+    PageNr!: number;
+    ComicImage!: string;
+}
