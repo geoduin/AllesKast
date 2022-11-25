@@ -20,15 +20,9 @@ import { UserEditComponent } from './features/user/user-edit/user-edit.component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserDeleteBtnComponent } from './features/user/user-delete-btn/user-delete-btn.component';
-import { MaterialElementModules } from '../Material.module';
 import { UserCardComponent } from './features/user/user-card/user-card.component';
 import { SideNavComponent } from './shared/side-nav/side-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { ProfileDropdownComponent } from './shared/side-nav/profile-dropdown/profile-dropdown.component';
 import { StoryCardComponent } from './features/story/story-card/story-card.component';
 import { BackBtnComponent } from './shared/back-btn/back-btn.component';
@@ -36,6 +30,7 @@ import { DummyRepo } from './../../../../libs/services/src/lib/Dummy/DummyRepo';
 import { StoryBtnComponent } from './features/story/story-btn/story-btn.component';
 import { ConfigModule, UserClient } from '../../../../libs/services/src';
 import { environment } from '../environments/environment';
+import { UiModule } from '../../../../libs/ui/src';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +55,7 @@ import { environment } from '../environments/environment';
     StoryBtnComponent,
   ],
   imports: [
-    MaterialElementModules,
+    UiModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -70,11 +65,6 @@ import { environment } from '../environments/environment';
     UserDeleteBtnComponent,
     ConfigModule.ForRoot({apiEndpoint: environment.NestJSUrl}),
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
   ],
   providers: [DummyRepo, UserClient],
   bootstrap: [AppComponent],

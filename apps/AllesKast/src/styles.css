@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    background-color: #BBD9F2;
+    background-color: #FDF0C7;
     margin: 0px auto;
     min-height: 100vh;
     display:flex;
@@ -46,30 +46,30 @@ button{
 }
 
 .ImportantBtn{
-    background-color: #0B4F8F;
-    color: #C5DFF6;
+    background-color: #0732A8;
+    color: #FCE19A;
 }
 
 .ImportantBtn:hover{
-    background-color: #C5DFF6;
-    color: #0B4F8F;
+    background-color: #FCE19A;
+    color: #0732A8;
 }
 
 .DetailBtn{
-    background-color: #72B8F0;
-    color: #3D555E;   
+    background-color: #F0B624;
+    color: #0732A8;   
     border: #3D555E 1px solid;
 }
 
 .DetailBtn:hover{
-    background-color: #3D555E;
-    color: #72B8F0;   
+    background-color: #0732A8;
+    color: #F0B624;   
 }
 
 .RegularBtn{
-    border: #3D555E 1px solid;
-    background-color: #36B8F0;
-    color: #3D555E;   
+    border: #0732A8 1px solid;
+    background-color: #B7C6EE;
+    color: #0732A8;   
 }
 .FlexBox{
     display: flex;
@@ -78,9 +78,9 @@ button{
 }
 
 .CancelBtn{
-    background-color: #C5DFF6;
-    color: #0B518F;   
-    border: #0B518F 1px solid;
+    background-color: #B7C6EE;
+    color: #6B4D00;   
+    border: #6B4D00 1px solid;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

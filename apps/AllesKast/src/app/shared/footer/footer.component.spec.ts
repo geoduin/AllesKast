@@ -13,11 +13,14 @@ describe('FooterComponent', () => {
     .compileComponents();
 
     fixture = TestBed.createComponent(FooterComponent);
+    
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const result = compiled.querySelector('p')?.textContent;
+    expect(result).toContain('@2022 Client side webprogramming Xin Wang.');
   });
 });

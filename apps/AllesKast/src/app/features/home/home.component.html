@@ -1,4 +1,13 @@
+<div class="row">
+    <h2>Andere gebruikers</h2>
+    <div class="FlexBox">
 
+        <div *ngFor="let Users of RecommendedUserList">
+            <app-user-card [User]="Users"></app-user-card>
+        </div>
+        
+    </div>
+</div>
     <div class="row ">
         <h2>Verhalen</h2>
         <div class="FlexBox">
@@ -17,13 +26,4 @@
         </div>
         
     </div>
-    <div class="row">
-        <h2>Volgen</h2>
-        <div class="FlexBox">
-
-            <div *ngFor="let Users of RecommendedUserList">
-                <app-user-card [User]="Users"></app-user-card>
-            </div>
-            
-        </div>
-    </div>
+    

@@ -1,0 +1,53 @@
+.flex{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 3em;
+    width: 90%;
+}
+
+.Center{
+    text-align: center;
+}
+
+.User-Edit-Form{
+    background-color: white;
+    border-radius: 1pc;
+}
+.Inputfield{
+    background-color: aliceblue;
+}
+.example-full-width {
+    width: 100%;
+}
+
+form{
+    background-color: white;
+    padding: 1em;
+}
+
+.ImagePoster{
+    border: #0B4F8F solid 1px;
+    border-radius:1pc;
+}
+
+input::file-selector-button {
+    font-weight: bold;
+    color: #C5DFF6;
+    background-color:#3D555E;
+    padding: 0.5em;
+    border: thin solid grey;
+    border-radius: 3px;
+}
+
+input::file-selector-button:hover, .ImagePoster:hover {
+    background-color:#60838f;
+    color: #C5DFF6;
+    pointer-events: painted;
+}
+
+.ImportantBtn{
+    margin:1em;
+    padding: 6px 1em 6px 1em;
+    font-size: large;
+}

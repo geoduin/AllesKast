@@ -49,3 +49,19 @@ h2, h3, h4{
     padding: 10px;
     text-align: start;
 }
+
+table{
+    border: #355570 1px solid;
+}
+
+th{
+    background-color: #355570;
+    color: #FFA82E;
+    padding: 1em;
+}
+
+td{
+    border: #355570 1px solid;
+    padding: 5px;
+    color: #355570;
+}

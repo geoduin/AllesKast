@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { map } from 'rxjs';
-import { IStory, StoryDetail } from '../../../../../../../libs/data/src';
+import { GenreList, IStory, StoryDetail } from '../../../../../../../libs/data/src';
 import { StoryClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/DummyRepo';
 
@@ -12,12 +12,15 @@ import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/Dumm
   styleUrls: ['./story-edit.component.css']
 })
 export class StoryEditComponent implements OnInit {
- 
+  GenreList = GenreList;
   IsEdit = false;
   Sign:string | null | undefined;
   NewStory!: IStory;
-
-  constructor(private route: ActivatedRoute, private Router: Router, private Repo: DummyRepo, private client: StoryClient) { }
+  Titel: string
+  Warning: string = "";
+  constructor(private route: ActivatedRoute, private Router: Router, private Repo: DummyRepo, private client: StoryClient) { 
+    this.Titel = "";
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((param)=>{
@@ -27,12 +30,14 @@ export class StoryEditComponent implements OnInit {
       //If storyid is present. It will fill the form with editable data.
       if(this.Sign){
         //Database command to retrieve data from database;
+        this.Titel = "Wijziging van verhaal";
         this.IsEdit = true;
         this.NewStory = this.Repo.FindOneStory(this.Sign);
         console.log(this.NewStory);
         console.log("Verhaal wijzigen");
       } else{
         //Otherwise it will fill in a new form
+        this.Titel = "Verhaal aanmaakpagina";
         this.IsEdit = false
         let random = Math.random() * 120;
         this.NewStory = {
@@ -49,10 +54,7 @@ export class StoryEditComponent implements OnInit {
             DateOfBirth: new Date(),
           },
           IsAdultOnly: false,
-          Thumbnail: {
-            ImageName: "",
-            Base64Image: ""
-          }
+          Thumbnail: undefined,
         }
         
       }
@@ -81,6 +83,11 @@ export class StoryEditComponent implements OnInit {
 
   OnSubmit():void{
     	try {
+          if(this.NewStory.Thumbnail == undefined){
+            this.Warning = "Afbeelding moet geupload zijn";
+            return;
+          }
+
           if(!this.IsEdit){
             this.Repo.AddStory(this.NewStory!);
             console.log(this.Repo);

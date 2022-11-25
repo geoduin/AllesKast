@@ -1,36 +1,66 @@
-<div>
+<div class="container">
 
-    <h1>Verhaal Aanmaken/Wijzigen</h1>
-    <form #StoryForm="ngForm" name="Form" (ngSubmit)="OnSubmit()" method="post" novalidate>
-        <div>
-            <label for="Title">Titel</label>
-            <input type="text" name="Title" [(ngModel)]="NewStory!.Title" id="TitleComic" maxlength="25" minlength="1" required>
+    
+    <form #StoryForm="ngForm" class="Shadow  User-Edit-Form flex" name="Form" (ngSubmit)="OnSubmit()" method="post" novalidate>
+        
+        <div class="row">
+            <div class="col-12">
+                <BackBtn></BackBtn>
+            </div>
+            <h1 class="col-12">{{Titel}}</h1>
+            <p class="col-12"> 
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Titel</mat-label>
+                    <input matInput name="Title" [(ngModel)]="NewStory!.Title" id="TitleComic" maxlength="25" minlength="1" required>
+                </mat-form-field>
+            </p>
+            
+            <p class="col-12">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Verhaallijn</mat-label>
+                    <textarea matInput name="StoryLine" [(ngModel)]="NewStory!.StoryLine" id="TitleComic" required></textarea>
+                </mat-form-field>
+            </p>
+            
+            
+            <p class="col-12">
+                <label>Alleen voor volwassen? <br/>
+                    <mat-checkbox name="IsAdultOnly" [(ngModel)]="NewStory!.IsAdultOnly" id="IsAdultOnlyId">Alleen 18+</mat-checkbox>
+                </label>
+                
+            </p>
+            
+            
+            
+            <p class="col-12">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Select</mat-label>
+                    <mat-select  name="Genre" id="GenreId" [(ngModel)]="NewStory!.Genres" required>
+                      <mat-option  *ngFor="let g of GenreList;" value="{{g}}">{{g}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+            <div class="col-12">
+                <p>
+                    <label for="Thumbnail">Thumbnail</label>
+                </p>
+                <input 
+                
+                class="ImagePoster example-full-width" 
+                type="file"
+                id="file"
+                (change)="onSelectFile($event)"
+                required>
+            </div>
+            <div class="col-12" *ngIf="Warning">
+                {{Warning}}
+            </div>
+            <button mat-raised-button class="ImportantBtn" type="submit" [disabled]="!StoryForm.valid">Bevestigen</button>
         </div>
         
-        <div>
-            <label for="StoryLine">Verhaallijn</label>
-            <input type="text" name="StoryLine" [(ngModel)]="NewStory!.StoryLine" id="TitleComic" required>
-        </div>
-        
-        <div>
-            <label for="IsAdultOnly">18+?</label>
-            <input type="checkbox" name="IsAdultOnly" [(ngModel)]="NewStory!.IsAdultOnly" id="IsAdultOnlyId" required>
-        </div>
-        
-        <div>
-            <label for="Genre">Genres</label>
-            <input type="text" name="Genre" id="GenreId" [(ngModel)]="NewStory!.Genres" required>
-        </div>
-
-        <div>
-            <label for="Thumbnail">Thumbnail</label>
-            <input 
-            type="file"
-            id="file"
-            (change)="onSelectFile($event)"
-            required>
-        </div>
-        <button type="submit">Toevoegen</button>
     </form>
-    <pre>{{NewStory | json}}</pre>
+   
+    <div>
+        <pre>{{NewStory | json}}</pre>
+    </div>
 </div>
