@@ -3,8 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { catchError, map, Observable, of, pipe, throwError } from "rxjs";
 import { EditUserVM, IdentityUser, SiteUser } from "data";
 import { env } from "process";
-import { WebHttpService } from "services";
-
+import { WebHttpService } from "../..";
 const httpOptions = {
     observe: 'body',
     responseType: 'json'

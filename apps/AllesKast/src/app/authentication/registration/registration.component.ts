@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IdentityUser } from '../../../../../../libs/data/src';
-import { DummyRepo } from '../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
+import { DummyRepo } from '../../../../../../libs/service/src/lib/Dummy/DummyRepo';
 import { UserEditComponent } from '../../features/user/user-edit/user-edit.component';
 
 @Component({

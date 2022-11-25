@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { IStory, StoryDetail } from '../../../../../../../libs/data/src';
-import { StoryClient } from '../../../../../../../libs/services/src';
-import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
+import { StoryClient } from '../../../../../../../libs/service/src';
+import { DummyRepo } from '../../../../../../../libs/service/src/lib/Dummy/DummyRepo';
 
 
 @Component({

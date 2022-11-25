@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IdentityUser, SiteUser } from '../../../../../../../libs/data/src';
-import { UserClient } from '../../../../../../../libs/services/src';
-import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
+import { UserClient } from '../../../../../../../libs/service/src';
+import { DummyRepo } from '../../../../../../../libs/service/src/lib/Dummy/DummyRepo';
 
 @Component({
   selector: 'app-user-detail',

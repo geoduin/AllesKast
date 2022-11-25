@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { EntityClientService } from "./Entity.Client";
 import { IStory, StoryDetail } from "data";
 import { ConfigModule } from "../ConfigModules/WebHttp.module";
-import { WebHttpService } from "services";
+import { WebHttpService } from "../..";
 import { Observable } from "rxjs";
 
 @Injectable({providedIn: "root"})

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StoryDetail } from '../../../../../../../libs/data/src';
-import { DummyRepo } from '../../../../../../../libs/Services/src/lib/Dummy/DummyRepo';
+import { DummyRepo } from '../../../../../../../libs/service/src/lib/Dummy/DummyRepo';
 
 @Component({
   selector: 'app-story-detail',
