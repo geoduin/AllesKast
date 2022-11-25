@@ -25,7 +25,7 @@ export class StoryController{
     }
 
     @Get()
-    async AllUsers():Promise<Story[]>{
+    async AllUsers():Promise<Story[] | unknown>{
         return this.repo.GetAll();
     }
 

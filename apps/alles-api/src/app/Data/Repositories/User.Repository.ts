@@ -40,7 +40,7 @@ export class UserRepository{
         }
     }
 
-    async OneUser(Id: string):Promise<User>{
+    async OneUser(Id: string):Promise<User | null>{
         return this.UserModel.findById({_id: Id});
     }
 
