@@ -32,9 +32,9 @@ import { MatListModule } from '@angular/material/list';
 import { ProfileDropdownComponent } from './shared/side-nav/profile-dropdown/profile-dropdown.component';
 import { StoryCardComponent } from './features/story/story-card/story-card.component';
 import { BackBtnComponent } from './shared/back-btn/back-btn.component';
-import { DummyRepo } from './../../../../libs/service/src/lib/Dummy/DummyRepo';
+import { DummyRepo } from './../../../../libs/services/src/lib/Dummy/DummyRepo';
 import { StoryBtnComponent } from './features/story/story-btn/story-btn.component';
-import { ConfigModule, UserClient } from '../../../../libs/service/src';
+import { ConfigModule, UserClient } from '../../../../libs/services/src';
 import { environment } from '../environments/environment';
 @NgModule({
   declarations: [

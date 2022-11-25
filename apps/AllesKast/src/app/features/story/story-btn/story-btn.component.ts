@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { DummyRepo } from '../../../../../../../libs/service/src/lib/Dummy/DummyRepo'
+import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/DummyRepo'
 @Component({
   selector: 'app-story-btn',
   templateUrl: './story-btn.component.html',

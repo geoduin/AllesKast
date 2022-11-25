@@ -3,8 +3,8 @@ import { Component, OnInit, } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, map } from 'rxjs';
 import { EditUserVM, IdentityUser } from '../../../../../../../libs/data/src';
-import { UserClient } from '../../../../../../../libs/service/src';
-import { DummyRepo } from '../../../../../../../libs/service/src/lib/Dummy/DummyRepo';
+import { UserClient } from '../../../../../../../libs/services/src';
+import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/DummyRepo';
 
 @Component({
   selector: 'app-user-edit',

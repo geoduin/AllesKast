@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserClient } from '../../../../../../../libs/service/src';
-import { DummyRepo } from '../../../../../../../libs/service/src/lib/Dummy/DummyRepo';
+import { UserClient } from '../../../../../../../libs/services/src';
+import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/DummyRepo';
 
 @Component({
   selector: 'User-DeleteButton',

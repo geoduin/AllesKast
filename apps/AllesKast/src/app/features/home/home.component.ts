@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IdentityUser, SiteUser, StoryDetail } from '../../../../../../libs/data/src';
-import { UserClient } from '../../../../../../libs/service/src';
-import { DummyRepo } from '../../../../../../libs/service/src/lib/Dummy/DummyRepo';
+import { UserClient } from '../../../../../../libs/services/src';
+import { DummyRepo } from '../../../../../../libs/services/src/lib/Dummy/DummyRepo';
 
 @Component({
   selector: 'app-home',
