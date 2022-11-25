@@ -10,14 +10,15 @@ import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/Dumm
 })
 export class UserListComponent implements OnInit {
 
-  UserList: SiteUser[] = [];
-
+  //UserList: SiteUser[] = [];
+  UserList: IdentityUser[] = [];
   constructor(private UserDb: DummyRepo, private userRepo: UserClient) { }
 
   ngOnInit(): void {
-    this.userRepo.GetAll().subscribe((list)=>{
+    /*this.userRepo.GetAll().subscribe((list)=>{
       this.UserList = list;
-    });
+    });*/
+    this.UserList = this.UserDb.GetAllDummyUsers();
   }
 
   TestButton(){

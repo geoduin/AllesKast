@@ -23,12 +23,14 @@ export class UserDeleteBtnComponent implements OnInit {
     try{
       //If user Id is present. Delete user
       if(this.Id){
-        this.userClient.DeleteOne(this.Id).subscribe((deleted)=>{
+        /*this.userClient.DeleteOne(this.Id).subscribe((deleted)=>{
           console.log(`Deletion of ${this.Id}`)
           //Returns to homepage
           this.router.navigate([".."]); 
         });
-        
+        */
+        this.Db.DeleteUser(this.Id);
+        this.router.navigate([".."]); 
       } else{
         console.error("No user found");
          //Returns to homepage

@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   
   StoryList:StoryDetail[] = []
   RecommendedList:StoryDetail[] = []
-  RecommendedUserList:SiteUser[] = []
+  RecommendedUserList:IdentityUser[] = []
 
   constructor(private dummyDb: DummyRepo, private userRepo: UserClient) {
   }
@@ -20,9 +20,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.StoryList = this.dummyDb.GetAllStories();
     this.RecommendedList = this.dummyDb.GetAllStories();
-    this.userRepo.GetAll().subscribe((UL)=>{
+    this.RecommendedUserList = this.dummyDb.GetAllDummyUsers();
+    /*this.userRepo.GetAll().subscribe((UL)=>{
       this.RecommendedUserList = UL;
-    });
+    });*/
   }
 
 }

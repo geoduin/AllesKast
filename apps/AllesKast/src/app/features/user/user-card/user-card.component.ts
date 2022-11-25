@@ -10,7 +10,8 @@ import { IdentityUser, SiteUser } from '../../../../../../../libs/data/src';
 export class UserCardComponent implements OnInit {
 
   @Input()
-  User: SiteUser | undefined
+  User: IdentityUser | undefined
+  //User: SiteUser | undefined
   
   constructor() { }
 
