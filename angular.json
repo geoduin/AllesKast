@@ -3,6 +3,7 @@
   "projects": {
     "AllesKast": "apps/AllesKast",
     "alles-api": "apps/alles-api",
+    "alles-kast-e2e": "apps/AllesKast-e2e",
     "data": "libs/data",
     "services": "libs/services",
     "shared-entities": "libs/shared/entities",
