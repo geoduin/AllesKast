@@ -48,8 +48,6 @@ jobs:
         npm run build alles-api --if-present
         npm run build --if-present
 
-    - run: |
-        zip node-app.zip .
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
@@ -67,12 +65,9 @@ jobs:
 
     steps:
     - name: Download artifact from build job
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: node-app
-    - run: |
-        unzip node-app.zip
-        rm node-app.zip
 
     - name: 'Deploy to Azure WebApp'
       id: deploy-to-webapp
