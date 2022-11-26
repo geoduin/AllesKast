@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "nx",
     "start": "nx serve",
+    "start-api": "nx serve alles-api" ,
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test": "nx test",
