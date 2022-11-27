@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { IdentityUser, SiteUser, StoryDetail } from '../../../../../../libs/data/src';
 import { UserClient } from '../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../libs/services/src/lib/Dummy/DummyRepo';
+import { DialogComponent } from '../../../../../../libs/ui/src/lib/dialog/dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +18,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private dummyDb: DummyRepo, private userRepo: UserClient) {
   }
+
 
   ngOnInit(): void {
     this.StoryList = this.dummyDb.GetAllStories();
