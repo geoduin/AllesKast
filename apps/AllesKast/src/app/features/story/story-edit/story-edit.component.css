@@ -51,3 +51,25 @@ input::file-selector-button:hover, .ImagePoster:hover {
     padding: 6px 1em 6px 1em;
     font-size: large;
 }
+
+.ImageSelector{
+    margin: 1em;
+    padding: 1em;
+    border-radius: 1pc;
+    background-color: #C5DFF6;
+    color: #0B4F8F;
+    border: #0B4F8F 1px solid;
+}
+
+.invalid-feedback{
+    margin: 1em;
+    padding: 1em;
+    border-radius: 1pc;
+    background-color: #eaa498;
+    color: #740000;
+    border: #740000 1px solid;
+}
+
+.invalid-input{
+    color: #740000;
+}

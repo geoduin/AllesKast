@@ -18,7 +18,11 @@ export class StoryEditComponent implements OnInit {
   NewStory!: IStory;
   Titel: string
   Warning: string = "";
-  constructor(private route: ActivatedRoute, private Router: Router, private Repo: DummyRepo, private client: StoryClient) { 
+  constructor(
+    private route: ActivatedRoute, 
+    private Router: Router, 
+    private Repo: DummyRepo, 
+    private client: StoryClient) { 
     this.Titel = "";
   }
 
@@ -85,6 +89,10 @@ export class StoryEditComponent implements OnInit {
     	try {
           if(this.NewStory.Thumbnail == undefined){
             this.Warning = "Afbeelding moet geupload zijn";
+            return;
+            //Bestands grootte zal gelimiteerd moeten worden. op 1MB
+          } else if(this.NewStory.Thumbnail.Base64Image.length > 5000000){
+            this.Warning = "Afbeelding is te groot. Afbeelding mag maximaal 5 MB groot zijn.";
             return;
           }
 
