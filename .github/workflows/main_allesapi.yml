@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - AllesApi
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
