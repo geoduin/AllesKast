@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, HttpException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { IdentityUser} from "data";
 import { isValidObjectId, Model} from "mongoose";
@@ -10,15 +10,14 @@ export class UserRepository{
         
     }
 
-    async Create(dto: User){
-        console.log(dto)
-        try {
-            const CreationResult = await this.UserModel.create(dto);
-            console.log(CreationResult);
-            return CreationResult;
-        } catch (error) {
-            return error;
-        }
+    async GetLoginUser(UserName: string):Promise<User | null>{
+        return this.UserModel.findOne({UserName: UserName});
+    }
+
+    async Create(dto: User):Promise<User| null>{
+        const CreationResult = await this.UserModel.create(dto);
+        console.log(CreationResult);
+        return CreationResult;
     }
 
     async All(): Promise<User[]>{

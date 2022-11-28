@@ -9,19 +9,6 @@ export class UserController{
 
     constructor(private repo: UserRepository){}
 
-    @Post()
-    async CreateUser(@Body() user: User){
-        try {
-            console.log("User api creation started");
-            console.log(user);
-            this.repo.Create(user);
-            return {message: "Creation succeeded"};
-        } catch (error:any) {
-            return {message: "Creation failed", ErrorMessage: error.message};
-        }
-       
-    }
-
     @Get()
     async AllUsers():Promise<User[]>{
         return this.repo.All();

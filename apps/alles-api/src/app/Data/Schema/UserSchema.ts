@@ -9,22 +9,22 @@ export type UserDocument = HydratedDocument<User>;
 @Schema()
 export class User{
     
-    @Prop({default: uuid, index: true})
+    @Prop({type: String , default: uuid, index: true})
     Id!: string;
 
-    @Prop({ required: true, unique: true, })
+    @Prop({type: String, required: true, unique: true, })
     UserName!: string;
     
-    @Prop({required: true})
+    @Prop({type: String, required: true})
     Password!: string;
     
-    @Prop({required: true})
+    @Prop({type: Date ,required: true})
     DateOfBirth!: Date;
     
-    @Prop({required: true, unique: true})
+    @Prop({type: String, required: true, unique: true})
     Email!: string;
     
-    @Prop()
+    @Prop({type: String,})
     Role!: string;
 
 }
