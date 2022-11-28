@@ -30,14 +30,11 @@ export class UserEditComponent implements OnInit {
         //Sets user on editable
         this.IsEdit = true;
         //Check if user does not edit if it closes the form
-        this.User = this.Db.FindOneUser(UserId);
         this.Pagina = "Wijziging gegevens van " + this.User?.UserName;
-        /*
         this.userClient.GetOne(UserId).subscribe((u)=>{
           this.User = u;
           this.Pagina = "Wijziging gegevens van " + this.User?.UserName;
         });
-        */
       } else{
         //Otherwise it will receive the registration form
         //Sets user on non-editable. Is used to differiate with the edit url. 
@@ -45,9 +42,8 @@ export class UserEditComponent implements OnInit {
         this.Pagina = "Registratieformulier"
 
         //Will be removed when interacting with a api.
-        const random = Math.random() * 100;
         this.User = {
-          _id: random.toFixed().toString(),
+          _id: "",
           UserName: "",
           DateOfBirth: new Date(),
           Role: "Student",
@@ -76,7 +72,7 @@ export class UserEditComponent implements OnInit {
   async RegisterUser(){
     try {
       this.Db.AddUser(this.User!);
-      /*const a = (await this.userClient.CreateOne({ _id: undefined, UserName: this.User?.UserName, Password: this.User?.Password, Email: this.User?.Email, Role: this.User?.Role, DateOfBirth: this.User?.DateOfBirth })).pipe(
+      const a = (await this.userClient.CreateOne({ _id: undefined, UserName: this.User?.UserName, Password: this.User?.Password, Email: this.User?.Email, Role: this.User?.Role, DateOfBirth: this.User?.DateOfBirth })).pipe(
         map((result) => {
           console.log(result);
           this.Db.AddUser(this.User!);
@@ -87,7 +83,7 @@ export class UserEditComponent implements OnInit {
           throw error;
         })
       )
-      const b = a.subscribe((waarde)=>{console.log(waarde)});*/
+      const b = a.subscribe((waarde)=>{console.log(waarde)});
     } catch (error) {
       console.error(error);
     }
@@ -98,11 +94,11 @@ export class UserEditComponent implements OnInit {
     try {
       this.Db.UpdateUser(this.User!);
       //Update commando naar de api.
-      /*this.userClient.UpdateOne(this.User?._id!, this.User as EditUserVM).subscribe((done) => {
+      this.userClient.UpdateOne(this.User?._id!, this.User as EditUserVM).subscribe((done) => {
         console.log("Wijziging voltooid");
         console.log(done);
         this.nav.navigate([".."]);
-      });*/
+      });
     } catch (error) {
       //Fail save als het toch een null waarde meestuurt.
       console.error(error);

@@ -1,22 +1,39 @@
 <div class="Login">
     
-    <form class="LoginForm  Shadow"  method="get">
+    <form class="LoginForm  Shadow" 
+    #loginForm="ngForm" 
+    name="loginForm" 
+    (ngSubmit)="onSubmit()"  
+    >
         <BackBtn></BackBtn>
         <p>
             <mat-form-field appearance="fill"  class="example-full-width">
                 <label for="UserName">Gebruikersnaam</label>
-                <input type="text" name="UserName" id="UserName" matInput class="InputField">
+                <input 
+                type="text" 
+                name="UserName" 
+                for="UserName"
+                [(ngModel)]='LoginForm!.UserName'
+                id="userField" 
+                matInput 
+                class="InputField">
             </mat-form-field>
         </p>
             
         <p>
             <mat-form-field appearance="fill"  class="example-full-width">
                 <label for="Password">Wachtwoord</label>
-                <input type="password" name="Password" id="Password" matInput  class="InputField">
+                <input 
+                type="password" 
+                name="Password"
+                for="Password" 
+                [(ngModel)]="LoginForm!.Password"
+                id="Passwordfield" 
+                matInput  class="InputField">
             </mat-form-field>
         </p>
         
-        <button mat-raised-button class="ImportantBtn" type="submit">Login</button>
+        <button mat-raised-button class="ImportantBtn">Login</button>
     </form>
 </div>
     

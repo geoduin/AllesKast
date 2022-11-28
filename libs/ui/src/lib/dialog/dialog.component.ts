@@ -8,11 +8,19 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class DialogComponent  {
   
+  Titel: string;
+
   @Output()
-  Event : EventEmitter<boolean> | undefined;
+  ConfirmationEvent = new EventEmitter<boolean>();
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {naam: string}) {
-    this.Event = new EventEmitter();
+    this.Titel = data.naam;
+  }
+
+  ConfirmAction(){
+    console.log("Dialog bevestigt");
+    this.ConfirmationEvent?.emit(false);
+    console.log("dialog is bevestigt");
   }
   
   

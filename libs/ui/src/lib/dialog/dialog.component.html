@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>Bevestig </h1>
+<h1 mat-dialog-title>Bevestig {{Titel}}</h1>
 
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="true">Annuleren</button>
-  <button mat-button [mat-dialog-close]="true">Bevestig</button>
+  <button mat-button [mat-dialog-close]="false">Annuleren</button>
+  <button mat-button [mat-dialog-close]="true" (click)="ConfirmAction()">Bevestig</button>
 </div>
