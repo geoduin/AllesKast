@@ -4,7 +4,7 @@
     
     <div class="row">
         <div class="col-3">
-            <img src="assets/staticImages/Placeholder Image.png" alt="Comic-Afbeelding" srcset="" height="450" width="300">
+            <img src="{{story!.Thumbnail?.Base64Image}}" alt="Comic-Afbeelding" srcset="" height="450" width="300">
             <div class="Edit buttons">
                 <div *ngIf="Editable$ | async">
                     <h3>Verhaalinstelling</h3>

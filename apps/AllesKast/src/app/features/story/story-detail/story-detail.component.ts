@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { StoryDetail } from '../../../../../../../libs/data/src';
@@ -22,7 +22,7 @@ export class StoryDetailComponent implements OnInit {
     private Db: DummyRepo, 
     private storyClient: StoryClient,
     private authService: AuthService) { }
-
+  
   async ngOnInit(): Promise<void> {
     this.route.paramMap.subscribe((param)=>{
         const UserId = param.get("StoryId");
