@@ -47,8 +47,10 @@ export class Story implements IStory{
 //Child entity of a story chapter array
 @Schema()
 export class Chapter implements IChapter {
+    
+    
     @Prop({default: uuid, index:true})
-    Id!: string
+    ChapterId!: string;
 
     @Prop({required:true})
     ChapterTitle!: string
@@ -58,14 +60,18 @@ export class Chapter implements IChapter {
 
     @Prop()
     ChapterNr!: number
+    
+    @Prop()
+    Ratings!: [{ UserId: string; Rating: number; }];
 }
 
 //Child and embedded object within story
 @Schema()
 export class Comments implements IComment{
+    
 
     @Prop({required: true})
-    ChapterId!: string;
+    StoryId!: string;
     
     @Prop({required: true})
     UserId!: string;
