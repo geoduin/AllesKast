@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { PrivateUser } from '../../../../../../../libs/data/src';
 import { AuthService } from '../../../../../../../libs/services/src';
 import { DialogComponent } from '../../../../../../../libs/ui/src/lib/dialog/dialog.component';
 
@@ -10,11 +12,18 @@ import { DialogComponent } from '../../../../../../../libs/ui/src/lib/dialog/dia
 })
 export class ProfileDropdownComponent implements OnInit {
   
-  LoggedIn: boolean | undefined
-  
-  constructor(private auth: AuthService, private dialog: MatDialog) { }
+  IsLoggedIn$: Observable<boolean>;
+  CurrentUser$: Observable<PrivateUser | undefined>;
+  constructor(private auth: AuthService, private dialog: MatDialog) { 
+    this.IsLoggedIn$ = new Observable<boolean>();
+    this.CurrentUser$ = new Observable<PrivateUser>();
+  }
 
   ngOnInit(): void {
+    this.IsLoggedIn$ = this.auth.IsLoggedIn$.asObservable();
+    this.CurrentUser$ = this.auth.CurrentUser$.asObservable();
+    console.log("Status login");
+    console.log(this.IsLoggedIn$);
   }
 
   OpenDialog(){
@@ -22,7 +31,10 @@ export class ProfileDropdownComponent implements OnInit {
   }
 
   LogOut(){
-    this.dialog.open(DialogComponent, {data: {naam: "Uitloggen"}}).afterClosed().subscribe((res)=>{
+    this.dialog
+    .open(DialogComponent, {data: {naam: "Uitloggen"}})
+    .afterClosed()
+    .subscribe((res)=>{
       console.log(res);
       if(res){
         console.log("Gebruiker is uitgelogd");

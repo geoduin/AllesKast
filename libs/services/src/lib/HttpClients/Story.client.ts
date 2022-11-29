@@ -8,7 +8,7 @@ import { EntityClientService } from "shared/entities";
 //import { EntityClientService } from "./../../../../shared/entities/src/lib/Entities/Entity.client";
 
 @Injectable({providedIn: "root"})
-export class StoryClient extends EntityClientService<IStory>{
+export class StoryClient extends EntityClientService<StoryDetail>{
     constructor(http: HttpClient, private WebRoutes: WebHttpService){
         super(http, WebRoutes.getApiEndPoint(), "/api/Stories");
         

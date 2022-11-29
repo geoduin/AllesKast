@@ -40,7 +40,7 @@ export class EntityClientService<T>{
             )
     }
 
-    CreateOne(NewStory: T, content: any):any{
+    CreateOne(NewStory: T, content: any){
         const url = this.ApiEndPoint  + this.EntityUrl;
         // will need to send it the token within header
         return this.http.post<T[]>(url, NewStory, {...this.headers})
@@ -55,8 +55,8 @@ export class EntityClientService<T>{
             )
     };
 
-    UpdateOne(Updated: T, content: any):any{
-        const url = this.ApiEndPoint  + this.EntityUrl;
+    UpdateOne(Id:string, Updated: T, content: any):any{
+        const url = this.ApiEndPoint  + this.EntityUrl + `/${Id}`;
         // will need to send it the token within header
         return this.http.put<T[]>(url, Updated, {...this.headers})
         .pipe(

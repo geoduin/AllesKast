@@ -67,8 +67,8 @@ import { HttpInterceptors } from './interceptors/HttpInterceptors';
     ConfigModule.ForRoot({apiEndpoint: environment.NestJSUrl}),
     LayoutModule,
   ],
-  providers: [DummyRepo, AuthService, UserClient],
+  providers: [DummyRepo, AuthService, UserClient, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptors, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-//{provide: HTTP_INTERCEPTORS, useClass: HttpInterceptors, multi: true}
+//

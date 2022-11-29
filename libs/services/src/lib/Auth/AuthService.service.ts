@@ -9,6 +9,8 @@ import { Router } from "@angular/router";;
 export class AuthService{
     //User to store during session
     public CurrentUser$ = new BehaviorSubject<PrivateUser | undefined>(undefined);
+    public IsLoggedIn$ = new BehaviorSubject<boolean>(false);
+
     public Key = "TokenKey";
     public UserKey = "UserKey";
     public LoginEndpoint = "/api/Profile/Login";
@@ -27,14 +29,34 @@ export class AuthService{
 
                     //Haal geupdated versie van de gebruiker op.
                     this.CurrentUser$.next(user);
+                    this.IsLoggedIn$.next(true);
                     return of(user);
                 } else{
+                    this.IsLoggedIn$.next(false);
                     console.warn("Geen gebruiker gevonden");
                     return of(undefined);
                 }
             })
         ).subscribe(()=>console.log("User login is begonnen"))
 
+    }
+
+    LoginStatus():boolean{
+        if(this.CurrentUser$.getValue()){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    GetDirectUser(): PrivateUser | undefined{
+        const User = localStorage.getItem(this.UserKey);
+        if(User){
+            return JSON.parse(User);
+        } else{
+            return undefined;
+        }
+        
     }
 
     GetUserFromLocalDb(): Observable<PrivateUser | undefined>{
@@ -87,6 +109,7 @@ export class AuthService{
                 this.StoreUserInLocalDb(User);
                 console.log(User);
                 this.routers.navigate(["/"]);
+                this.IsLoggedIn$.next(true);
                 console.log("Succesvol ingelogd");
             }),
             catchError((error)=>{
@@ -101,6 +124,7 @@ export class AuthService{
         this.RemoveToken();
         this.RemoveUserFromLDb();
         this.CurrentUser$.next(undefined);
+        this.IsLoggedIn$.next(false);
         this.routers.navigate(["/"]);
     }
 

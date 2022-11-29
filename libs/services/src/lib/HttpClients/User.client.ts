@@ -13,6 +13,7 @@ const httpOptions = {
 @Injectable({providedIn: "root"})
 export class UserClient{
     private readonly AllEndpoint = "/api/Users"
+    private readonly RegistrationEndpoint = "/api/Profile/Registration";
     private readonly headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
@@ -44,9 +45,9 @@ export class UserClient{
         )
     }
 
-    async CreateOne(newUser: IdentityUser){
-        const url = `${this.WebRoutes.getApiEndPoint()}${this.AllEndpoint}`;
-        return this.client.post<IdentityUser>(url, newUser).pipe(
+    CreateOne(newUser: IdentityUser): Observable<IdentityUser>{
+        const url = `${this.WebRoutes.getApiEndPoint()}${this.RegistrationEndpoint}`;
+        return this.client.post<EditUserVM>(url, newUser).pipe(
             map((res)=>{
                 return res;
             }),
