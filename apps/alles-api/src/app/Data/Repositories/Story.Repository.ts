@@ -42,4 +42,12 @@ export class StoryRepository implements IRepo<Story>{
         return this.Stories.find().exec();
     }
 
+    async InsertNewChapter():Promise<any>{
+        console.log("Chapter creation started");
+
+
+
+        
+    }
+
 }
