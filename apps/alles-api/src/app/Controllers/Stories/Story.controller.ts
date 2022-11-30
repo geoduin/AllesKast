@@ -82,16 +82,10 @@ export class StoryController{
         @Param("Id") Id: string){
         
         //Voeg hoofdstuk toe aan verhaal;
-        const updatedStory = await this.chapterRepo.AddChapterToStory(Id, Chapters);
+        const ChapterCreated = await this.chapterRepo.AddChapterToStory(Id, Chapters);
         console.log("Hoofdstuk is toegevoegd");
-        //Haal de laatste ingevoegde verhaal op.
-        const lastInsertedChapter = updatedStory?.ChapterList.pop();
-        
-        //Voeg de paginas toe in de database met het hoofdstukId
-        const PageResult = await this.chapterRepo.AddPages(lastInsertedChapter!.ChapterId, Pages);
-        console.log("Strippaginas zijn ingevoerd");
-
-        return {Result: 204 , Chapter: lastInsertedChapter, result: PageResult};
+        console.log(ChapterCreated);
+        return {status: 204, result: ChapterCreated};
     }
 
     @Delete(":Id/Chapters/:ChapterId")
@@ -103,11 +97,9 @@ export class StoryController{
         console.log("Deletion of chapter has began");
         //Zoek verhaal op en verwijder hoofdstuk.
         const UpdateResult = await this.chapterRepo.DeleteChapter(StoryId, ChapterId);
-        //Verwijder alle paginas
-        const pageDeletionResult = await  this.chapterRepo.DeletePages(StoryId);
         //Geef verhaal terug zonder dat hoofdstuk
         console.log("Deletion of chapter is succesfull deleted");
-        return {status: 200, result: UpdateResult, pageDeletion: pageDeletionResult};
+        return {status: 200, result: UpdateResult};
     }
 
     @Put(":Id/Chapters/:ChapterId")
@@ -126,7 +118,7 @@ export class StoryController{
             return {status: 201, result: result1};
     }
     
-    @Get(":Id/Chapters/:ChapterId/Pages")
+    @Get(":Id/Chapters/:ChapterId")
     async GetChapterPages( 
         @Param("Id") StoryId: string, 
         @Param("ChapterId") ChapterId: string,){

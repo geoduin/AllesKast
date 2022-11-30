@@ -6,6 +6,19 @@ import { v4 as uuid } from 'uuid';
 
 export type PageDocument = HydratedDocument<Page>;
 export type ChapterDocument = HydratedDocument<Chapter>;
+@Schema()
+export class Page implements IntfPage{
+
+    @Prop({default:uuid})
+    PageId!: string;
+
+    @Prop({required: true})
+    ImageName!: string;
+
+    @Prop({required: true})
+    ComicImage!: string;
+}
+export const PageSchema = SchemaFactory.createForClass(Page);
 
 @Schema()
 export class Chapter implements IChapter{
@@ -28,28 +41,11 @@ export class Chapter implements IChapter{
     @Prop()
     Ratings!: [{ UserId: string; Rating: number; }];
     
-    //Page array
-
-    /*@Prop({default:[]})
-    ComicPages!: Page[];*/
+    @Prop({required: true, type: Page})
+    Page!: Page
 }
 
 
-@Schema()
-export class Page implements IntfPage{
 
-    @Prop({default:uuid})
-    PageId!: string;
-
-    @Prop({required: true})
-    ChapterId!: string
-
-    @Prop({default: 0})
-    PageNr!: number;
-
-    @Prop({required: true})
-    ComicImage!: string;
-}
 
 export const ChapterSchema = SchemaFactory.createForClass(Chapter);
-export const PageSchema = SchemaFactory.createForClass(Page);

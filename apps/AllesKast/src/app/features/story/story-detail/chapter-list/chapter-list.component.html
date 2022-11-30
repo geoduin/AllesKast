@@ -2,7 +2,7 @@
     <mat-expansion-panel-header>
         <h3>Hoofdstukken</h3>
     </mat-expansion-panel-header>
-    <mat-expansion-panel hideToggle *ngFor="let Chapter of Story?.ChapterList;" class=" m-1">
+    <mat-expansion-panel hideToggle *ngFor="let Chapter of ChapterList;" class=" m-1">
         <mat-expansion-panel-header class="Expanded">
             <h3>{{Chapter.ChapterTitle}}</h3>
         </mat-expansion-panel-header>

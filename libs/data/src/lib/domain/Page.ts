@@ -24,11 +24,12 @@ export class ChapterPage implements IPage{
 }
 
 export interface IntfPage{
-    PageNr: number;
     ComicImage: string;
 }
 
+//Zal gebruikt worden bij het lezen van een hoofdstuk.
 export class ComicPage implements IntfPage{
+    PageId!:string;
     StoryId!: string;
     ChapterId!: string;
     PageNr!: number;

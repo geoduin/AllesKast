@@ -41,8 +41,7 @@ export class Story implements IStory{
     @Prop({default: []})
     Comments!: Reaction[]
 
-    @Prop({default: [], type: [ChapterSchema]})
-    ChapterList!: Chapter[]
+    ChapterList!: Chapter[] | undefined
 }
 //Child and embedded object within story
 @Schema()
@@ -68,11 +67,7 @@ export class Comments implements IComment{
 //export const ChapterSchema = SchemaFactory.createForClass(Chapter);
 export const StorySchema = SchemaFactory.createForClass(Story);
 
-const StoryChapterArraySchema = StorySchema.path('ChapterList') as MongooseSchema.Types.DocumentArray;
+StorySchema.path('ChapterList') as MongooseSchema.Types.DocumentArray;
 //registerStorySchema(StoryChapterArraySchema);
 export const CommentsSchema = SchemaFactory.createForClass(Comments);
 
-function registerStorySchema(StoryChapterArraySchema: MongooseSchema.Types.DocumentArray) {
-    StoryChapterArraySchema.discriminator("Titel", ChapterSchema);
-    throw new Error('Function not implemented.');
-}

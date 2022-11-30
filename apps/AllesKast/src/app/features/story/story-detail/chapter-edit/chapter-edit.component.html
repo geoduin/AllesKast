@@ -1,1 +1,29 @@
-<p>chapter-edit works!</p>
+
+<form action="" (click)="OnSubmit()">
+    <h1 *ngIf="Edit">Wijziging van hoofdstuk</h1>
+    <h1 *ngIf="!Edit">Aanmaken van hoofdstuk</h1>
+    <!--Titel hoofdstuk-->
+    <mat-form-field class="example-full-width" appearance="fill">
+        <label for="Titel">Titel hoofdstuk</label>
+        <input matInput required>
+    </mat-form-field>
+
+    <!--Hoofdstuk nummer-->
+    <mat-form-field class="example-full-width" appearance="fill">
+        <label for="HoofdstukNr">Titel hoofdstuk</label>
+        <input matInput required>
+    </mat-form-field>
+
+    <!--Pagina afbeeldingen input-->
+    <mat-form-field class="example-full-width" appearance="fill">
+
+    </mat-form-field>
+    <div class="imageForms">
+        
+    </div>
+
+</form>
+
+<div *ngIf="warning.length > 0" class="warning">
+    {{warning}}
+</div>

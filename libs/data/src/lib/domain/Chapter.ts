@@ -1,4 +1,4 @@
-import { ChapterPage } from "./Page"
+import { ChapterPage, IntfPage } from "./Page"
 
 //Abstract chapter interface
 export interface IChapter {
@@ -9,9 +9,13 @@ export interface IChapter {
     Ratings: [{
         UserId: string,
         Rating: number
-    }]
+    }] | undefined
 }
-
+//ChapterDTO
+export interface DTO {
+    Chapter: IChapter
+    Pages: IntfPage[]
+}
 //Chapter 
 export interface IFullChapter extends IChapter{
     _id: string;
