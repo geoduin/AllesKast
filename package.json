@@ -5,7 +5,7 @@
     "ng": "nx",
     "start": "node dist/apps/alles-api/main.js",
     "start-api": "nx serve alles-api",
-    "build": "npm build build:alles-api:prod",
+    "build": "npm run build:alles-api:prod",
     "buildApps": "npm run build:alles-kast:prod & npm run build:alles-api:prod",
     "build:alles-kast:prod": "npx nx build AllesKast --prod",
     "build:alles-api:prod": "npx nx build alles-api --prod",
