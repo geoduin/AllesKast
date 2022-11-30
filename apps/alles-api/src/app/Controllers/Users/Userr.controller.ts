@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { EditUserVM, IdentityUser } from "data";
 import { Error } from "mongoose";
+import * as Jwt from 'jsonwebtoken';
 import { UserRepository } from "../../Data/Repositories/User.Repository";
 import { User } from "../../Data/Schema/UserSchema";
 import * as Bcrypt from 'bcrypt';
@@ -9,6 +10,16 @@ import * as Bcrypt from 'bcrypt';
 export class UserController{
 
     constructor(private repo: UserRepository){}
+
+    @Get("Self")
+    async GetProfile(){
+        //Retrieve UserId from token.
+        //const token = header.get()
+        const Id = Jwt.verify("", process.env["JWT_KEY"]!);
+        console.log(Id);
+        const User = await this.repo.OneUser(Id as string);
+        return {status: 201, result: User}
+    }
 
     @Get()
     async AllUsers():Promise<User[]>{

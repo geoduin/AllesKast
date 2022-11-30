@@ -9,19 +9,20 @@ export type ChapterDocument = HydratedDocument<Chapter>;
 
 @Schema()
 export class Chapter implements IChapter{
+    
     @Prop({required:true})
     StoryId!:string;
 
-    @Prop({default:uuid})
+    @Prop({default:uuid, index: true})
     ChapterId!: string;
 
     @Prop({required:true})
     ChapterTitle!: string;
 
-    @Prop()
+    @Prop({default: new Date})
     PublishDate!: Date;
 
-    @Prop()
+    @Prop({default: 1})
     ChapterNr!: number;
 
     @Prop()
@@ -29,14 +30,21 @@ export class Chapter implements IChapter{
     
     //Page array
 
-    @Prop({default:[]})
-    ComicPages!: Page[];
+    /*@Prop({default:[]})
+    ComicPages!: Page[];*/
 }
 
 
-@Injectable()
+@Schema()
 export class Page implements IntfPage{
-    @Prop()
+
+    @Prop({default:uuid})
+    PageId!: string;
+
+    @Prop({required: true})
+    ChapterId!: string
+
+    @Prop({default: 0})
     PageNr!: number;
 
     @Prop({required: true})

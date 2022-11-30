@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import {HttpClient} from '@angular/common/http';
-import { IStory} from "data";
+import { IStory, StoryDetail} from "data";
 import { WebHttpService } from "../..";
 import { EntityClientService } from "shared/entities";
 //import { EntityClientService } from "./../../../../shared/entities/src/lib/Entities/Entity.client";

@@ -1,8 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
+import mongoose, { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 import { v4 as uuid } from 'uuid';
 import { GUser, IChapter, IComment, IStory, Reaction, SiteUser, Writer, ImageHolder, Image, ComicPage} from "data";
 import { User } from './UserSchema';
+import { Chapter, ChapterSchema } from './PageSchema';
 
 export type StoryDocument = HydratedDocument<Story>;
 //export type ChapterDocument = HydratedDocument<Chapter>;
@@ -40,31 +41,9 @@ export class Story implements IStory{
     @Prop({default: []})
     Comments!: Reaction[]
 
-    @Prop({default: []})
-    ChapterList!: string[]
+    @Prop({default: [], type: [ChapterSchema]})
+    ChapterList!: Chapter[]
 }
-
-//Child entity of a story chapter array
-/*@Schema()
-export class Chapter implements IChapter {
-    
-    
-    @Prop({default: uuid, index:true})
-    ChapterId!: string;
-
-    @Prop({required:true})
-    ChapterTitle!: string
-
-    @Prop({default: new Date()})
-    PublishDate!: Date
-
-    @Prop()
-    ChapterNr!: number
-    
-    @Prop()
-    Ratings!: [{ UserId: string; Rating: number; }];
-}
-*/
 //Child and embedded object within story
 @Schema()
 export class Comments implements IComment{
@@ -88,4 +67,12 @@ export class Comments implements IComment{
 }
 //export const ChapterSchema = SchemaFactory.createForClass(Chapter);
 export const StorySchema = SchemaFactory.createForClass(Story);
+
+const StoryChapterArraySchema = StorySchema.path('ChapterList') as MongooseSchema.Types.DocumentArray;
+//registerStorySchema(StoryChapterArraySchema);
 export const CommentsSchema = SchemaFactory.createForClass(Comments);
+
+function registerStorySchema(StoryChapterArraySchema: MongooseSchema.Types.DocumentArray) {
+    StoryChapterArraySchema.discriminator("Titel", ChapterSchema);
+    throw new Error('Function not implemented.');
+}
