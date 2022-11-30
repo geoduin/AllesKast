@@ -53,7 +53,7 @@ export class SiteUser implements GUser{
         this.Role;
     }
 
-    Follow: SiteUser[] = []
+    Follow: any[] = []
     FollowedStories: IStory[] = []
 }
 

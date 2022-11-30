@@ -5,7 +5,7 @@ import { GUser, IChapter, IComment, IStory, Reaction, SiteUser, Writer, ImageHol
 import { User } from './UserSchema';
 
 export type StoryDocument = HydratedDocument<Story>;
-export type ChapterDocument = HydratedDocument<Chapter>;
+//export type ChapterDocument = HydratedDocument<Chapter>;
 export type CommentSchema = HydratedDocument<Comments>;
 
 //Parent entity
@@ -41,14 +41,16 @@ export class Story implements IStory{
     Comments!: Reaction[]
 
     @Prop({default: []})
-    ChapterList!: Chapter[]
+    ChapterList!: string[]
 }
 
 //Child entity of a story chapter array
-@Schema()
+/*@Schema()
 export class Chapter implements IChapter {
+    
+    
     @Prop({default: uuid, index:true})
-    Id!: string
+    ChapterId!: string;
 
     @Prop({required:true})
     ChapterTitle!: string
@@ -58,14 +60,18 @@ export class Chapter implements IChapter {
 
     @Prop()
     ChapterNr!: number
+    
+    @Prop()
+    Ratings!: [{ UserId: string; Rating: number; }];
 }
-
+*/
 //Child and embedded object within story
 @Schema()
 export class Comments implements IComment{
+    
 
     @Prop({required: true})
-    ChapterId!: string;
+    StoryId!: string;
     
     @Prop({required: true})
     UserId!: string;
@@ -80,6 +86,6 @@ export class Comments implements IComment{
     Title!: string;
 
 }
-export const ChapterSchema = SchemaFactory.createForClass(Chapter);
+//export const ChapterSchema = SchemaFactory.createForClass(Chapter);
 export const StorySchema = SchemaFactory.createForClass(Story);
 export const CommentsSchema = SchemaFactory.createForClass(Comments);

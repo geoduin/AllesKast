@@ -11,7 +11,7 @@ export class StoryRepository implements IRepo<Story>{
     }
     async GetOne(Id: string): Promise<Story | null| unknown> {
         try {
-            return this.Stories.findById({_id: Id});
+            return this.Stories.findOne({StoryId: Id});
         } catch (error) {
             return null;
         }
@@ -26,20 +26,28 @@ export class StoryRepository implements IRepo<Story>{
     }
     async Update(Id: string, UpdatedElement: Partial<Story>): Promise<Story | null| unknown> {
         try {
-            return this.Stories.findByIdAndUpdate({_id: Id}, UpdatedElement, {new: true});
+            return this.Stories.findOneAndUpdate({StoryId: Id}, UpdatedElement, {new: true});
         } catch (error) {
             return error;
         }
     }
     async Delete(Id: string): Promise<boolean | unknown> {
         try {
-            return this.Stories.findByIdAndDelete({_id: Id});
+            return this.Stories.findOneAndDelete({StoryId: Id});
         } catch (error) {
             return false;
         }
     }
     async GetAll(): Promise<Story[]| unknown> {
         return this.Stories.find().exec();
+    }
+
+    async InsertNewChapter():Promise<any>{
+        console.log("Chapter creation started");
+
+
+
+        
     }
 
 }

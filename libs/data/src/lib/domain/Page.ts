@@ -24,8 +24,6 @@ export class ChapterPage implements IPage{
 }
 
 export interface IntfPage{
-    StoryId: string;
-    ChapterId: string;
     PageNr: number;
     ComicImage: string;
 }

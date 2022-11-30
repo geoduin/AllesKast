@@ -2,10 +2,14 @@ import { ChapterPage } from "./Page"
 
 //Abstract chapter interface
 export interface IChapter {
-    Id: string
+    ChapterId: string
     ChapterTitle:string
     PublishDate: Date
     ChapterNr: number
+    Ratings: [{
+        UserId: string,
+        Rating: number
+    }]
 }
 
 //Chapter 
@@ -20,7 +24,7 @@ export interface ChapterDetails extends IFullChapter{
 
 
 export class Chapter implements IChapter{
-    Id!: string
+    ChapterId!: string
     ChapterTitle:string
     PublishDate: Date
     ChapterNr: number
@@ -34,6 +38,7 @@ export class Chapter implements IChapter{
         this.ChapterNr = Chapter;
         this.PublishDate = new Date();
     }
+    Ratings!: [{ UserId: string; Rating: number }]
 
     AddPages(page: ChapterPage){
         this.ChapterPages.push(page);

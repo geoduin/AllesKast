@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IdentityUser, SiteUser, StoryDetail } from '../../../../../../libs/data/src';
-import { UserClient } from '../../../../../../libs/services/src';
+import { IdentityUser, IStory, SiteUser, StoryDetail } from '../../../../../../libs/data/src';
+import { StoryClient, UserClient } from '../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../libs/services/src/lib/Dummy/DummyRepo';
 import { DialogComponent } from '../../../../../../libs/ui/src/lib/dialog/dialog.component';
 
@@ -12,21 +12,23 @@ import { DialogComponent } from '../../../../../../libs/ui/src/lib/dialog/dialog
 })
 export class HomeComponent implements OnInit {
   
-  StoryList:StoryDetail[] = []
-  RecommendedList:StoryDetail[] = []
-  RecommendedUserList:IdentityUser[] = []
+  StoryList:StoryDetail[] | undefined | null;
+  RecommendedList:StoryDetail[] | undefined | null;
+  RecommendedUserList:SiteUser[] = []
 
-  constructor(private dummyDb: DummyRepo, private userRepo: UserClient) {
+  constructor(private dummyDb: DummyRepo, private userRepo: UserClient, private storyRepo: StoryClient) {
   }
 
 
   ngOnInit(): void {
-    this.StoryList = this.dummyDb.GetAllStories();
-    this.RecommendedList = this.dummyDb.GetAllStories();
-    this.RecommendedUserList = this.dummyDb.GetAllDummyUsers();
-    /*this.userRepo.GetAll().subscribe((UL)=>{
-      this.RecommendedUserList = UL;
-    });*/
+    this.storyRepo.GetAll({}).subscribe((list: StoryDetail[] | null | undefined)=>{
+      this.StoryList =  list?.slice(0, 5);
+      this.RecommendedList = list;
+    });
+    //this.RecommendedUserList = this.dummyDb.GetAllDummyUsers();
+    this.userRepo.GetAll().subscribe((UL: SiteUser[])=>{
+      this.RecommendedUserList = UL.slice(0, 6);
+    });
   }
 
 }

@@ -2,7 +2,7 @@
 <div class="EmptyList">
     <h1>Serielijst</h1>
     <div class="row" class="FlexBox">
-        <div *ngFor="let Story of StoryList;">
+        <div *ngFor="let Story of StoryList$ | async;">
             <app-story-card [Story]="Story"></app-story-card>
         </div>
     </div>

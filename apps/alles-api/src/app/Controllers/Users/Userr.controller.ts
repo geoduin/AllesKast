@@ -1,26 +1,14 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import { IdentityUser } from "data";
+import { EditUserVM, IdentityUser } from "data";
 import { Error } from "mongoose";
 import { UserRepository } from "../../Data/Repositories/User.Repository";
 import { User } from "../../Data/Schema/UserSchema";
+import * as Bcrypt from 'bcrypt';
 
 @Controller("Users")
 export class UserController{
 
     constructor(private repo: UserRepository){}
-
-    @Post()
-    async CreateUser(@Body() user: User){
-        try {
-            console.log("User api creation started");
-            console.log(user);
-            this.repo.Create(user);
-            return {message: "Creation succeeded"};
-        } catch (error:any) {
-            return {message: "Creation failed", ErrorMessage: error.message};
-        }
-       
-    }
 
     @Get()
     async AllUsers():Promise<User[]>{
@@ -44,11 +32,17 @@ export class UserController{
     }
 
     @Put(":Id")
-    async UpdateUser(@Param('Id') Id: string , @Body()user: Partial<IdentityUser>):Promise<any>{
+    async UpdateUser(@Param('Id') Id: string , @Body()user: Partial<EditUserVM>):Promise<any>{
         console.log("Update")
+        
+        //Check if user sends a new password.
+        if(user.PasswordConfirmation){
+            user.Password = await Bcrypt.hash(user.Password!, 12);
+        }
+
         console.log(user);
         try {
-            return this.repo.Update(Id, user);
+            return this.repo.Update(Id, user as IdentityUser);
         } catch (error) {
             return {message: "Update failed", Failed: user}
         }
@@ -57,6 +51,7 @@ export class UserController{
 
     @Delete(":Id")
     async DeleteUser(@Param("Id") Id: string):Promise<any>{
+        //Also a check if user is authorised to delete, update or edit own user.
         return this.repo.Delete(Id);
     }
 }

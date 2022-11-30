@@ -18,7 +18,7 @@ import { UserListComponent } from './features/user/user-list/user-list.component
 import { UserDetailComponent } from './features/user/user-detail/user-detail.component';
 import { UserEditComponent } from './features/user/user-edit/user-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserDeleteBtnComponent } from './features/user/user-delete-btn/user-delete-btn.component';
 import { UserCardComponent } from './features/user/user-card/user-card.component';
 import { SideNavComponent } from './shared/side-nav/side-nav.component';
@@ -28,9 +28,10 @@ import { StoryCardComponent } from './features/story/story-card/story-card.compo
 import { BackBtnComponent } from './shared/back-btn/back-btn.component';
 import { DummyRepo } from './../../../../libs/services/src/lib/Dummy/DummyRepo';
 import { StoryBtnComponent } from './features/story/story-btn/story-btn.component';
-import { ConfigModule, UserClient } from '../../../../libs/services/src';
+import { AuthService, ConfigModule, UserClient } from '../../../../libs/services/src';
 import { environment } from '../environments/environment';
 import { UiModule } from '../../../../libs/ui/src';
+import { HttpInterceptors } from './interceptors/HttpInterceptors';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,8 @@ import { UiModule } from '../../../../libs/ui/src';
     ConfigModule.ForRoot({apiEndpoint: environment.NestJSUrl}),
     LayoutModule,
   ],
-  providers: [DummyRepo, UserClient],
+  providers: [DummyRepo, AuthService, UserClient, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptors, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+//

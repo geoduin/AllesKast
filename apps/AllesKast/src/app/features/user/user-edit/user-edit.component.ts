@@ -3,7 +3,7 @@ import { Component, OnInit, } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, map } from 'rxjs';
 import { EditUserVM, IdentityUser } from '../../../../../../../libs/data/src';
-import { UserClient } from '../../../../../../../libs/services/src';
+import { AuthService, UserClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/DummyRepo';
 
 @Component({
@@ -16,10 +16,14 @@ export class UserEditComponent implements OnInit {
   //For the edit of the user
   Pagina: string = ""
   //user
-  User: IdentityUser | undefined | null;
-  EditVM : EditUserVM | undefined;
+  User: EditUserVM | undefined; 
   IsEdit:boolean = true;
-  constructor(private router: ActivatedRoute, private Db: DummyRepo, private nav: Router, private userClient: UserClient) { }
+  constructor(
+    private router: ActivatedRoute, 
+    private Db: DummyRepo, 
+    private nav: Router, 
+    private userClient: UserClient,
+    private authService: AuthService) { }
   
   ngOnInit(): void {
     //Loads in user to edit
@@ -30,14 +34,11 @@ export class UserEditComponent implements OnInit {
         //Sets user on editable
         this.IsEdit = true;
         //Check if user does not edit if it closes the form
-        this.User = this.Db.FindOneUser(UserId);
         this.Pagina = "Wijziging gegevens van " + this.User?.UserName;
-        /*
         this.userClient.GetOne(UserId).subscribe((u)=>{
-          this.User = u;
+          this.User = u as EditUserVM;
           this.Pagina = "Wijziging gegevens van " + this.User?.UserName;
         });
-        */
       } else{
         //Otherwise it will receive the registration form
         //Sets user on non-editable. Is used to differiate with the edit url. 
@@ -45,14 +46,15 @@ export class UserEditComponent implements OnInit {
         this.Pagina = "Registratieformulier"
 
         //Will be removed when interacting with a api.
-        const random = Math.random() * 100;
         this.User = {
-          _id: random.toFixed().toString(),
+          _id: undefined,
           UserName: "",
           DateOfBirth: new Date(),
           Role: "Student",
           Email: "",
-          Password: ""
+          Password: "",
+          PasswordConfirmation: "",
+          EditPassword: false
         }
       }
     })
@@ -76,7 +78,8 @@ export class UserEditComponent implements OnInit {
   async RegisterUser(){
     try {
       this.Db.AddUser(this.User!);
-      /*const a = (await this.userClient.CreateOne({ _id: undefined, UserName: this.User?.UserName, Password: this.User?.Password, Email: this.User?.Email, Role: this.User?.Role, DateOfBirth: this.User?.DateOfBirth })).pipe(
+      this.userClient.CreateOne(this.User!)
+      .pipe(
         map((result) => {
           console.log(result);
           this.Db.AddUser(this.User!);
@@ -86,8 +89,7 @@ export class UserEditComponent implements OnInit {
         catchError((error) => {
           throw error;
         })
-      )
-      const b = a.subscribe((waarde)=>{console.log(waarde)});*/
+      ).subscribe();
     } catch (error) {
       console.error(error);
     }
@@ -98,11 +100,11 @@ export class UserEditComponent implements OnInit {
     try {
       this.Db.UpdateUser(this.User!);
       //Update commando naar de api.
-      /*this.userClient.UpdateOne(this.User?._id!, this.User as EditUserVM).subscribe((done) => {
+      this.userClient.UpdateOne(this.User?._id!, this.User as EditUserVM).subscribe((done) => {
         console.log("Wijziging voltooid");
         console.log(done);
         this.nav.navigate([".."]);
-      });*/
+      });
     } catch (error) {
       //Fail save als het toch een null waarde meestuurt.
       console.error(error);

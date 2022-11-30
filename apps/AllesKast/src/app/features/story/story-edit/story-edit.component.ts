@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { map } from 'rxjs';
-import { GenreList, IStory, StoryDetail } from '../../../../../../../libs/data/src';
-import { StoryClient } from '../../../../../../../libs/services/src';
+import { GenreList, IStory, PrivateUser, StoryDetail, Writer } from '../../../../../../../libs/data/src';
+import { AuthService, StoryClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/DummyRepo';
 
 
@@ -22,7 +22,8 @@ export class StoryEditComponent implements OnInit {
     private route: ActivatedRoute, 
     private Router: Router, 
     private Repo: DummyRepo, 
-    private client: StoryClient) { 
+    private client: StoryClient,
+    private authService: AuthService) { 
     this.Titel = "";
   }
 
@@ -36,27 +37,27 @@ export class StoryEditComponent implements OnInit {
         //Database command to retrieve data from database;
         this.Titel = "Wijziging van verhaal";
         this.IsEdit = true;
-        this.NewStory = this.Repo.FindOneStory(this.Sign);
-        console.log(this.NewStory);
-        console.log("Verhaal wijzigen");
+        this.client.GetOne(this.Sign, {}).subscribe((story)=>{
+          if(story){
+            this.NewStory = story;
+          } else{
+            console.log("Verhaal is niet gevonden");
+            this.Router.navigate([".."]);
+          }
+        });
       } else{
         //Otherwise it will fill in a new form
+        const OwnWriter:Writer = this.authService.GetDirectUser() as Writer;
         this.Titel = "Verhaal aanmaakpagina";
         this.IsEdit = false
         let random = Math.random() * 120;
         this.NewStory = {
-          StoryId: "oojoj2342",
+          StoryId: undefined,
           Title: "",
           PublishDate: new Date(),
           StoryLine: "",
           Genres: "",
-          Writer: {
-            _id: "0001",
-            UserName: "Anon",
-            Email: "Anon@Example.com",
-            Role: "Regular",
-            DateOfBirth: new Date(),
-          },
+          Writer: OwnWriter,
           IsAdultOnly: false,
           Thumbnail: undefined,
         }
@@ -95,21 +96,28 @@ export class StoryEditComponent implements OnInit {
             this.Warning = "Afbeelding is te groot. Afbeelding mag maximaal 5 MB groot zijn.";
             return;
           }
-
-          if(!this.IsEdit){
-            this.Repo.AddStory(this.NewStory!);
-            console.log(this.Repo);
-            console.log("Nieuwe verhaal aanmaken.");
-            this.Router.navigate([".."]);
-          } else{
-            //Wijzigt verhaal, exclusief hoofdstukken.
-            this.Repo.Update(this.NewStory!);
-            console.log("Nieuwe verhaal aanmaken.");
-            this.Router.navigate([".."]);
-          }
+          //Wijzigt of voegt verhaal
+          this.IsEdit ? this.UpdateStory() :this.AddStory();
       } catch (error) {
         this.Router.navigate([".."]);
       }
   }
 
+
+  UpdateStory(): void{
+    //Wijzigt verhaal, exclusief hoofdstukken.
+    this.client.UpdateOne(this.NewStory.StoryId!, this.NewStory as StoryDetail, {})
+    .subscribe(()=>{
+      console.log("Nieuwe verhaal aanmaken.");
+      this.Router.navigate([".."]);
+    });
+  }
+
+  AddStory(): void{
+    this.client.CreateOne(this.NewStory as StoryDetail, {})
+            .subscribe((value)=>{
+              console.log("Nieuwe verhaal aanmaken.");
+              this.Router.navigate([".."]);
+            });
+  }
 }
