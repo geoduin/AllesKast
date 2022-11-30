@@ -12,8 +12,6 @@ import { RegistrationComponent } from './authentication/registration/registratio
 import { StoryListComponent } from './features/story/story-list/story-list.component';
 import { StoryDetailComponent } from './features/story/story-detail/story-detail.component';
 import { StoryEditComponent } from './features/story/story-edit/story-edit.component';
-import { ChapterListComponent } from './features/story/story-detail/chapter-list/chapter-list.component';
-import { ChapterEditComponent } from './features/story/story-detail/chapter-edit/chapter-edit.component';
 import { UserListComponent } from './features/user/user-list/user-list.component';
 import { UserDetailComponent } from './features/user/user-detail/user-detail.component';
 import { UserEditComponent } from './features/user/user-edit/user-edit.component';
@@ -28,10 +26,19 @@ import { StoryCardComponent } from './features/story/story-card/story-card.compo
 import { BackBtnComponent } from './shared/back-btn/back-btn.component';
 import { DummyRepo } from './../../../../libs/services/src/lib/Dummy/DummyRepo';
 import { StoryBtnComponent } from './features/story/story-btn/story-btn.component';
-import { AuthService, ConfigModule, UserClient } from '../../../../libs/services/src';
+import {
+  AuthService,
+  ConfigModule,
+  UserClient,
+} from '../../../../libs/services/src';
 import { environment } from '../environments/environment';
 import { UiModule } from '../../../../libs/ui/src';
 import { HttpInterceptors } from './interceptors/HttpInterceptors';
+import { DetailComponent } from './features/chapters/detail/detail.component';
+import { ChapterDeleteComponent } from './features/chapters/chapter-delete/chapter-delete.component';
+import { ChapterViewComponent } from './features/chapters/chapter-view/chapter-view.component';
+import { ChapterEditComponent } from './features/chapters/chapter-edit/chapter-edit.component';
+import { ChapterListComponent } from './features/chapters/chapter-list/chapter-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +61,9 @@ import { HttpInterceptors } from './interceptors/HttpInterceptors';
     StoryCardComponent,
     BackBtnComponent,
     StoryBtnComponent,
+    DetailComponent,
+    ChapterDeleteComponent,
+    ChapterViewComponent,
   ],
   imports: [
     UiModule,
@@ -64,10 +74,15 @@ import { HttpInterceptors } from './interceptors/HttpInterceptors';
     ReactiveFormsModule,
     HttpClientModule,
     UserDeleteBtnComponent,
-    ConfigModule.ForRoot({apiEndpoint: environment.NestJSUrl}),
+    ConfigModule.ForRoot({ apiEndpoint: environment.NestJSUrl }),
     LayoutModule,
   ],
-  providers: [DummyRepo, AuthService, UserClient, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptors, multi: true}],
+  providers: [
+    DummyRepo,
+    AuthService,
+    UserClient,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptors, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

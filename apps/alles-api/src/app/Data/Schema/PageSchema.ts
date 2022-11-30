@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { IChapter, IntfPage } from "data";
+import { ComicPage, IChapter, IntfPage } from "data";
 import { HydratedDocument } from "mongoose";
 import { v4 as uuid } from 'uuid';
 
 export type PageDocument = HydratedDocument<Page>;
 export type ChapterDocument = HydratedDocument<Chapter>;
 @Schema()
-export class Page implements IntfPage{
+export class Page implements ComicPage{
 
     @Prop({default:uuid})
     PageId!: string;

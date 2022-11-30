@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IChapter, StoryDetail } from '../../../../../../../../libs/data/src';
+import { IChapter, StoryDetail } from '../../../../../../../libs/data/src';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class ChapterListComponent implements OnInit {
 
   @Input()
   ChapterList: IChapter[] | undefined
-
+ 
   constructor() { }
 
   ngOnInit(): void {

@@ -34,7 +34,7 @@ export class UserDetailComponent implements OnInit {
 
           //As a example of followed story list
           this.DetailUser = new SiteUser(this.user!._id!, this.user!.UserName!, this.user!.DateOfBirth!, this.user!.Email!, this.user!.Role!);
-          this.DetailUser.FollowedStories = this.Db.GetAllStories();
+          //this.DetailUser.FollowedStories = this.Db.GetAllStories();
         });
       } else{
         console.log("Gebruiker niet gevonden");

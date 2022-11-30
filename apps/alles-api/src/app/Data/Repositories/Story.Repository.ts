@@ -34,6 +34,8 @@ export class StoryRepository implements IRepo<Story>{
     }
     async Delete(Id: string): Promise<boolean | unknown> {
         try {
+            //TODO Transacties schrijven voor het verwijderen van hoofdstukken bij de verwijdering van een verhaal.
+
             return this.Stories.findOneAndDelete({StoryId: Id});
         } catch (error) {
             return false;

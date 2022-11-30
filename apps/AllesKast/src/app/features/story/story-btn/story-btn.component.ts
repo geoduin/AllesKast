@@ -21,7 +21,7 @@ export class StoryBtnComponent {
       console.log(this.SId);
       console.warn("Verwijdering is  gestart");
       if(this.SId){
-        this.db.Delete(this.SId);
+        //this.db.Delete(this.SId);
         this.storyClient.Delete(this.SId, {}).subscribe(()=>{
           console.warn("Verwijdering is klaar");
           this.router.navigate([".."]);

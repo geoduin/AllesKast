@@ -29,9 +29,7 @@ export interface IntfPage{
 
 //Zal gebruikt worden bij het lezen van een hoofdstuk.
 export class ComicPage implements IntfPage{
-    PageId!:string;
-    StoryId!: string;
-    ChapterId!: string;
-    PageNr!: number;
+    PageId!:string | undefined;
+    ImageName!: string;
     ComicImage!: string;
 }

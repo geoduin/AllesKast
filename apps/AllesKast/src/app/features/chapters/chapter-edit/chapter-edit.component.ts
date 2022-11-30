@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
-import { IChapter, IntfPage } from '../../../../../../../../libs/data/src';
+import { ChapterDetails, ChapterPage, IChapter, IntfPage } from '../../../../../../../libs/data/src';
 
 @Component({
   selector: 'app-chapter-edit',
@@ -10,41 +10,45 @@ import { IChapter, IntfPage } from '../../../../../../../../libs/data/src';
 export class ChapterEditComponent implements OnInit {
 
   //To hold all pages.
-  ChapterForm: IChapter;
-  pageholder: Map<number, IntfPage>;
+  ChapterForm: ChapterDetails;
   warning: string;
   Edit: boolean;
 
   
   constructor(private route: ActivatedRoute, private router: Router) { 
-    this.pageholder = new Map();
     this.warning = "";
     this.Edit = false;
     this.ChapterForm = {
+      StoryId: "",
       ChapterTitle: "",
       ChapterId: "",
       ChapterNr: 0,
       PublishDate: new Date(),
-      Ratings: undefined
+      Ratings: undefined,
+      ChapterPage:{
+        ComicImage: "",
+        ImageName: "",
+        PageId: undefined,
+      }
     }
   }
 
-  AddImage(page: IntfPage){
-    this.pageholder.set(this.pageholder.size + 1, page);
-  }
+  PublishImage(event:any){
 
-  DeleteImage(key: number){
-    this.pageholder.delete(key);
   }
 
   ngOnInit(): void {
-  }
-  OnSubmit(){
-    if(this.pageholder.size < 1){
-      this.warning = "Een strip moet geupload zijn."
-      return;
-    } else {
+    console.log("Hoofdstuk wijziging in process");
+    this.route.params.subscribe((urlWaarden)=>{
+      //StoryId pakken
+
+      //Als er een storyID aanwezig is, Controleer of er een edit url aanwezig is.
+      //Niet, maak een nieuwe hoofdstuk aan, anders vul in de rest ter wijziging.
       
-    }
+    })
+  }
+
+  OnSubmit(){
+    console.log("Een nieuw hoofdstuk is geplaatst.")
   }
 }

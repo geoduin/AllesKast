@@ -16,14 +16,25 @@
 
     <!--Pagina afbeeldingen input-->
     <mat-form-field class="example-full-width" appearance="fill">
-
+        <input 
+        placeholder="Upload de thumbnail van je verhaal."
+        class="ImagePoster example-full-width" 
+        type="file"
+        id="file"
+        (change)="PublishImage($event)"
+        name="Thumbnail"
+        [(ngModel)]="ChapterForm!.ChapterPage"
+        #Thumbnail="ngModel"
+        required>
     </mat-form-field>
     <div class="imageForms">
         
     </div>
 
 </form>
-
+<pre>
+    {{ ChapterForm | json}}
+</pre>
 <div *ngIf="warning.length > 0" class="warning">
     {{warning}}
 </div>

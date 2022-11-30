@@ -1,8 +1,9 @@
-import { ChapterPage, IntfPage } from "./Page"
+import { ChapterPage, ComicPage, IntfPage } from "./Page"
 
 //Abstract chapter interface
 export interface IChapter {
     ChapterId: string
+    StoryId:string
     ChapterTitle:string
     PublishDate: Date
     ChapterNr: number
@@ -21,9 +22,9 @@ export interface IFullChapter extends IChapter{
     _id: string;
 }
 
-export interface ChapterDetails extends IFullChapter{
-    ChapterPage: ChapterPage | undefined
-    ChapterPages: ChapterPage[] | undefined
+export interface ChapterDetails extends IChapter{
+    ChapterPage: ComicPage | undefined
+    //ChapterPages: ChapterPage[] | undefined
 }
 
 
@@ -42,6 +43,7 @@ export class Chapter implements IChapter{
         this.ChapterNr = Chapter;
         this.PublishDate = new Date();
     }
+    StoryId!: string
     Ratings!: [{ UserId: string; Rating: number }]
 
     AddPages(page: ChapterPage){

@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './authentication/login/login.component';
 import { RegistrationComponent } from './authentication/registration/registration.component';
 import { AboutMeComponent } from './features/about-me/about-me.component';
+import { ChapterEditComponent } from './features/chapters/chapter-edit/chapter-edit.component';
+import { ChapterViewComponent } from './features/chapters/chapter-view/chapter-view.component';
 import { HomeComponent } from './features/home/home.component';
 import { StoryDetailComponent } from './features/story/story-detail/story-detail.component';
 import { StoryEditComponent } from './features/story/story-edit/story-edit.component';
@@ -26,8 +28,14 @@ const routes: Routes = [
   ]},
   {path: "Story", component: StoryListComponent}
   ,
+  {path: "Story/:StoryId/Chapter/Add", component: ChapterEditComponent},
   {path: "Story/Add", providers: [], component: StoryEditComponent},
-  {path: "Story/:StoryId/Detail", component: StoryDetailComponent},
+  {path: "Story/:StoryId", component: StoryDetailComponent, children: [
+    {path: "Chapter/Add", component: ChapterEditComponent},
+    {path: "Chapter/:ChapterId/Edit", component: ChapterEditComponent},
+    {path: "Chapter/:ChapterId/read", component: ChapterViewComponent}
+  ]},
+  {path: "Chapter/Add", component: ChapterEditComponent},
   {path: "Story/:StoryId/Edit", component: StoryEditComponent},
   {path: "AboutUs", component: AboutMeComponent},
   {path: "**", component: HomeComponent}
