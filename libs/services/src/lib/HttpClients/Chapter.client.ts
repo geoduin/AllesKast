@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ChapterDetails, IChapter } from "data";
 import { catchError, map, Observable } from "rxjs";
@@ -62,11 +62,15 @@ export class ChapterClient extends EntityClientService<ChapterDetails>{
         })
     }
 
-    All(StoryId: string, content: any): Observable<ChapterDetails[] | null> {
-        const Url = `${this.WebRoutes.getApiEndPoint()}${this.BaseEndpoint}/${StoryId}/${this.ExtraEndpoint}/${this.ExtraEndpoint}`
+    All(StoryId: string, content: any): Observable<any| null> {
+        const QParams = new HttpParams().set("WantImage", content.WantImage);
+        const params = {params: QParams};
+        const Url = `${this.WebRoutes.getApiEndPoint()}${this.BaseEndpoint}/${StoryId}${this.ExtraEndpoint}`
+        console.log(Url);
         return this.httpClient
-        .get<ChapterDetails[] | null>(Url, {...super.headers})
+        .get<IChapter | null>(Url,  {...QParams ,...super.headers})
         .pipe((waarde)=>{
+            console.log("Lijst")
             console.log(waarde);
             return waarde;
         })

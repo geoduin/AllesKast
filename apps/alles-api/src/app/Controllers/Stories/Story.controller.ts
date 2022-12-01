@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { IdentityUser } from "data";
 import * as Jwt from 'jsonwebtoken';
 import { ChapterRepository } from "../../Data/Repositories/Chapter.Repository";
@@ -128,6 +128,15 @@ export class StoryController{
             console.log(result);
             return {status: 201, result};
     }
+
+    @Get(":Id/Chapters")
+    async AllChaptersOfStory(@Param("Id") StoryId: string, @Query() queryParams: any){
+
+        console.log(queryParams.WantImage);
+        const result = await this.chapterRepo.GetAllChapters(StoryId, queryParams.WantImage);
+        return {status: 201, result};
+    }
+
 
     //TODO
     //Add, update and delete single page

@@ -1,0 +1,42 @@
+.blue{
+    background-color: #F0B624;
+}
+
+.Yellow{
+    background-color: #FCE19A;
+}
+
+.ComicScreen{
+    min-height: 100vh;
+}
+
+.controls{
+    min-height: 100vh;
+    text-align: center;
+}
+.ImageHolder{
+    width: 90%;
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px){
+    .controls{
+        min-height: 0vh;
+    }
+
+    .ImageHolder{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 968px) {
+    .controls{
+        min-height: 100vh;
+    }
+
+    .ImageHolder{
+        width: 100%;
+        text-align: center;
+    }
+}

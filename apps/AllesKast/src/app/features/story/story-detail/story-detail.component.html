@@ -35,7 +35,7 @@
                 <!--For loop door hoofdstukken-->
                 <h2>Hoofdstukken</h2><a *ngIf="Editable$ | async"  mat-button routerLink="Chapter/Add">Toevoegen</a>
                 
-                <app-chapter-list [ChapterList]="story!.ChapterList" [Story]="story!"></app-chapter-list>
+                <app-chapter-list [IsLoggedIn]="Editable$" [ChapterList]="story!.ChapterList" [Story]="story!"></app-chapter-list>
             </div>
             <div>
                 <h2>Comments</h2>

@@ -106,20 +106,7 @@ export class ChapterEditComponent implements OnInit {
   }
 
   OnSubmit(){
-    this.dialog.open(DialogComponent, {data:{naam: this.EditCreate} }).afterClosed().subscribe((value)=>{
-      
-      if(value){
-        //Als de afbeelding groter is dan 2 MB, dan wordt de hoofdstuk niet aangemaakt.
-        if(this.ChapterForm.ChapterPage!.ComicImage.length > 2200000){
-          this.Warning = "Afbeelding is te groot. Totale grootte mag niet groter zijn dan 15 MB."
-          return;
-        }
-        this.Edit ? this.Update(this.ChapterForm) : this.Create(this.ChapterForm) ;
-      } else{
-        console.log("Niets");
-      }
-    })
-    
+    this.Edit ? this.Update(this.ChapterForm) : this.Create(this.ChapterForm) ;
   }
 
   Create(form: ChapterDetails){

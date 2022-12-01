@@ -5,6 +5,7 @@ import { RegistrationComponent } from './authentication/registration/registratio
 import { AboutMeComponent } from './features/about-me/about-me.component';
 import { ChapterEditComponent } from './features/chapters/chapter-edit/chapter-edit.component';
 import { ChapterViewComponent } from './features/chapters/chapter-view/chapter-view.component';
+import { DetailComponent } from './features/chapters/detail/detail.component';
 import { HomeComponent } from './features/home/home.component';
 import { StoryDetailComponent } from './features/story/story-detail/story-detail.component';
 import { StoryEditComponent } from './features/story/story-edit/story-edit.component';
@@ -30,7 +31,9 @@ const routes: Routes = [
   ,
   {path: "Story/:StoryId/Chapter/Add", component: ChapterEditComponent},
   {path: "Story/:StoryId/Chapter/:ChapterId/Edit", component: ChapterEditComponent},
-  {path: "Story/:StoryId/Chapter/:ChapterId/read", component: ChapterViewComponent},
+  {path: "Story/:StoryId/Chapter/:ChapterId/Read", component: ChapterViewComponent, children: [
+    {path: ":ChapterId", component: DetailComponent}
+  ]},
   {path: "Story/Add", providers: [], component: StoryEditComponent},
   {path: "Story/:StoryId", component: StoryDetailComponent, children: [
     {path: "Chapter/Add", component: ChapterEditComponent},

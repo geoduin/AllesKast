@@ -7,8 +7,10 @@
             <h3>{{Chapter.ChapterTitle}}</h3>
         </mat-expansion-panel-header>
         Datum: {{Chapter.PublishDate}}<br/>
-        <button mat-raised-button class="ImportantBtn">Bekijk</button>
-        <a mat-raised-button class="RegularBtn" routerLink="Chapter/{{Chapter.ChapterId}}/Edit">Wijzig</a>
-        <app-chapter-delete [StoryId]="Chapter.StoryId" [ChapterId]="Chapter.ChapterId"></app-chapter-delete>
+        <button mat-raised-button class="ImportantBtn" routerLink="Chapter/{{Chapter.ChapterId}}/Read">Bekijk</button>
+        <span *ngIf="IsLoggedIn | async">
+            <a mat-raised-button class="RegularBtn" routerLink="Chapter/{{Chapter.ChapterId}}/Edit">Wijzig</a>
+            <app-chapter-delete [StoryId]="Chapter.StoryId" [ChapterId]="Chapter.ChapterId"></app-chapter-delete>
+        </span>
     </mat-expansion-panel>
 </mat-expansion-panel>

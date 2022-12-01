@@ -104,7 +104,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   [class*="col-"] {
     float: left;
-    padding: 10px;
   }
 
 

@@ -1,1 +1,30 @@
-<p>chapter-view works!</p>
+<div class="row">
+    <div class="col-2 controls blue">
+        <div class="back">
+            <BackBtn></BackBtn>
+        </div>
+        <div class="container Bordered">
+            <h4>Hoofdstukken</h4>
+            <mat-form-field appearance="fill">
+              <mat-label>{{CurrentChapter!.ChapterTitle}}</mat-label>
+              <mat-select>
+                <mat-option 
+                *ngFor="let chap of ChapterList" 
+                [value]="chap.ChapterTitle" 
+                routerLink="/Story/{{chap!.StoryId}}/Chapter/{{chap!.ChapterId}}/Read">
+                  {{chap.ChapterTitle}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>            
+        </div>
+    </div>
+    <div class="col-10 Yellow ComicScreen seventy-Five">
+        <div class="ImageHolder container">
+            <!--<router-outlet></router-outlet>-->
+
+            <img [src]="CurrentChapter!.ChapterPage.ComicImage" alt="StripAfbeelding" class="ImageHolder">
+
+            <!--Loading icon-->
+        </div>
+    </div>
+</div>

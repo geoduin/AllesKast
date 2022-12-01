@@ -74,4 +74,14 @@ export class ChapterRepository{
         const projection = {_id: 0, __v: 0};
         return await this.Chapters.findOne(filter, projection);
     }
+
+    async GetAllChapters(storyId:string, WantImage: number){
+        const filter = {StoryId: storyId};
+        let projection = {};
+        if(WantImage != 1){
+            projection = {ChapterPage: 0};
+        }
+        
+        return await this.Chapters.find(filter, projection);
+    }
 }

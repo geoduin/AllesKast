@@ -23,7 +23,7 @@ export interface IFullChapter extends IChapter{
 }
 
 export interface ChapterDetails extends IChapter{
-    ChapterPage: ComicPage | undefined
+    ChapterPage: ComicPage
     //ChapterPages: ChapterPage[] | undefined
 }
 

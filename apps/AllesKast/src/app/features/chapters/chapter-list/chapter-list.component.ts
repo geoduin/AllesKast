@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IChapter, StoryDetail } from '../../../../../../../libs/data/src';
 
 
@@ -8,6 +9,9 @@ import { IChapter, StoryDetail } from '../../../../../../../libs/data/src';
   styleUrls: ['./chapter-list.component.css']
 })
 export class ChapterListComponent implements OnInit {
+
+  @Input()
+  IsLoggedIn: Observable<boolean> | undefined
 
   @Input()
   Story: StoryDetail | undefined;
