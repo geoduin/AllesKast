@@ -38,8 +38,11 @@ export class ChapterDeleteComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     console.log("Unsub");
-    this.sub!.unsubscribe();
-    this.subDelete!.unsubscribe();
+    if(this.sub && this.subDelete){
+      this.sub.unsubscribe();
+      this.subDelete.unsubscribe();
+    }
+    
   }
   
 }

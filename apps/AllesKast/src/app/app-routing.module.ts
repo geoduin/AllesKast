@@ -23,23 +23,14 @@ const routes: Routes = [
   {path:"Users/:UserId", component: UserDetailComponent},
   {path:"Users/:UserId/Edit", component: UserEditComponent}
   ,
-  {path: "Home", component: HomeComponent, children:[
-    {path: "Story/:StoryId/Detail", pathMatch: 'full', component: StoryDetailComponent},
-    {path:"Users/:UserId", component: UserDetailComponent},
-  ]},
+  {path: "Home", component: HomeComponent},
   {path: "Story", component: StoryListComponent}
   ,
   {path: "Story/:StoryId/Chapter/Add", component: ChapterEditComponent},
   {path: "Story/:StoryId/Chapter/:ChapterId/Edit", component: ChapterEditComponent},
-  {path: "Story/:StoryId/Chapter/:ChapterId/Read", component: ChapterViewComponent, children: [
-    {path: ":ChapterId", component: DetailComponent}
-  ]},
+  {path: "Story/:StoryId/Chapter/:ChapterId/Read", component: ChapterViewComponent},
   {path: "Story/Add", providers: [], component: StoryEditComponent},
-  {path: "Story/:StoryId", component: StoryDetailComponent, children: [
-    {path: "Chapter/Add", component: ChapterEditComponent},
-    {path: "Chapter/:ChapterId/Edit", component: ChapterEditComponent},
-    {path: "Chapter/:ChapterId/read", component: ChapterViewComponent}
-  ]},
+  {path: "Story/:StoryId", component: StoryDetailComponent},
   {path: "Story/:StoryId/Edit", component: StoryEditComponent},
   {path: "AboutUs", component: AboutMeComponent},
   {path: "**", component: HomeComponent}
