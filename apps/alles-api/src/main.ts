@@ -5,8 +5,8 @@ import { NestFactory } from '@nestjs/core';
 import { json } from 'body-parser';
 
 import { AppModule } from './app/app.module';
-import { HttpFilter } from './app/Controllers/filters/http.filter';
-import { FallbackFilter } from './app/Controllers/filters/Fallback';
+import { HttpFilter } from './app/filters/http.filter';
+import { FallbackFilter } from './app/filters/Fallback';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

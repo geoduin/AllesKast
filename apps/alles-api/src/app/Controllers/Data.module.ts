@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { Chapter } from "data";
 import { AppController } from "../app.controller";
@@ -10,6 +10,7 @@ import { ChapterSchema, Page, PageSchema } from "../Data/Schema/PageSchema";
 import { Story, StorySchema } from "../Data/Schema/Story.Schema";
 import { User, UserSchema } from "../Data/Schema/UserSchema";
 import { AuthController } from "./Auth/Auth.controller";
+import { UserMiddleWare } from "../MiddleWare/User.middleware";
 import { StoryController } from "./Stories/Story.controller";
 import { UserController } from "./Users/Userr.controller";
 
@@ -33,4 +34,11 @@ import { UserController } from "./Users/Userr.controller";
     controllers: [AppController, UserController, AuthController, StoryController],
     providers: [AppService, UserRepository, StoryRepository, ChapterRepository],
   })
-export class DataModule {}
+export class DataModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(UserMiddleWare)
+    //.exclude("api/Users", "api/Users/:UserId")
+    .forRoutes(UserController)
+    
+  }
+}

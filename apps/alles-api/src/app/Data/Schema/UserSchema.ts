@@ -6,6 +6,8 @@ import { v4 as uuid } from 'uuid';
 
 export type UserDocument = HydratedDocument<User>;
 
+const roleTypes = ["Regular", "Admin", "Boss"]
+
 @Schema()
 export class User{
     
@@ -24,7 +26,7 @@ export class User{
     @Prop({type: String, required: true, unique: true})
     Email!: string;
     
-    @Prop({type: String,})
+    @Prop({type: String, default: "Regular"})
     Role!: string;
 
 }

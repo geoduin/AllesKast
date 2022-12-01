@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { EditUserVM, IdentityUser } from "data";
 import { Error } from "mongoose";
 import * as Jwt from 'jsonwebtoken';
 import { UserRepository } from "../../Data/Repositories/User.Repository";
 import { User } from "../../Data/Schema/UserSchema";
 import * as Bcrypt from 'bcrypt';
+import { AuthGuard } from "../../Guards/AuthGuard";
 
 @Controller("Users")
 export class UserController{
@@ -12,6 +13,7 @@ export class UserController{
     constructor(private repo: UserRepository){}
 
     @Get("Self")
+    @UseGuards(AuthGuard)
     async GetProfile(){
         //Retrieve UserId from token.
         //const token = header.get()

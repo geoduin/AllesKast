@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { environment } from '../environments/environment';
@@ -18,4 +18,4 @@ import { DataModule } from './Controllers/Data.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule{}
