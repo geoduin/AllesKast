@@ -30,8 +30,6 @@ export class StoryEditComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((param)=>{
       this.Sign = param.get("StoryId");
-      console.log(this.Sign);
-      
       //If storyid is present. It will fill the form with editable data.
       if(this.Sign){
         //Database command to retrieve data from database;
@@ -50,7 +48,6 @@ export class StoryEditComponent implements OnInit {
         const OwnWriter:Writer = this.authService.GetDirectUser() as Writer;
         this.Titel = "Verhaal aanmaakpagina";
         this.IsEdit = false
-        let random = Math.random() * 120;
         this.NewStory = {
           StoryId: undefined,
           Title: "",
@@ -72,12 +69,13 @@ export class StoryEditComponent implements OnInit {
       const imageFile: File = event.target.files[0]
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-      console.dir(event.target.files[0])
+      //console.dir(event.target.files[0])
       reader.onload = (event) => {
         // called once readAsDataURL is completed
         // set the image value to the Base64 string -> can be saved in dtb
         const image = reader.result as string;
-        console.log(image)
+        console.log("Length van afbeeldinge")
+        console.log(image.length);
         this.NewStory.Thumbnail = {
           ImageName: imageFile.name,
           Base64Image: image

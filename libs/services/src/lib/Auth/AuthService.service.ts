@@ -101,22 +101,31 @@ export class AuthService{
         console.log(`Login: ${LoginForm.UserName} en wachtwoord: ${LoginForm.Password}`);
         const url = this.webService.getApiEndPoint() + this.LoginEndpoint;
         console.log(url);
-        this.Client.post(url, LoginForm, {...this.headers}).pipe(
+
+        return this.Client.post(url, LoginForm, {...this.headers}).pipe(
             map((data: any)=>{ 
                 console.log("Login verliep succesvol");
-                const User = data.result;
-                this.StoreToken(data.Token);
-                this.StoreUserInLocalDb(User);
-                console.log(User);
-                this.routers.navigate(["/"]);
-                this.IsLoggedIn$.next(true);
-                console.log("Succesvol ingelogd");
+                console.log(data);
+                if(data.status == 200){
+                    const User = data.result;
+                    this.StoreToken(data.Token);
+                    this.StoreUserInLocalDb(User);
+                    this.CurrentUser$.next(User);
+                    console.log(User);
+                    this.routers.navigate(["/"]);
+                    this.IsLoggedIn$.next(true);
+                    console.log("Succesvol ingelogd");
+                    return true;
+                }else{
+                    console.log("Onjuiste gegevens ingevoerd");
+                    return false;
+                }
             }),
             catchError((error)=>{
                 console.log(error);
-                return of(undefined);
+                return error;
             })
-        ).subscribe();
+        );
     }
     
     //Uitloggen.

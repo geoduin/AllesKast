@@ -6,13 +6,34 @@ import { Chapter } from "../Schema/PageSchema";
 import { Story, StoryDocument } from "../Schema/Story.Schema";
 
 @Injectable()
-export class StoryRepository implements IRepo<Story>{
+export class StoryRepository{
 
     constructor(@InjectModel(Story.name) private Stories: Model<StoryDocument>){
     }
-    async GetOne(Id: string): Promise<Story | null| unknown> {
+    async GetOne(Id: string): Promise<Story | null| Story[]> {
         try {
-            return this.Stories.findOne({StoryId: Id});
+            const filter = {StoryId: Id};
+            const join = {
+                from: "chapters",
+                localField: "StoryId",
+                foreignField: "StoryId",
+                as: "ChapterList"
+            }
+            const result = this.Stories.aggregate(
+                [{
+                    $match: filter
+                },
+                {
+                    $lookup: join
+                },
+                {   $limit: 1 },
+                { $project: {"ChapterList.Page": 0}}
+                ]
+            )
+
+            console.log(result);
+            return result;
+            //return this.Stories.findOne(filter);
         } catch (error) {
             return null;
         }
@@ -42,7 +63,7 @@ export class StoryRepository implements IRepo<Story>{
         }
     }
     async GetAll(): Promise<Story[]| unknown> {
-        return this.Stories.find().exec();
+        return this.Stories.find({}, { Writer: 0, Comments: 0, ChapterList: 0, __v: 0}).exec();
     }
 
     async GetStoryPerUser(UserId: string){

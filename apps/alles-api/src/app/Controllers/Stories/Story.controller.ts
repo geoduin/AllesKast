@@ -43,9 +43,9 @@ export class StoryController{
     @Get(":Id")
     async OneStory(@Param('Id') Id: string):Promise<any>{
         try {
-            const result = await this.repo.GetOne(Id);
-            if(result){
-                return result;
+            const result = await this.repo.GetOne(Id) as Story[];
+            if(result[0]){
+                return result[0];
             } else{
                 return {message: "User not found"}
             }
@@ -80,7 +80,7 @@ export class StoryController{
         @Body("Pages") Pages: Page[],
         @Body("Page")Page: Page,
         @Param("Id") Id: string){
-        
+        console.log(Chapters);
         //Voeg hoofdstuk toe aan verhaal;
         const ChapterCreated = await this.chapterRepo.AddChapterToStory(Id, Chapters);
         console.log("Hoofdstuk is toegevoegd");
@@ -125,7 +125,7 @@ export class StoryController{
             console.log("Get chapterlist.");
             //Haalt alle paginas van een hoofdstuk op
             const result = await this.chapterRepo.GetChapterPages(StoryId, ChapterId);
-
+            console.log(result);
             return {status: 201, result};
     }
 

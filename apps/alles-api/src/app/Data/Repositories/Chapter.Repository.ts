@@ -13,7 +13,7 @@ export class ChapterRepository{
 
     async AddChapterToStory(Id:string, Chapter: Chapter){
         console.log("Chapter creation started");
-      
+        console.log(Chapter);
             const push = {$push: { ChapterList: Chapter } };
             const returnNew = {new: true};
             //Voegt een hoofdstuk toe in de hoofdstukken collectie.
@@ -52,8 +52,8 @@ export class ChapterRepository{
             { 
                 "ChapterTitle": updatedChapter.ChapterTitle,
                 "ChapterNr": updatedChapter.ChapterNr,
-                "Page.ImageName": updatedChapter.Page?.ImageName,
-                "Page.ComicImage": updatedChapter.Page?.ComicImage
+                "Page.ImageName": updatedChapter.ChapterPage?.ImageName,
+                "Page.ComicImage": updatedChapter.ChapterPage?.ComicImage
             } 
         }
         const UpdatedResult = {new: true};

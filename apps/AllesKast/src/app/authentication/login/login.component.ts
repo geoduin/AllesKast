@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginModel } from '../../../../../../libs/data/src';
 import { AuthService } from '../../../../../../libs/services/src';
 
@@ -7,11 +8,11 @@ import { AuthService } from '../../../../../../libs/services/src';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-
+export class LoginComponent implements OnInit, OnDestroy {
+  Warning: string
   LoginForm: LoginModel | undefined
-  constructor(private auth: AuthService) { 
-    
+  constructor(private auth: AuthService, private router: Router) { 
+    this.Warning = "";
   }
 
   ngOnInit(): void {
@@ -23,6 +24,19 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     console.log(this.auth.LoginEndpoint);
-    this.auth.Login(this.LoginForm!);
+    const result = this.auth.Login(this.LoginForm!).subscribe((waarde)=>{
+      if(waarde){
+        this.Warning = "";
+          this.router.navigate(["/"]);
+          console.log("Login succesfull");
+      } else{
+        console.log("Niet ingelogd");
+        this.Warning = "Onjuiste gegevens ingevoerd";
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+      
   }
 }

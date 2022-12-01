@@ -3,3 +3,4 @@ export * from './lib/HttpClients/User.client';
 export * from './lib/ConfigModules/WebHttp.service';
 export * from './lib/ConfigModules/WebHttp.module';
 export * from './lib/Auth/AuthService.service';
+export * from './lib/HttpClients/Chapter.client';

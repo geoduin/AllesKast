@@ -2,7 +2,7 @@ import { ChapterPage, ComicPage, IntfPage } from "./Page"
 
 //Abstract chapter interface
 export interface IChapter {
-    ChapterId: string
+    ChapterId: string | undefined
     StoryId:string
     ChapterTitle:string
     PublishDate: Date

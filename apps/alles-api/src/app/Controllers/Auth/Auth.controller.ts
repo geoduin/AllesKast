@@ -27,13 +27,13 @@ export class AuthController{
                     //Sign a token.
                     const Token = jwt.sign({Id: user.Id}, process.env["JWT_KEY"]!, {expiresIn: "1d"});
                     user.Password = undefined; 
-                    return {result: user, Token: Token};
+                    return {status: 200, result: user, Token: Token};
                 } else{
                     throw new Error("Onjuiste gegevens ingevoerd");
                 }  
             } 
         } catch (error: any) {
-            return {Status: 400, Message: "Retrieval failure", Error: error.message};
+            return {status: 400, Message: "Retrieval failure", Error: error.message};
         }
     }
 

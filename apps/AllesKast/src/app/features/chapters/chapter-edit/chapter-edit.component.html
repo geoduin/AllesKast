@@ -1,40 +1,64 @@
 
-<form action="" (click)="OnSubmit()">
+<form #ChapForm="ngForm" (ngSubmit)="OnSubmit()" novalidate>
     <h1 *ngIf="Edit">Wijziging van hoofdstuk</h1>
     <h1 *ngIf="!Edit">Aanmaken van hoofdstuk</h1>
-    <!--Titel hoofdstuk-->
-    <mat-form-field class="example-full-width" appearance="fill">
-        <label for="Titel">Titel hoofdstuk</label>
-        <input matInput required>
-    </mat-form-field>
+    <p>{{PageHolder.size}}</p>
 
     <!--Hoofdstuk nummer-->
     <mat-form-field class="example-full-width" appearance="fill">
         <label for="HoofdstukNr">Titel hoofdstuk</label>
-        <input matInput required>
-    </mat-form-field>
-
-    <!--Pagina afbeeldingen input-->
-    <mat-form-field class="example-full-width" appearance="fill">
         <input 
-        placeholder="Upload de thumbnail van je verhaal."
+        matInput 
+        placeholder="Voer hier de titel van je hoofdstuk in"
+        class="example-full-width" 
+        type="text"
+        id="Hoofdstuktitelveld"
+        name="TitelHoofdstuk"
+        [(ngModel)]="ChapterForm.ChapterTitle"
+        #Hoofdstuktitelveld="ngModel"
+        required>
+    </mat-form-field>
+    	<!--Titel hoofdstuk-->
+    <mat-form-field class="example-full-width" appearance="fill">
+        <label for="Titel">Hoofdstuknummer</label>
+        <input 
+        matInput 
+        placeholder="Voer de hoofdstuk nummer van je verhaal in"
+        class="example-full-width" 
+        type="number"
+        id="Hoofdstuknummerveld"
+        name="HoofdstukNr"
+        [(ngModel)]="ChapterForm.ChapterNr"
+        #Hoofdstuktitelveld="ngModel"
+        required>
+    </mat-form-field>
+    <!--Pagina afbeeldingen input-->
+        <input 
         class="ImagePoster example-full-width" 
         type="file"
         id="file"
         (change)="PublishImage($event)"
-        name="Thumbnail"
-        [(ngModel)]="ChapterForm!.ChapterPage"
-        #Thumbnail="ngModel"
-        required>
-    </mat-form-field>
+        name="Thumbnail">
     <div class="imageForms">
-        
+        <table>
+            <tr>
+                <th>Naam</th>
+                <th>Verwijderen?</th>
+            </tr>
+            <!--tr *ngFor="let i of PageList">
+                <td>sa</td>
+                <td>{{i}}</td>
+            </tr>-->
+        </table>
     </div>
-
+    <div class="col-10" *ngIf="Warning" class="invalid-feedback">
+        {{Warning}}
+    </div>
+    <button type="submit" mat-raised-button class="ImportantBtn" [disabled]="!ChapForm.valid">Bevestig</button>
 </form>
 <pre>
     {{ ChapterForm | json}}
 </pre>
-<div *ngIf="warning.length > 0" class="warning">
-    {{warning}}
+<div *ngIf="Warning.length > 0" class="warning">
+    {{Warning}}
 </div>

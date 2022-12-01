@@ -29,13 +29,14 @@ const routes: Routes = [
   {path: "Story", component: StoryListComponent}
   ,
   {path: "Story/:StoryId/Chapter/Add", component: ChapterEditComponent},
+  {path: "Story/:StoryId/Chapter/:ChapterId/Edit", component: ChapterEditComponent},
+  {path: "Story/:StoryId/Chapter/:ChapterId/read", component: ChapterViewComponent},
   {path: "Story/Add", providers: [], component: StoryEditComponent},
   {path: "Story/:StoryId", component: StoryDetailComponent, children: [
     {path: "Chapter/Add", component: ChapterEditComponent},
     {path: "Chapter/:ChapterId/Edit", component: ChapterEditComponent},
     {path: "Chapter/:ChapterId/read", component: ChapterViewComponent}
   ]},
-  {path: "Chapter/Add", component: ChapterEditComponent},
   {path: "Story/:StoryId/Edit", component: StoryEditComponent},
   {path: "AboutUs", component: AboutMeComponent},
   {path: "**", component: HomeComponent}

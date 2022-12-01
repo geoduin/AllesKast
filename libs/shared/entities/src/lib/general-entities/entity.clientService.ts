@@ -3,7 +3,7 @@ import { catchError, map, Observable, tap, throwError } from "rxjs";
 
 export class EntityClientService<T>{
 
-    private readonly headers = new HttpHeaders({
+    protected readonly headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
 
