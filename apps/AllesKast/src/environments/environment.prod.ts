@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  NestJSUrl:"http://localhost:3000",
+  NestJSUrl:"https://allesapi.azurewebsites.net",
   OtherAPIUrl: "http://localhost:3001"
 };
