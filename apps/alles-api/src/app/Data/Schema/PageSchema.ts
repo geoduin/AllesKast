@@ -44,8 +44,8 @@ export class Chapter implements ChapterDetails{
     @Prop({type: Page})
     ChapterPage!: Page
 
-    //@Prop({type: Page[]})
-    //PageList!: Page[]
+    //@Prop({type: Page[], default: []})
+    //ChapterPages!: Page[]
 }
 
 
