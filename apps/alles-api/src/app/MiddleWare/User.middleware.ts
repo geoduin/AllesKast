@@ -24,7 +24,6 @@ export class UserMiddleWare implements NestMiddleware{
             console.log("Error handling")
         }
         next();
-        throw new Error("Method not implemented.");
     }
 
 }
