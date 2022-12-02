@@ -2,15 +2,16 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/
 import { IdentityUser } from "data";
 import * as Jwt from 'jsonwebtoken';
 import { ChapterRepository } from "../../Data/Repositories/Chapter.Repository";
+import { CommentRepository } from "../../Data/Repositories/Comment.Repository";
 import { StoryRepository } from "../../Data/Repositories/Story.Repository";
 import { Chapter, Page } from "../../Data/Schema/PageSchema";
-import { Story } from "../../Data/Schema/Story.Schema";
+import { Comments, Story } from "../../Data/Schema/Story.Schema";
 import { User } from "../../Data/Schema/UserSchema";
 
 @Controller("Stories")
 export class StoryController{
 
-    constructor(private repo: StoryRepository, private chapterRepo: ChapterRepository){}
+    constructor(private repo: StoryRepository, private chapterRepo: ChapterRepository, private commentRepo: CommentRepository){}
 
 
     @Get("Self")
@@ -137,7 +138,41 @@ export class StoryController{
         return {status: 201, result};
     }
 
+    @Post(":Id/Comments")
+    async PostCommentOnStory(@Param("Id") StoryId: string, @Body() comment: Comments){
+        console.log(StoryId);
+        console.log(comment);
 
+        const result = await this.commentRepo.PostComment(StoryId, comment);
+        return { status: 201, result: result};
+    }
+
+    @Put(":Id/Comments/:CommentId")
+    async UpdateComment(@Param("Id") StoryId: string,@Param("CommentId") commentId: string, @Body() comment: Comments){
+        console.log(StoryId);
+        console.log(commentId);
+
+        const result = await this.commentRepo.UpdateComment(StoryId, commentId, comment);
+        return { status: 201, result: result};
+    }
+
+    @Delete(":Id/Comments/:CommentId")
+    async DeleteComment(@Param("Id") StoryId: string,@Param("CommentId") commentId: string){
+        console.log(StoryId);
+        console.log(commentId);
+
+        const result = await this.commentRepo.DeleteComment(StoryId, commentId);
+        return { status: 201, result: result};
+    }
+
+    @Get(":Id/Comments/:CommentId")
+    async GetComment(@Param("Id") StoryId: string,@Param("CommentId") commentId: string){
+        console.log(StoryId);
+        console.log(commentId);
+
+        const result = await this.commentRepo.GetOne(StoryId, commentId);
+        return { status: 201, result: result?.Comments[0]};
+    }
     //TODO
     //Add, update and delete single page
 }

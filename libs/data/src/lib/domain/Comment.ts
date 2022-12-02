@@ -1,6 +1,7 @@
 export interface IComment{
-    StoryId: string
+    CommentId: string | undefined
     UserId: string
+    Username: string
     Title: string
     Content: string
     PublishDate: Date

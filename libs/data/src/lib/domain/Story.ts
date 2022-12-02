@@ -1,5 +1,5 @@
 import { Chapter, IChapter } from "./Chapter"
-import { Reaction } from "./Comment"
+import { IComment, Reaction } from "./Comment"
 import { ImageHolder } from "./Image"
 import { GUser, SiteUser } from "./User"
 
@@ -21,6 +21,6 @@ export interface StoryDetail extends IStory{
     //Misschien een thumbnail.
     
     ChapterList: IChapter[]| undefined
-    CommentSection: Reaction[] | undefined
+    Comments: IComment[] | undefined
     Followers: GUser[] | undefined
 }

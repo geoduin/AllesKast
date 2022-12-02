@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Bevestig {{Titel}}</h1>
+
+<form #comForm="ngForm" novalidate>
+
+    <div>
+        <label  for="Naam" id="Naamveld">Gebruikersnaam</label>
+        <input name="Naam" [(ngModel)]="CommentForm.Username" for="NaamTitel" id="NaamTitel" readonly required disabled placeholder=" ">
+    </div>
+
+    <div>
+        <label  for="Date" id="Dateveld">Publicatiedatum</label>
+        <input name="Date" [(ngModel)]="CommentForm.PublishDate"  for="Date" id="DateTitel" readonly required disabled placeholder=" ">
+    </div>
+
+    <div>
+        <label  for="Titel" id="Titelveld">Titel</label>
+        <input name="Title" [(ngModel)]="CommentForm.Title" type="text" for="Titel" id="CommentTitel" required placeholder="Vul hier de titel van je comment">
+    </div>
+        
+    <div>
+
+        <label  for="Content" id="ContentVeld">Inhoud</label>
+        <textarea name="ContentV" [(ngModel)]="CommentForm.Content" type="text" for="Titel" id="CommentTitel" placeholder="Vul hier jouw comment in" required></textarea>
+    </div>
+</form>
+<pre>{{CommentForm | json}}</pre>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">Annuleren</button>
+  <button mat-button [mat-dialog-close]="true" (click)="SendComment()" [disabled]="!comForm.valid">Bevestig</button>
+</div>

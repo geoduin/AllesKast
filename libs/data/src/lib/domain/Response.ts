@@ -1,5 +1,5 @@
 export interface ResponseMessage{
-    Status: number
-    Message: string
-    Result: string | any
+    status: number
+    message: string
+    result: string | any
 }

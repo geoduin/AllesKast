@@ -4,3 +4,4 @@ export * from './lib/ConfigModules/WebHttp.service';
 export * from './lib/ConfigModules/WebHttp.module';
 export * from './lib/Auth/AuthService.service';
 export * from './lib/HttpClients/Chapter.client';
+export * from './lib/HttpClients/Comment.client';

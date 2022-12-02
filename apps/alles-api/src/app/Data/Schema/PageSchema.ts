@@ -51,4 +51,5 @@ export class Chapter implements ChapterDetails{
 
 
 
+
 export const ChapterSchema = SchemaFactory.createForClass(Chapter);

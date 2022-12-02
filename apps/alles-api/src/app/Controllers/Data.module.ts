@@ -13,6 +13,7 @@ import { AuthController } from "./Auth/Auth.controller";
 import { UserMiddleWare } from "../MiddleWare/User.middleware";
 import { StoryController } from "./Stories/Story.controller";
 import { UserController } from "./Users/Userr.controller";
+import { CommentRepository } from "../Data/Repositories/Comment.Repository";
 
 @Module({
     //Legt database connectie met de cloud database van mongodb.
@@ -32,7 +33,7 @@ import { UserController } from "./Users/Userr.controller";
       }
     ])],
     controllers: [AppController, UserController, AuthController, StoryController],
-    providers: [AppService, UserRepository, StoryRepository, ChapterRepository],
+    providers: [AppService, UserRepository, StoryRepository, ChapterRepository, CommentRepository],
   })
 export class DataModule implements NestModule{
   configure(consumer: MiddlewareConsumer) {

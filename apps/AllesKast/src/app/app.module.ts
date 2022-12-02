@@ -39,6 +39,9 @@ import { ChapterDeleteComponent } from './features/chapters/chapter-delete/chapt
 import { ChapterViewComponent } from './features/chapters/chapter-view/chapter-view.component';
 import { ChapterEditComponent } from './features/chapters/chapter-edit/chapter-edit.component';
 import { ChapterListComponent } from './features/chapters/chapter-list/chapter-list.component';
+import { CommentEditComponent } from './features/comments/comment-edit/comment-edit.component';
+import { CommentDeleteComponent } from './features/comments/comment-delete/comment-delete.component';
+import { CommentCardComponent } from './features/comments/comment-card/comment-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +67,9 @@ import { ChapterListComponent } from './features/chapters/chapter-list/chapter-l
     DetailComponent,
     ChapterDeleteComponent,
     ChapterViewComponent,
+    CommentEditComponent,
+    CommentDeleteComponent,
+    CommentCardComponent,
   ],
   imports: [
     UiModule,
