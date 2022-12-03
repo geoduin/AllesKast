@@ -24,7 +24,7 @@ jobs:
       run: npm run buildWeb
       
 
-    // deploy the application to netlify
+    # deploy the application to netlify
     - name: Deploy production to Netlify
       uses: South-Paw/action-netlify-deploy@v1.2.0
       with:
