@@ -1,30 +1,50 @@
-<h1 mat-dialog-title>Bevestig {{Titel}}</h1>
+<div class="DialogRing">
 
-<form #comForm="ngForm" novalidate>
-
-    <div>
-        <label  for="Naam" id="Naamveld">Gebruikersnaam</label>
-        <input name="Naam" [(ngModel)]="CommentForm.Username" for="NaamTitel" id="NaamTitel" readonly required disabled placeholder=" ">
-    </div>
-
-    <div>
-        <label  for="Date" id="Dateveld">Publicatiedatum</label>
-        <input name="Date" [(ngModel)]="CommentForm.PublishDate"  for="Date" id="DateTitel" readonly required disabled placeholder=" ">
-    </div>
-
-    <div>
-        <label  for="Titel" id="Titelveld">Titel</label>
-        <input name="Title" [(ngModel)]="CommentForm.Title" type="text" for="Titel" id="CommentTitel" required placeholder="Vul hier de titel van je comment">
-    </div>
+    <h1 mat-dialog-title>{{Titel}}</h1>
+    
+    <form #comForm="ngForm" novalidate>
         
-    <div>
-
-        <label  for="Content" id="ContentVeld">Inhoud</label>
-        <textarea name="ContentV" [(ngModel)]="CommentForm.Content" type="text" for="Titel" id="CommentTitel" placeholder="Vul hier jouw comment in" required></textarea>
+        <p>
+            <mat-form-field class="example-full-width">
+                <mat-label  for="Naam" id="Naamveld">Gebruikersnaam</mat-label>
+                <input  matInput name="Naam" [(ngModel)]="CommentForm.Username" for="NaamTitel" id="NaamTitel" readonly required disabled placeholder=" ">
+            </mat-form-field>  
+        </p>
+        <mat-form-field class="example-full-width">
+            <mat-label  for="Date" id="Dateveld">Publicatiedatum</mat-label>
+            <input matInput [matDatepicker]="picker" name="Date" [(ngModel)]="CommentForm.PublishDate"  for="Date" id="DateTitel" disabled required >
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            
+            <mat-datepicker #picker></mat-datepicker>
+            <!--<input matInput name="Date" [(ngModel)]="CommentForm.PublishDate"  for="Date" id="DateTitel" readonly required disabled placeholder=" ">-->
+        </mat-form-field>
+        <p>
+            <mat-form-field class="example-full-width">
+                <mat-label id="Titelveld">Titel</mat-label>
+                <input matInput name="Title" [(ngModel)]="CommentForm.Title" #Title="ngModel" type="text" for="Titel" id="CommentTitel" required placeholder="Vul hier de titel van je comment">
+                <div *ngIf="Title.invalid && Title.touched" class="invalid-input">
+                    <div *ngIf="Title.errors!['required']">
+                        Titel moet ingevuld zijn
+                    </div>
+                </div>
+            </mat-form-field>
+        </p>
+        
+        <p>
+            <mat-form-field class="example-full-width">
+                <mat-label  for="Content" id="ContentVeld">Inhoud</mat-label>
+                <textarea name="ContentV" matInput  [(ngModel)]="CommentForm.Content" #ContentV="ngModel" type="text" for="Titel" id="CommentTitel" placeholder="Vul hier jouw comment in" required></textarea>
+                <div *ngIf="ContentV.invalid && ContentV.touched" class="invalid-input">
+                    <div *ngIf="ContentV.errors!['required']">
+                        Er moet iets ingevuld zijn.
+                    </div>
+                </div>
+            </mat-form-field>
+        </p>
+    </form>
+    <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="false">Annuleren</button>
+        <button mat-button [mat-dialog-close]="true" (click)="SendComment()" [disabled]="!comForm.valid">Bevestig</button>
     </div>
-</form>
-<pre>{{CommentForm | json}}</pre>
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false">Annuleren</button>
-  <button mat-button [mat-dialog-close]="true" (click)="SendComment()" [disabled]="!comForm.valid">Bevestig</button>
 </div>
