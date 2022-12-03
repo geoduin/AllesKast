@@ -16,6 +16,12 @@ jobs:
         with:
           node-version: 18.x
 
+      - name: Installeer alle benodigde packages 
+        run: npm i
+
+      - name: Voer testen api uit
+        run: npm run testApi
+
       - name: Installeer Railway
         run: npm i -g @railway/cli
 
