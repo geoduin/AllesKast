@@ -1,7 +1,8 @@
 import { Injectable, NestMiddleware } from "@nestjs/common";
 import * as Jwt from 'jsonwebtoken';
+import { environment } from "../../environments/environment";
 
-const jwt = process.env["JWT_TOKEN"];
+const jwt:string = environment.Key;
 
 @Injectable()
 export class UserMiddleWare implements NestMiddleware{
