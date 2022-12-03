@@ -11,18 +11,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Use Node 18
+      - name: Gebruik nodejs 18
         uses: actions/setup-node@v1
         with:
           node-version: 18.x
 
-      - name: Install packages
-        run: npm i
-
-      - name: Voer testen api uit
-        run: npm run testApi
-
-      - name: Install Railway
+      - name: Installeer Railway
         run: npm i -g @railway/cli
 
       - name: Deploy naar railway
