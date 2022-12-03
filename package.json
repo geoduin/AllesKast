@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "nx",
     "start": "node dist/apps/alles-api/main.js",
+    "startWebApp": "nx serve",
     "start-api": "nx serve alles-api",
     "build": "npm run build:alles-api:prod",
     "buildApps": "npm run build:alles-kast:prod & npm run build:alles-api:prod",
