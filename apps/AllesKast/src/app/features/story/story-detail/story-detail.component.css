@@ -50,21 +50,6 @@ article{
     background-color: #355570;
 }
 
-.Comment{
-    background-color: white;
-    color: #355570;
-    margin-top: 1em;
-    margin-left: 5px;
-    width: 100%;
-}
-.Text-Center{
-    margin: 10px;
-}
-
-.Content{
-    padding: 1em;
-}
-
 .Hidden-Btn{
     z-index: 0;
 }
