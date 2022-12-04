@@ -42,6 +42,7 @@ import { ChapterListComponent } from './features/chapters/chapter-list/chapter-l
 import { CommentEditComponent } from './features/comments/comment-edit/comment-edit.component';
 import { CommentDeleteComponent } from './features/comments/comment-delete/comment-delete.component';
 import { CommentCardComponent } from './features/comments/comment-card/comment-card.component';
+import { CommentListComponent } from './features/comments/comment-list/comment-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,7 @@ import { CommentCardComponent } from './features/comments/comment-card/comment-c
     CommentEditComponent,
     CommentDeleteComponent,
     CommentCardComponent,
+    CommentListComponent,
   ],
   imports: [
     UiModule,

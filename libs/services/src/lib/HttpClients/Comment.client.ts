@@ -86,4 +86,20 @@ export class CommentClient extends EntityClientService<IComment>{
             catchError(this.handleError)
             )
     }
+
+    override GetAll(content: any): Observable<IComment[] | null> {
+        const StoryId = content.StoryId;
+        const Url = this.host + this.StoryEndpoint + `/${StoryId}${this.CommentEndpoint}`;
+        return this.httpClient.get(Url).pipe(
+            map((res)=>{
+                if(res){
+                    const r = res as unknown as ResponseMessage;
+                    return r.result;
+                } else{
+                    return of(null);
+                }
+            }),
+            catchError(this.handleError)
+        )
+    }
 }

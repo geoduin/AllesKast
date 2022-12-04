@@ -58,4 +58,13 @@ export class CommentRepository{
         return await this.Stories.findOneAndUpdate(filter, deleteCommand, projection);
 
     }
+
+    async AllComments(storyId: string){
+
+        const filter = {StoryId: storyId};
+        const projection = {"Comments": 1};
+        console.log("Deletion of user");
+        return await this.Stories.findOne(filter, projection);
+
+    }
 }

@@ -39,23 +39,7 @@
             </div>
             <div>
                 <h2>Comments</h2>
-                <button class="ImportantBtn" mat-raised-button (click)="MakeComment()">Reageer</button>
-                <div class="row FlexBox">
-                    <div  class="Comment Shadow" *ngFor="let comment of story?.Comments">
-                        <div class="Content">
-                            <h3 class="Text-Center">{{comment.Title}}</h3>
-                                <div class="Own content">
-            
-                                </div>
-                                <p class="m-1">Gebruiker: {{comment.UserId}}
-                                <br/>{{comment.Content}}
-                                <br/>{{comment.PublishDate!}}</p>
-                            <button mat-button class="Hidden-Btn" (click)="EditComment(comment.CommentId!)">Wijzig</button>
-                            <button mat-button class="Hidden-Btn"(click)="DeleteComment(comment.CommentId!)">Verwijderen</button>
-                        </div>        
-                    </div>
-                </div>
-                
+                <app-comment-list [StoryId]="StoryId"></app-comment-list>
             </div>
     </div>
     

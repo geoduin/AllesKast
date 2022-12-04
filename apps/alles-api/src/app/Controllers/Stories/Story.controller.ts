@@ -175,4 +175,12 @@ export class StoryController{
     }
     //TODO
     //Add, update and delete single page
+
+    @Get(":Id/Comments")
+    async AllComments(@Param("Id") StoryId: string){
+        console.log(StoryId);
+
+        const list = await this.commentRepo.AllComments(StoryId);
+        return { status: 201, result: list?.Comments};
+    }
 }
