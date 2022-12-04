@@ -38,6 +38,10 @@ export class CommentListComponent implements OnInit {
     
   }
 
+  Authorized(UserId: string): Observable<boolean>{
+    return this.authService.IsEditable(UserId);
+  }
+
   MakeComment(){
     if(!this.authService.IsLoggedIn$.getValue()){
       console.warn("Moet ingelogd zijn");

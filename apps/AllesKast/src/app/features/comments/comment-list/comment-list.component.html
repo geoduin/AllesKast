@@ -10,8 +10,10 @@
                                 <p class="m-1">Gebruiker: {{comment.UserId}}
                                 <br/>{{comment.Content}}
                                 <br/>{{comment.PublishDate!}}</p>
-                            <button mat-button class="Hidden-Btn" (click)="EditComment(comment.CommentId!)">Wijzig</button>
-                            <button mat-button class="Hidden-Btn"(click)="DeleteComment(comment.CommentId!)">Verwijderen</button>
+                                <span *ngIf="Authorized(comment.UserId) | async">
+                                    <button mat-button class="Hidden-Btn" (click)="EditComment(comment.CommentId!)">Wijzig</button>
+                                    <button mat-button class="Hidden-Btn"(click)="DeleteComment(comment.CommentId!)">Verwijderen</button>
+                                </span>
                         </div>        
                     </div>
                 </div>
