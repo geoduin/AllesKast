@@ -24,7 +24,7 @@ export class AboutMeComponent implements OnInit {
     },
     {
       Userstory:"Op basis van de leeslijst van mijn gevolgde gebruikers, wil ik graag een lijst van nieuwe aanbevelingen willen ontvangen, zodat ik de applicatie mij verhalen kan aanbieden die ik leuk vind.",
-      Acceptatiecriteria:"1. Een gebruiker krijgt een lijst van nog niet gevolgde verhalen te zien.",
+      Acceptatiecriteria:"1. Een gebruiker krijgt een lijst van nog niet gevolgde verhalen te zien, maar die andere volgers wel volgen.",
       Testmethode: "Cypress voor de e2e-testen"
     },
     {
