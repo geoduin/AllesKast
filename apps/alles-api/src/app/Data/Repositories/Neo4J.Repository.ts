@@ -1,8 +1,9 @@
 import { Injectable } from "@nestjs/common";
+import * as neo4j from 'neo4j-driver';
+import { auth, Driver } from "neo4j-driver-core";
 
 @Injectable()
 export class Neo4JFollowersRepository{
-
 
     async CreateUserNode(UserId: string, newContent: any){
         console.log("Node is going to be created");

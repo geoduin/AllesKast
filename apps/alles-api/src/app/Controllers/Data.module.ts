@@ -14,6 +14,8 @@ import { UserMiddleWare } from "../MiddleWare/User.middleware";
 import { StoryController } from "./Stories/Story.controller";
 import { UserController } from "./Users/Userr.controller";
 import { CommentRepository } from "../Data/Repositories/Comment.Repository";
+import { RecommendedStoryController } from "./Neo4JController/RCS.controller";
+import { Neo4JFollowersRepository } from "../Data/Repositories/Neo4J.Repository";
 
 @Module({
     //Legt database connectie met de cloud database van mongodb.
@@ -32,8 +34,8 @@ import { CommentRepository } from "../Data/Repositories/Comment.Repository";
         name: Page.name, schema: PageSchema
       }
     ])],
-    controllers: [AppController, UserController, AuthController, StoryController],
-    providers: [AppService, UserRepository, StoryRepository, ChapterRepository, CommentRepository],
+    controllers: [AppController, UserController, AuthController, StoryController, RecommendedStoryController],
+    providers: [AppService, UserRepository, StoryRepository, ChapterRepository, CommentRepository, Neo4JFollowersRepository],
   })
 export class DataModule implements NestModule{
   configure(consumer: MiddlewareConsumer) {

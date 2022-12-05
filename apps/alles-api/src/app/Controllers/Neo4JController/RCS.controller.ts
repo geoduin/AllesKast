@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Param, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Put } from "@nestjs/common";
 import { ResponseMessage } from "data";
 import { Neo4JFollowersRepository } from "../../Data/Repositories/Neo4J.Repository";
 
@@ -8,6 +8,14 @@ export class RecommendedStoryController{
 
     constructor(private neo4jRepo: Neo4JFollowersRepository){}
     
+    @Get("neo")
+    async Test(@Body("Content") body: any){
+
+        const result = await this.neo4jRepo.CreateUserNode("1234", body);
+        
+        return {message: "Hello", result};
+    }
+
     @Get("Stories")
     async GetRecommendations(): Promise<ResponseMessage>{
         console.log("Get recommendations");
