@@ -12,8 +12,9 @@ export class Neo4JFollowersRepository{
     }
 
     async CreateUserNode(UserId: string, NewContent: any){
-        const params = {IdParams: UserId, nameParams: NewContent.UserName, dateOfBirthParams: NewContent.DateOfBirth};
-        const result = await this.service.singleWrite('CREATE (u:User {UserId: $IdParams, UserName: $nameParams})', params);
+        const params = {IdParams: UserId, nameParams: NewContent.UserName, UserBirth: NewContent.DateOfBirth};
+        const query = 'CREATE (u:User {UserId: $IdParams, UserName: $nameParams, DateOfBirth = date($UserBirth)}) RETURN u';
+        const result = await this.service.singleWrite(query, params);
         /*const query = `
         MERGE (u:User {UserId: $IdParams, UserName: $nameParams})
         MERGE (s:Story {StoryId: $IdStoryParams, Title: $TitleParams } )
@@ -25,10 +26,10 @@ export class Neo4JFollowersRepository{
 
     async UpdateUserNode(UserId: string, NewContent: any){
         //Parameters setup
-        const params = {IdParams: UserId, nameParams: NewContent.UserName, dateOfBirthParams: NewContent.DateOfBirth};
+        const params = {IdParams: UserId, nameParams: NewContent.UserName, UserBirth: NewContent.DateOfBirth};
 
         //Update query.
-        const query = 'MATCH (u:User{UserId: $IdParams}) SET u.UserName = $nameParams RETURN u'
+        const query = 'MATCH (u:User{UserId: $IdParams}) SET u.UserName = $nameParams, u.DateOfBirth = date($UserBirth) RETURN u'
 
         //Performing read operation
         const result = await this.service.singleWrite(query,params)
@@ -62,11 +63,19 @@ export class Neo4JFollowersRepository{
             nameParams: NewContent.Title, 
             GenreParams: NewContent.Genre, 
             WriterIdParams: NewContent.TargetUserId, 
-            WriterNameParams: NewContent.UserName
+            WriterNameParams: NewContent.UserName,
+            WriterBirth: NewContent.DateOfBirth
         };
         
-        const query = ` MERGE (s:Story {StoryId: $IdParams, Title: $nameParams, Genre: $GenreParams } )
-                        MERGE (u:User {UserId: $WriterIdParams, UserName: $WriterNameParams})
+        const query = ` MERGE (s:Story {
+            StoryId: $IdParams, 
+            Title: $nameParams, 
+            Genre: $GenreParams } )
+                        MERGE (u:User {
+                            UserId: $WriterIdParams, 
+                            UserName: $WriterNameParams,
+                            DateOfBirth: date($WriterBirth)
+                        })
                         MERGE (u)-[:WRITTEN ]->(s) 
                         RETURN u, s`
         
