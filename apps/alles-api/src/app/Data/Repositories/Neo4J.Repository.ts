@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import * as neo4j from 'neo4j-driver';
 import { auth, Driver } from "neo4j-driver-core";
+import { neoStoryDto, neoStoryDtoPartial } from "../dto/neo4Story";
+import { UserDto } from "../dto/neo4User";
 import { Neo4jService } from "../Neo4J/neo4j.service";
 
 @Injectable()
@@ -11,7 +13,7 @@ export class Neo4JFollowersRepository{
 
     }
 
-    async CreateUserNode(UserId: string, NewContent: any){
+    async CreateUserNode(UserId: string, NewContent: UserDto){
         const params = {IdParams: UserId, nameParams: NewContent.UserName, UserBirth: NewContent.DateOfBirth};
         const query = 'CREATE (u:User {UserId: $IdParams, UserName: $nameParams, DateOfBirth = date($UserBirth)}) RETURN u';
         const result = await this.service.singleWrite(query, params);
@@ -24,7 +26,7 @@ export class Neo4JFollowersRepository{
         return result;
     }
 
-    async UpdateUserNode(UserId: string, NewContent: any){
+    async UpdateUserNode(UserId: string, NewContent: UserDto){
         //Parameters setup
         const params = {IdParams: UserId, nameParams: NewContent.UserName, UserBirth: NewContent.DateOfBirth};
 
@@ -40,7 +42,7 @@ export class Neo4JFollowersRepository{
         return result;
     }
 
-    async DeleteUserNode(UserId: string, newContent: any){
+    async DeleteUserNode(UserId: string){
 
         //Parameters setup
         const params = {IdParams: UserId};
@@ -57,14 +59,14 @@ export class Neo4JFollowersRepository{
         
     }
 
-    async CreateStoryNode(StoryId: string, NewContent:any){
+    async CreateStoryNode(StoryId: string, NewContent:neoStoryDto){
         const params = {
             IdParams: StoryId, 
             nameParams: NewContent.Title, 
             GenreParams: NewContent.Genre, 
-            WriterIdParams: NewContent.TargetUserId, 
-            WriterNameParams: NewContent.UserName,
-            WriterBirth: NewContent.DateOfBirth
+            WriterIdParams: NewContent.Writer._id, 
+            WriterNameParams: NewContent.Writer.UserName,
+            WriterBirth: NewContent.Writer.DateOfBirth
         };
         
         const query = ` MERGE (s:Story {
@@ -85,7 +87,7 @@ export class Neo4JFollowersRepository{
         return result;
     }
 
-    async DeleteStoryNode(StoryId: string, newContent: any){
+    async DeleteStoryNode(StoryId: string){
         //Parameters setup
         const params = {IdParams: StoryId};
 
@@ -97,7 +99,7 @@ export class Neo4JFollowersRepository{
         return res;
     }
 
-    async UpdateStoryNode(StoryId: string, NewContent: any){
+    async UpdateStoryNode(StoryId: string, NewContent: neoStoryDtoPartial){
         //Parameters setup
         const params = {
             IdParams: StoryId, 
