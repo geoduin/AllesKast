@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import * as neo4j from 'neo4j-driver';
 import { auth, Driver } from "neo4j-driver-core";
 import { neoStoryDto, neoStoryDtoPartial } from "../dto/neo4Story";
@@ -128,30 +128,35 @@ export class Neo4JFollowersRepository{
     }
 
     async FollowUser(YourUserId: string, TargetUserId: string){
-        const params = { 
-            YourParams: YourUserId,
-            TargetParams: TargetUserId
+        try {
+            const params = { 
+                YourParams: YourUserId,
+                TargetParams: TargetUserId
+            }
+            
+            /* RESERVE QUERY IN HET GEVAL DAT ER WEINIG TIJD OVER IS.
+            
+            const reserveQuery = ` 
+            
+            MERGE (u:User {UserId: $YourParams} )
+            MERGE (t:User {UserId: $TargetParams})
+            MERGE (u)-[:FOLLOWS_USER ]->(t) 
+            RETURN u, s`*/
+            
+            const Query = `
+            MERGE(u: User {UserId: $YourParams})
+            MERGE(t: User {UserId: $TargetParams}) 
+            MERGE (u)-[f:FOLLOWS_USER]->(t)
+            RETURN u, t, f `
+    
+            const result = await this.service.singleWrite(Query, params);
+            console.log(`User with Id: ${YourUserId} follows User with Id: ${TargetUserId}`);
+            
+            return result;
+        } catch (error) {
+            throw new BadRequestException("Een server fout in de database, vondt plaats. Probeer het later nog eens");
         }
         
-        /* RESERVE QUERY IN HET GEVAL DAT ER WEINIG TIJD OVER IS.
-        
-        const reserveQuery = ` 
-        
-        MERGE (u:User {UserId: $YourParams} )
-        MERGE (t:User {UserId: $TargetParams})
-        MERGE (u)-[:FOLLOWS_USER ]->(t) 
-        RETURN u, s`*/
-        
-        const Query = `
-        MATCH(u: User {UserId: $YourParams})
-        MATCH(t: User {UserId: $TargetParams}) 
-        CREATE (u)-[f:FOLLOWS_USER]->(t)
-        RETURN u, t, f `
-
-        const result = await this.service.singleWrite(Query, params);
-        console.log(`User with Id: ${YourUserId} follows User with Id: ${TargetUserId}`);
-        
-        return result;
     }
 
     async UnFollowUser(YourUserId: string, TargetUserId: string){
@@ -196,8 +201,8 @@ export class Neo4JFollowersRepository{
         RETURN u, s`*/
         
         const Query = `
-        MATCH(u: User {UserId: $YourParams})
-        MATCH(t: Story {StoryId: $TargetParams})
+        MERGE(u: User {UserId: $YourParams})
+        MERGE(t: Story {StoryId: $TargetParams})
         MERGE (u)-[f:SUBSCRIBES_TO]->(t)
         RETURN u, t, f `
 

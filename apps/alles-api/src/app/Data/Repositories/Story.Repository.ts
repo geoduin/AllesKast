@@ -41,13 +41,17 @@ export class StoryRepository{
     async Create(object: Story): Promise<unknown| unknown> {
        try {
         console.log(object);
-         return this.Stories.create(object);
+        //Voer wijzigingen door in neo4j.
+        //Voer wijzigingen in database.
+        return this.Stories.create(object);
        } catch (error) {
         return error;
        }
     }
     async Update(Id: string, UpdatedElement: Partial<Story>): Promise<Story | null| unknown> {
         try {
+            //Voer wijzigingen door in neo4j.
+            //Voer wijzigingen in database.
             return this.Stories.findOneAndUpdate({StoryId: Id}, UpdatedElement, {new: true});
         } catch (error) {
             return error;
@@ -56,7 +60,11 @@ export class StoryRepository{
     async Delete(Id: string): Promise<boolean | unknown> {
         try {
             //TODO Transacties schrijven voor het verwijderen van hoofdstukken bij de verwijdering van een verhaal.
+            //Verwijder alle hoofdstukken.
 
+            //Verwijder alle relaties in neo4j
+
+            //Verwijder verhaal
             return this.Stories.findOneAndDelete({StoryId: Id});
         } catch (error) {
             return false;

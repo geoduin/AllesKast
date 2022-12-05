@@ -26,6 +26,7 @@ export class Neo4jService implements OnApplicationShutdown {
     return result;
   }
 
+
   private async executeTransaction(mode: SessionMode, transactionWork: TransactionWork): Promise<Result> {
     const session = this.getSession(neo4j.session.READ);
 

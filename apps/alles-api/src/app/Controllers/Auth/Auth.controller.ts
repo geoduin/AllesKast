@@ -4,6 +4,7 @@ import { User } from "../../Data/Schema/UserSchema";
 import * as jwt from 'jsonwebtoken';
 import * as Bcrypt from 'bcrypt';
 import { LoginModel } from "data";
+import { Neo4jService } from "../../Data/Neo4J/neo4j.service";
 
 @Controller("Profile")
 export class AuthController{
@@ -25,7 +26,7 @@ export class AuthController{
                 //Return token
                 if(match){
                     //Sign a token.
-                    const Token = jwt.sign({Id: user.Id}, process.env["JWT_KEY"]!, {expiresIn: "1d"});
+                    const Token = jwt.sign({Id: user.Id}, process.env["JWT_KEY"]!, {expiresIn: "20d"});
                     user.Password = undefined; 
                     return {status: 200, result: user, Token: Token};
                 } else{
@@ -39,14 +40,24 @@ export class AuthController{
 
     @Post("Registration")
     async CreateUser(@Body() user: User){
+
+        //Start transaction
         console.log("User api creation started");
         //Hash wachtwoord
         const hashedPassword = await Bcrypt.hash(user.Password, 12);
+        //Wijst gehashed wachtwoord terug.
         user.Password = hashedPassword;
+
         console.log("User api creation started");
         console.log(user);
+
         const result = await this.UserRepo.Create(user);
+        if(result){
+            return {message: "Creation succeeded", result: result};
+        } else{
+            return {message: "User creation failed"};
+        }
         //Geef gebruiker terug.
-        return {message: "Creation succeeded", result: result};
+        
     }
 }
