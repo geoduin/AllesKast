@@ -1,18 +1,22 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import * as neo4j from 'neo4j-driver';
 import { auth, Driver } from "neo4j-driver-core";
 import { neoStoryDto, neoStoryDtoPartial } from "../dto/neo4Story";
 import { UserDto } from "../dto/neo4User";
 import { Neo4jService } from "../Neo4J/neo4j.service";
+import { Story } from "../Schema/Story.Schema";
+import { StoryRepository } from "./Story.Repository";
+import { UserRepository } from "./User.Repository";
 
 @Injectable()
 export class Neo4JFollowersRepository{
 
 
-    constructor(private service: Neo4jService){
+    constructor(private service: Neo4jService, private UserRepo: UserRepository, private StoryRepo: StoryRepository){
 
     }
 
+    //User nodes
     async CreateUserNode(UserId: string, NewContent: UserDto){
         const params = {IdParams: UserId, nameParams: NewContent.UserName, UserBirth: NewContent.DateOfBirth};
         const query = 'CREATE (u:User {UserId: $IdParams, UserName: $nameParams, DateOfBirth = date($UserBirth)}) RETURN u';
@@ -59,6 +63,7 @@ export class Neo4JFollowersRepository{
         
     }
 
+    //Story node CRUD
     async CreateStoryNode(StoryId: string, NewContent:neoStoryDto){
         const params = {
             IdParams: StoryId, 
@@ -127,6 +132,8 @@ export class Neo4JFollowersRepository{
         return result;
     }
 
+
+    //Follow functionality
     async FollowUser(YourUserId: string, TargetUserId: string){
         try {
             const params = { 
@@ -134,27 +141,26 @@ export class Neo4JFollowersRepository{
                 TargetParams: TargetUserId
             }
             
-            /* RESERVE QUERY IN HET GEVAL DAT ER WEINIG TIJD OVER IS.
-            
-            const reserveQuery = ` 
-            
-            MERGE (u:User {UserId: $YourParams} )
-            MERGE (t:User {UserId: $TargetParams})
-            MERGE (u)-[:FOLLOWS_USER ]->(t) 
-            RETURN u, s`*/
-            
+            //Insert query into neo4j database
             const Query = `
             MERGE(u: User {UserId: $YourParams})
             MERGE(t: User {UserId: $TargetParams}) 
             MERGE (u)-[f:FOLLOWS_USER]->(t)
             RETURN u, t, f `
     
+            //Database action
             const result = await this.service.singleWrite(Query, params);
+            const e = result.records[0];
+            console.log(e);
+            const resultString = `Eigen: ${result.records[0].get("u")}, gevolgde: ${result.records[0].get("t")}, relatie ${result.records[0].get("f")}`
+            console.log(resultString);
+
+            
             console.log(`User with Id: ${YourUserId} follows User with Id: ${TargetUserId}`);
             
-            return result;
-        } catch (error) {
-            throw new BadRequestException("Een server fout in de database, vondt plaats. Probeer het later nog eens");
+            return result.records;
+        } catch (error:any) {
+            throw new BadRequestException(error.message);
         }
         
     }
@@ -166,15 +172,6 @@ export class Neo4JFollowersRepository{
             TargetParams: TargetUserId
         }
         
-        /* RESERVE QUERY IN HET GEVAL DAT ER WEINIG TIJD OVER IS.
-        
-        const reserveQuery = ` 
-        
-        MERGE (u:User {UserId: $YourParams} )
-        MERGE (t:User {UserId: $TargetParams})
-        MERGE (u)-[:FOLLOWS_USER ]->(t) 
-        RETURN u, s`*/
-        
         const Query = `
         MATCH(u: User {UserId: $YourParams})-[r:FOLLOWS_USER]->(t: User {UserId: $TargetParams}) 
         DELETE r`
@@ -182,7 +179,7 @@ export class Neo4JFollowersRepository{
         const result = await this.service.singleWrite(Query, params);
         console.log(`User with Id: ${YourUserId} unfollows User with Id: ${TargetUserId}`);
         
-        return result;
+        return result.records;
     }
 
     async FollowStory(YourUserId: string, TargetStoryId: string){
@@ -190,26 +187,22 @@ export class Neo4JFollowersRepository{
             YourParams: YourUserId,
             TargetParams: TargetStoryId
         }
-        
-        /* RESERVE QUERY IN HET GEVAL DAT ER WEINIG TIJD OVER IS.
-        
-        const reserveQuery = ` 
-        
-        MERGE (u:User {UserId: $YourParams} )
-        MERGE (t:Story {StoryId: $TargetParams})
-        MERGE (u)-[:SUBSCRIBES_TO ]->(t) 
-        RETURN u, s`*/
-        
+
         const Query = `
         MERGE(u: User {UserId: $YourParams})
         MERGE(t: Story {StoryId: $TargetParams})
         MERGE (u)-[f:SUBSCRIBES_TO]->(t)
         RETURN u, t, f `
 
-        const result = await this.service.singleWrite(Query, params);
-        console.log(`User with Id: ${YourUserId} follows Story with Id: ${TargetStoryId}`);
+        try {
+            const result = await this.service.singleWrite(Query, params);
+            console.log(`User with Id: ${YourUserId} follows Story with Id: ${TargetStoryId}`);
+
+            return result.records;
+        } catch (error: any) {
+          throw new NotFoundException(error.message);
+        }
         
-        return result;
     }
 
     async UnFollowStory(YourUserId: string, TargetStoryId: string){
@@ -223,6 +216,31 @@ export class Neo4JFollowersRepository{
 
         const result = await this.service.singleWrite(Query, params);
         console.log(`User with Id: ${YourUserId} unfollows Story with Id: ${TargetStoryId}`);
-        return result;
+
+        
+        return result.records;
+    }
+
+    //Recommendation
+
+    async GetRecommendedStories(_UserId: string){
+        const Query = 
+        `
+        MATCH(u:User{UserId: $UserIdParams})-[:FOLLOWS_USER]->(o:User)
+        MATCH (o)-[:SUBSCRIBES_TO]->(s:Story)
+        WHERE NOT (u)-[:SUBSCRIBES_TO]->(s)
+        RETURN s
+        `
+        const params = {UserIdParams: _UserId};
+
+        const result = await this.service.singleRead(Query, params);
+        const idList: string[] = [];
+        result.records.forEach((v)=>{
+            //Adds results to an array.
+            idList.push(v.get("s").properties.StoryId);
+        })
+
+        
+        return idList;
     }
 }

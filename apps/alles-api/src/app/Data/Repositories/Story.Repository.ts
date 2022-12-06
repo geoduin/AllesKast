@@ -74,6 +74,12 @@ export class StoryRepository{
         return this.Stories.find({}, { Writer: 0, Comments: 0, ChapterList: 0, __v: 0}).exec();
     }
 
+    async GetRecommended(StoryIdList: string[]){
+        const query = {StoryId: { $in: StoryIdList}};
+        const results = this.Stories.find(query, {ChapterList: 0}, {})
+        return results;
+    }
+
     async GetStoryPerUser(UserId: string){
         return this.Stories.find({"Writer.Id": UserId}, {project: { Thumbnail: 0 }});
     }

@@ -1,77 +1,90 @@
-import { Body, Controller, Delete, Get, Param, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Put, Req, UseGuards } from "@nestjs/common";
 import { ResponseMessage } from "data";
 import { Neo4JFollowersRepository } from "../../Data/Repositories/Neo4J.Repository";
+import { StoryRepository } from "../../Data/Repositories/Story.Repository";
+import { UserRepository } from "../../Data/Repositories/User.Repository";
+import { AuthGuard } from "../../Guards/AuthGuard";
 
 @Controller("RCS")
+@UseGuards(AuthGuard)
 export class RecommendedStoryController{
 
+    constructor(
+        private neo4jRepo: Neo4JFollowersRepository, 
+        private storyRepo: StoryRepository, 
+        private userRepo: UserRepository){}
 
-    constructor(private neo4jRepo: Neo4JFollowersRepository){}
-    
-    @Get("neo")
-    async Test(@Body("Content") body: any){
-
-        const User = {
-            Title: "Dan",
-            TargetUserId: "637e7f5c57bd79bbec340720",
-            UserName: "Davidson", 
-            Genre: "Actie",
-            DateOfBirth: "2001-1-1"};
-        //const result = await this.neo4jRepo.CreateUserNode("637e7f5c57bd79bbec340720", User);
-        //const result = await this.neo4jRepo.DeleteStoryNode("5000", User);
-        const r = await this.neo4jRepo.UnFollowStory("637e7f5c57bd79bbec340720", "1");
-        return {message: "Hello", r};
-    }
-
-    @Get("Stories")
-    async GetRecommendations(): Promise<ResponseMessage>{
+        
+    @Get("Stories/Recommendations")
+    async GetRecommendations(@Req() request: any): Promise<ResponseMessage>{
         console.log("Get recommendations");
         //Start transactie
+        const User = request["User"];
 
+        const UserId = User.Id;
         //Haal userId van token of mongodb database.
 
         //Haal neo4j resultaat op uit aurora database
-
+        const neo4jResult = await this.neo4jRepo.GetRecommendedStories(UserId);
         //Op basis van de neo4j resultaat een query uitvoeren op de mongodb database.
-
+        const RC_Stories = await this.storyRepo.GetRecommended(neo4jResult);
         //Geef lijst verhalen terug aan de gebruiker.
         
-        return {status: 201, message: "Recommended stories to follow", result: []}
+        return {status: 201, message: "Recommended stories to follow", result: {RC_Stories, neo4jResult}}
     }
 
-    @Put("User/:Id")
-    async FollowUser(@Param("Id") UserId: string): Promise<ResponseMessage>{
-
+    @Put("Users/:Id/Follow")
+    async FollowUser(@Param("Id") TargetUserId: string, @Req() request: any): Promise<ResponseMessage>{
+        const OwnId = request["User"];
+        console.log(OwnId);
         //Push gebruikerId in de volgersarray in mongodb
-
+        const queryResult = await this.neo4jRepo.FollowUser(OwnId.Id, TargetUserId);
         //Koppel een relatie tussen gebruiker
+        //MongoDb push query.
+        const mongoResult = await this.userRepo.FollowUser(OwnId.Id, TargetUserId);
+        console.log(mongoResult);
 
-        return {status: 204, message: "Follow user succeeded", result: ""};
+        return {status: 204, message: "Follow user succeeded", result: queryResult};
     }
 
-    @Put("Story/:Id")
-    async FollowStory(@Param("Id") StoryId: string): Promise<ResponseMessage>{
+    @Put("Stories/:Id/Follows")
+    async FollowStory(@Param("Id") StoryId: string, @Req() request: any): Promise<ResponseMessage>{
 
+        const OwnId = request["User"];
+        console.log(OwnId);
         //Push verhaalId in mongodb
-
+        const result = await this.neo4jRepo.FollowStory(OwnId.Id, StoryId);
         //Koppel een relatie tussen gebruiker en verhaal
+        const mongoResult = await this.userRepo.FollowStory(OwnId.Id, StoryId);
 
-        return {status: 204, message: "Follow user succeeded", result: ""};
+        console.log(mongoResult);
+        return {status: 204, message: "Follow user succeeded", result: {neo: result, mongo: mongoResult}};
     }
 
-    @Delete("User/:Id")
-    async UnFollowUser(@Param("Id") UserId: string): Promise<ResponseMessage>{
-      //Verwijder verhaalId in mongodb
-
+    @Delete("Users/:Id/Follow")
+    async UnFollowUser(@Param("Id") TargetUserId: string, @Req() request: any): Promise<ResponseMessage>{
+        const OwnId = request["User"];
+        console.log(OwnId);
         //onKoppel een relatie tussen gebruiker en verhaal
-        return {status: 204, message: "Unfollow user succeeded", result: ""};
+        const rslt = await this.neo4jRepo.UnFollowUser(OwnId.Id, TargetUserId);
+
+        //Ook in de mongodb database.
+        const mongoResult = await this.userRepo.UnfollowUser(OwnId, TargetUserId);
+            
+        return {status: 204, message: "Unfollow user succeeded", result: {neo: rslt, mongo: mongoResult} };
     }
 
-    @Delete("Story/:Id")
-    async UnFollowStory(@Param("Id") StoryId: string): Promise<ResponseMessage>{
-      //Push verhaalId in mongodb
-
+    @Delete("Stories/:Id/Follows")
+    async UnFollowStory(@Param("Id") StoryId: string, @Req() request: any): Promise<ResponseMessage>{
+        //Push verhaalId in mongodb
+        const OwnId = request["User"];
+        console.log(OwnId);
         //On Koppel een relatie tussen gebruiker en verhaal
-        return {status: 204, message: "Follow user succeeded", result: ""};
+        const result = await this.neo4jRepo.UnFollowStory(OwnId.Id, StoryId);
+
+        //Onkoppel in mongodb database
+        const mongoResult = await this.userRepo.UnFollowStory(OwnId.Id, StoryId);
+            console.log(mongoResult);
+        return {status: 204, message: "Unfollow story succeeded.", result: {mongo: mongoResult, neo: result}};
     }
 }

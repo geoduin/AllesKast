@@ -41,7 +41,7 @@ export class DataModule implements NestModule{
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(UserMiddleWare)
     //.exclude("api/Users", "api/Users/:UserId")
-    .forRoutes(UserController)
+    .forRoutes(UserController, RecommendedStoryController)
     
   }
 }

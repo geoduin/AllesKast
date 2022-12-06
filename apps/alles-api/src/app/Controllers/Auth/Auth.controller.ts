@@ -26,7 +26,7 @@ export class AuthController{
                 //Return token
                 if(match){
                     //Sign a token.
-                    const Token = jwt.sign({Id: user.Id}, process.env["JWT_KEY"]!, {expiresIn: "20d"});
+                    const Token = jwt.sign({Id: user._id, Role: user.Role}, process.env["JWT_KEY"]!, {expiresIn: "20d"});
                     user.Password = undefined; 
                     return {status: 200, result: user, Token: Token};
                 } else{

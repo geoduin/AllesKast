@@ -18,6 +18,7 @@ export class UserMiddleWare implements NestMiddleware{
             const User = Jwt.verify(token, jwt);
             if(User){
                 console.log("User is founded");
+                console.log(User);
                 req["User"] = User;
             }
             

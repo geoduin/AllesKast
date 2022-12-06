@@ -1,9 +1,10 @@
-import { BadRequestException, HttpException, Injectable } from "@nestjs/common";
+import { BadRequestException, HttpException, Injectable, NotAcceptableException, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { IdentityUser} from "data";
-import { ClientSession, isValidObjectId, Model, startSession} from "mongoose";
+import mongoose, { ClientSession, isValidObjectId, Model, startSession} from "mongoose";
 import { ManagedTransaction, Transaction } from "neo4j-driver";
-import { Neo4jService } from "../Neo4J/neo4j.service";
+import { Neo4jService, TransactionWork } from "../Neo4J/neo4j.service";
+import { Chapter } from "../Schema/PageSchema";
 import { User, UserDocument } from "../Schema/UserSchema";
 
 @Injectable()
@@ -29,7 +30,7 @@ export class UserRepository{
             console.log("Inserted");
 
             //Start transaction neo4j;
-            
+        
 
             //Commit transaction
             session.commitTransaction();
@@ -81,6 +82,66 @@ export class UserRepository{
             throw new Error(`Deletion has failed`);
 
         }
+    }
+
+    async FollowUser(YourUserId: string, TargetId: string){
+        
+        
+        const TargetUser = await this.UserModel.findById(TargetId);
+        const YourUser = await this.UserModel.findById(YourUserId);
+        if(!TargetUser || !YourUser){
+            throw new NotFoundException("Gezochte gebruiker is niet gevonden");
+        }
+
+        const list = YourUser?.FollowUserlist;
+        
+        if(list.includes(TargetUser._id)){
+            throw new BadRequestException("Gebruiker heeft al deze gebruiker gevolgd");
+        }
+        list.push(TargetUser._id)
+        await YourUser?.save();
+
+        
+        return YourUser;
+    }
+
+    async UnfollowUser(YourUserId: string, TargetId: string){
+        const TargetUser = await this.UserModel.findById(TargetId);
+        
+        if(!TargetUser){
+            throw new NotFoundException("Gezochte gebruiker is niet gevonden");
+        }
+        
+        //Ontvolgd gebruiker uit volg lijst.
+        const YourUser = await this.UserModel.findByIdAndUpdate(YourUserId, { $pull: {'FollowUserlist': new mongoose.Types.ObjectId(TargetId)}});
+
+        return YourUser;
+
+    }
+
+    async FollowStory(YourUserId: string, TargetId: string){
+        const YourUser = await this.UserModel.findById(YourUserId);
+        if(!YourUser){
+            throw new NotFoundException("Gezochte gebruiker is niet gevonden.");
+        }
+        
+        if(YourUser.StoryFollowedlist.includes(TargetId)){
+            throw new NotFoundException("Een gebruiker volgt dit verhaal al.")
+        } 
+            YourUser.StoryFollowedlist.push(TargetId);
+
+            YourUser.save();
+            return YourUser;
+
+    }
+    
+    async UnFollowStory(YourUserId: string, TargetId: string){
+        console.log("Unfollowed gebruiker");
+        const updated = await this.UserModel.findByIdAndUpdate(YourUserId, {$pull: {'StoryFollowedlist': TargetId}});
+        if(!updated){
+            throw new NotFoundException("Gezochte gebruiker is niet gevonden.")
+        }
+        return updated;
     }
 
 }

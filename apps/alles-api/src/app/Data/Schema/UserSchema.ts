@@ -3,6 +3,7 @@ import { IdentityUser } from "data";
 import mongoose, { HydratedDocument } from "mongoose";
 import { type } from "os";
 import { v4 as uuid } from 'uuid';
+import { Story } from "./Story.Schema";
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -29,6 +30,11 @@ export class User{
     @Prop({type: String, default: "Regular"})
     Role!: string;
 
+    @Prop({type: [{type: mongoose.Types.ObjectId, ref: 'User', unique: true}], default: []})
+    FollowUserlist!:  mongoose.Types.ObjectId[];
+
+    @Prop({ type: [{type: String, ref: 'Story', unique: true }]})
+    StoryFollowedlist!:  string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
