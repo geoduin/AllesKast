@@ -18,11 +18,15 @@ export class UserEditComponent implements OnInit {
   //user
   User: EditUserVM | undefined; 
   IsEdit:boolean = true;
+
+  Warning: string;
   constructor(
     private router: ActivatedRoute, 
     private nav: Router, 
     private userClient: UserClient,
-    private authService: AuthService) { }
+    private authService: AuthService) { 
+      this.Warning = "";
+    }
   
   ngOnInit(): void {
     //Loads in user to edit
@@ -83,8 +87,15 @@ export class UserEditComponent implements OnInit {
       .pipe(
         map((result) => {
           console.log(result);
-          console.log("Registratie voltooid");
-          this.nav.navigate([".."]);
+          const res = result as unknown as any;
+          if(res.message == "User creation failed"){
+            this.Warning = "Foute input gegeven";
+            return;
+          } else{
+            console.log("Registratie voltooid");
+            this.nav.navigate([".."]);
+          }
+          
         }),
         catchError((error) => {
           throw error;

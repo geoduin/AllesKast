@@ -1,0 +1,15 @@
+.card{
+    background-color: rgb(249, 176, 176);
+    border: 1px red solid;
+}
+
+.content{
+    padding: 1em;
+}
+h2{
+    font-size: large;
+}
+
+p{
+    font-size: medium;
+}

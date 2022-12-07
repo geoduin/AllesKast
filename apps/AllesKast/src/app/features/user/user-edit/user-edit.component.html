@@ -11,7 +11,9 @@
     name="userForm"
     (ngSubmit)="onSubmit()"
     novalidate>
-
+        <div *ngIf="Warning">
+            <app-warning-sign [Warning]="Warning"></app-warning-sign>
+        </div>
     <p>
         <mat-form-field appearance="fill" class="example-full-width">
             <label for="UserName">Gebruikersnaam</label>
@@ -86,6 +88,7 @@
         </p>
 
         <button type="submit" class="ImportantBtn" mat-raised-button [disabled]="!UserForm.valid">Bevestig</button>
+        
     </form> 
     
     </div>

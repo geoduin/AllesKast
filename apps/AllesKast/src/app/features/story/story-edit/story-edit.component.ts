@@ -18,10 +18,10 @@ export class StoryEditComponent implements OnInit {
   NewStory!: IStory;
   Titel: string
   Warning: string = "";
+  IsDis = false;
   constructor(
     private route: ActivatedRoute, 
     private Router: Router, 
-    private Repo: DummyRepo, 
     private client: StoryClient,
     private authService: AuthService) { 
     this.Titel = "";
@@ -105,10 +105,13 @@ export class StoryEditComponent implements OnInit {
 
   UpdateStory(): void{
     //Wijzigt verhaal, exclusief hoofdstukken.
+    this.IsDis = true;
     this.client.UpdateOne(this.NewStory.StoryId!, this.NewStory as StoryDetail, {})
     .subscribe(()=>{
       console.log("Nieuwe verhaal aanmaken.");
+      this.IsDis = false;
       this.Router.navigate([".."]);
+      
     });
   }
 

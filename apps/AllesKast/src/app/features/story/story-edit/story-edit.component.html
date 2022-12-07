@@ -90,9 +90,7 @@
                 type="file"
                 id="file"
                 (change)="onSelectFile($event)"
-                name="Thumbnail"
-                [(ngModel)]="NewStory!.Thumbnail"
-                #Thumbnail="ngModel">
+                name="Thumbnail">
                 <div class="ImageSelector">
                     Afbeelding geselecteerd:<br/>
                         <span *ngIf="NewStory!.Thumbnail">
@@ -102,15 +100,15 @@
                             Geen afbeelding geselecteerd.
                         </span>
                 </div>
-                <div class="col-10" *ngIf="Warning" class="invalid-feedback">
-                    {{Warning}}
+                <div class="col-10" *ngIf="Warning">
+                    <app-warning-sign [Warning]="Warning"></app-warning-sign>
                 </div>
             </div>
             
 
 
 
-            <button mat-raised-button class="ImportantBtn" type="submit" [disabled]="!StoryForm.valid">Bevestigen</button>
+            <button mat-raised-button class="ImportantBtn" type="submit" [disabled]="!StoryForm.valid" [disabled]="IsDis">Bevestigen</button>
         </div>
         
     </form>
