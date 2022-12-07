@@ -73,7 +73,7 @@ export class StoryRepository{
     }
 
     async GetRecommended(StoryIdList: string[]){
-        const query = {StoryId: { $in: StoryIdList}};
+        const query = {_id: { $in: StoryIdList}};
         const results = this.Stories.find(query, {ChapterList: 0}, {})
         return results;
     }

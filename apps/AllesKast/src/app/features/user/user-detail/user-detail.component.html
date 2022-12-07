@@ -1,5 +1,5 @@
 
-<div class="row">
+<div class="row container">
 
     
         <div class="col-3 DummyBackground">
@@ -12,28 +12,35 @@
         </div>
         <div class="col-8 BackGround Shadow">
             <BackBtn></BackBtn>
-            <h2>Gebruiker {{ DetailUser?.UserName }}</h2>
-            <p>Naam: {{DetailUser?.UserName}}
-                <br/>Geboortedatum: {{DetailUser?.DateOfBirth}}
-            <br/>Rol: {{DetailUser?.Role}}</p>
-            <!--Dit mag alleen een admin wijzigen-->
-            <div  class="col-12 EmptyList">
-                
-                <h3>Verhalen gevolgd<button mat-button>Alle gevolgde series</button></h3>
-        
+            <div class="container">
 
-               <div class="FlexBox">
-                    <div *ngFor="let stories of DetailUser?.StoryFollowedlist">
-                        <app-story-card [Story]="stories"></app-story-card>
+                <h2>Gebruiker {{ DetailUser?.UserName }}</h2>
+                <p>Naam: {{DetailUser?.UserName}}
+                    <br/>Geboortedatum: {{DetailUser?.DateOfBirth}}
+                    <br/>Rol: {{DetailUser?.Role}}</p>
+                </div>
+            <!--Dit mag alleen een admin wijzigen-->
+            <div class="container">
+
+                <div  class="col-12 EmptyList">
+                    
+                    <h3>Verhalen gevolgd</h3>
+                    
+                    
+                    <div class="FlexBox">
+                        <div *ngFor="let stories of DetailUser?.StoryFollowedlist">
+                            <app-story-card [Story]="stories"></app-story-card>
+                        </div>
+                    </div>
+                    <h3>Gebruikers gevolgd</h3>
+                    <div class="FlexBox">
+                        <div *ngFor="let users of DetailUser?.FollowUserlist">
+                            <app-user-card [User]="users"></app-user-card>
+                        </div>
                     </div>
                 </div>
-                <div class="FlexBox">
-                    <div *ngFor="let users of DetailUser?.FollowUserlist">
-                        <app-user-card [User]="users"></app-user-card>
-                    </div>
-                </div>
+                
             </div>
-            
         </div>
 
     
