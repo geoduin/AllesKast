@@ -33,7 +33,7 @@ export class RecommendedStoryController{
         return {status: 201, message: "Recommended stories to follow", result: {RC_Stories, neo4jResult}}
     }
 
-    @Put("Users/:Id/Follow")
+    @Put("Users/:Id/Follows")
     async FollowUser(@Param("Id") TargetUserId: string, @Req() request: any): Promise<ResponseMessage>{
         const OwnId = request["User"];
         console.log(OwnId);
@@ -61,15 +61,15 @@ export class RecommendedStoryController{
         return {status: 204, message: "Follow user succeeded", result: {neo: result, mongo: mongoResult}};
     }
 
-    @Delete("Users/:Id/Follow")
+    @Delete("Users/:Id/Follows")
     async UnFollowUser(@Param("Id") TargetUserId: string, @Req() request: any): Promise<ResponseMessage>{
         const OwnId = request["User"];
-        console.log(OwnId);
+        console.log(`Eigen gebruiker: ${OwnId.Id}`);
         //onKoppel een relatie tussen gebruiker en verhaal
         const rslt = await this.neo4jRepo.UnFollowUser(OwnId.Id, TargetUserId);
 
         //Ook in de mongodb database.
-        const mongoResult = await this.userRepo.UnfollowUser(OwnId, TargetUserId);
+        const mongoResult = await this.userRepo.UnfollowUser(OwnId.Id, TargetUserId);
             
         return {status: 204, message: "Unfollow user succeeded", result: {neo: rslt, mongo: mongoResult} };
     }

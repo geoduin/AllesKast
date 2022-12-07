@@ -41,6 +41,38 @@ export class AuthService{
 
     }
 
+    RefreshUser(){
+        const url = this.webService.getApiEndPoint() + "/api/Users/Self";
+        console.log(url);
+        return this.Client.get(url).pipe(
+            map((res: any)=>{
+                console.log(res);
+                
+                if(res.status == 201){
+                    const response = res.result;
+                    this.CurrentUser$.next(response);
+                    this.StoreUserInLocalDb(response);
+                } else{
+                    this.Logout();
+                }
+            })
+        )
+    }
+
+    //Als een gebruiker aanwezig is in de database, controlleer of the gebruiker of een verhaal of persoon volgt.
+    HasFollowed(targetId: string):Observable<boolean>{
+        return this.GetUserFromLocalDb().pipe(
+            map((val)=>{
+                
+                if(val){
+                    return val.FollowUserlist.includes(targetId) || val.StoryFollowedlist.includes(targetId)
+                } else{
+                    return false;
+                }
+            })
+        )
+    }
+
     LoginStatus():boolean{
         if(this.CurrentUser$.getValue()){
             return true;

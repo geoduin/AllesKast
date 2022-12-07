@@ -4,7 +4,14 @@
     </mat-card-header>
     <img mat-card-image src="assets/staticImages/Placeholder Image.png" height="150" width="230">
     <mat-card-actions>
-        <button class="ImportantBtn" mat-raised-button>Volg</button>
+        <button class="ImportantBtn" *ngIf="LoggedIn$ | async" mat-raised-button (click)="Follow(User?._id!)" [disabled]="IsDisabled">
+            <span *ngIf="IsFollowed">
+                Min
+            </span>
+            <span *ngIf="!IsFollowed">
+                Volg
+            </span>
+        </button>
         <button class="DetailBtn" mat-raised-button routerLink="/Users/{{User!._id}}">Details</button>
     </mat-card-actions>
 </mat-card>

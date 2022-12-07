@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from "@nestjs/common";
 import { EditUserVM, IdentityUser } from "data";
 import { Error } from "mongoose";
 import * as Jwt from 'jsonwebtoken';
@@ -14,12 +14,12 @@ export class UserController{
 
     @Get("Self")
     @UseGuards(AuthGuard)
-    async GetProfile(){
+    async GetProfile(@Req() req: any){
+
+        const Ids = req["User"];
         //Retrieve UserId from token.
         //const token = header.get()
-        const Id = Jwt.verify("", process.env["JWT_KEY"]!);
-        console.log(Id);
-        const User = await this.repo.OneUser(Id as string);
+        const User = await this.repo.OneUser(Ids.Id);
         return {status: 201, result: User}
     }
 

@@ -5,7 +5,14 @@
         <mat-card-title><a routerLink="/Story/{{Story!.StoryId}}">{{Story!.Title}}</a></mat-card-title>
     </mat-card-header>
     <mat-card-actions>
-        <button class="ImportantBtn" mat-raised-button>Volg</button>
+        <button *ngIf="IsLogged$ | async" class="ImportantBtn" mat-raised-button (click)="Follow(Story!.StoryId!)">
+            <span *ngIf="!(DoesFollow$ | async)">
+                Volg
+            </span>
+            <span *ngIf="DoesFollow$ | async">
+                Onvolg
+            </span>
+            </button>
         <button class="DetailBtn" mat-raised-button routerLink="/Story/{{Story!.StoryId}}">Details</button>
     </mat-card-actions>
 </mat-card>

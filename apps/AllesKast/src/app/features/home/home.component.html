@@ -21,9 +21,9 @@
     <div class="row" >
         <h2>Aanbevelingen</h2>
         <div class="FlexBox">
-            <div *ngFor="let Story of RecommendedList">
-            <app-story-card [Story]="Story"></app-story-card>
-        </div>
+            <div *ngFor="let story of Recommendations | async">
+                <app-story-card [Story]="story"></app-story-card>
+            </div>
         </div>
         
     </div>

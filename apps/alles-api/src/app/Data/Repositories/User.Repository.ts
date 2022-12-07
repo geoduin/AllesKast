@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, Injectable, NotAcceptableException, NotFoundException } from "@nestjs/common";
+import { BadRequestException, HttpException, Injectable, Logger, NotAcceptableException, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { IdentityUser} from "data";
 import mongoose, { ClientSession, isValidObjectId, Model, startSession} from "mongoose";
@@ -68,7 +68,7 @@ export class UserRepository{
     }
 
     async OneUser(Id: string):Promise<User | null>{
-        return this.UserModel.findById({_id: Id});
+        return this.UserModel.findById(Id);
     }
 
     async Delete(Id: string){
@@ -106,6 +106,7 @@ export class UserRepository{
     }
 
     async UnfollowUser(YourUserId: string, TargetId: string){
+        Logger.debug(`Onvolg functie door Eigen gebruiker met Id: ${YourUserId} die een gebruiker ontvolgt met Id ${TargetId}`);
         const TargetUser = await this.UserModel.findById(TargetId);
         
         if(!TargetUser){
