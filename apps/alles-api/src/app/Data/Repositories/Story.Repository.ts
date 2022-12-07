@@ -17,7 +17,7 @@ export class StoryRepository{
                 foreignField: "StoryId",
                 as: "ChapterList"
             }
-            const result = this.Stories.aggregate(
+            const result = await this.Stories.aggregate(
                 [{
                     $match: filter
                 },
@@ -76,6 +76,12 @@ export class StoryRepository{
         const query = {_id: { $in: StoryIdList}};
         const results = this.Stories.find(query, {ChapterList: 0}, {})
         return results;
+    }
+
+    //Only used to authorize
+    async GetOneBasic(Id: string): Promise<any>{
+        const filter = {StoryId: Id};
+        return this.Stories.findOne(filter, { 'Writer._id': 1 });
     }
 
     async GetStoryPerUser(UserId: string){

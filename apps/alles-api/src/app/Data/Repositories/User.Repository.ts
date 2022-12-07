@@ -94,10 +94,10 @@ export class UserRepository{
 
         const list = YourUser?.FollowUserlist;
         
-        if(list.includes(TargetUser._id)){
+        if(list.includes(new mongoose.Types.ObjectId(TargetUser._id))){
             throw new BadRequestException("Gebruiker heeft al deze gebruiker gevolgd");
         }
-        list.push(TargetUser._id)
+        list.push(new mongoose.Types.ObjectId(TargetUser._id))
         await YourUser?.save();
 
         

@@ -11,6 +11,7 @@ const roleTypes = ["Regular", "Admin", "Boss"]
 
 @Schema()
 export class User{
+    _id: string | undefined;
     
     @Prop({type: String , default: uuid, index: true})
     Id!: string;

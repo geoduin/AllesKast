@@ -35,6 +35,7 @@ export const CommentsSchema = SchemaFactory.createForClass(Comments);
 //Parent entity
 @Schema()
 export class Story implements IStory{
+    _id: string | undefined;
     
     
     @Prop({default: uuid, index: true})

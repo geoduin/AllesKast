@@ -6,6 +6,7 @@ import { UserRepository } from "../../Data/Repositories/User.Repository";
 import { User } from "../../Data/Schema/UserSchema";
 import * as Bcrypt from 'bcrypt';
 import { AuthGuard } from "../../Guards/AuthGuard";
+import { UserOwnGuard } from "../../Guards/UserOwnerGuard";
 
 @Controller("Users")
 export class UserController{
@@ -13,6 +14,7 @@ export class UserController{
     constructor(private repo: UserRepository){}
 
     @Get("Self")
+    @UseGuards(UserOwnGuard)
     @UseGuards(AuthGuard)
     async GetProfile(@Req() req: any){
 
@@ -30,6 +32,7 @@ export class UserController{
     }
 
     @Get(":Id")
+
     async OneUser(@Param('Id') Id: string):Promise<any>{
         try {
             const result = await this.repo.OneUser(Id);
@@ -47,6 +50,7 @@ export class UserController{
 
     @Put(":Id")
     @UseGuards(AuthGuard)
+    
     async UpdateUser(@Param('Id') Id: string , @Body()user: Partial<EditUserVM>):Promise<any>{
         console.log("Update")
         

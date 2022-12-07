@@ -7,7 +7,7 @@ export class AuthGuard implements CanActivate{
     canActivate(context: ExecutionContext): boolean {
         const host = context.switchToHttp();
         const request = host.getRequest();
-
+        console.log("Token controller guard");
         const User = request["User"];
 
         if(!User){

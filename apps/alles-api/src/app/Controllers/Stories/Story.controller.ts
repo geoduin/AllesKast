@@ -8,6 +8,7 @@ import { Chapter, Page } from "../../Data/Schema/PageSchema";
 import { Comments, Story } from "../../Data/Schema/Story.Schema";
 import { User } from "../../Data/Schema/UserSchema";
 import { AuthGuard } from "../../Guards/AuthGuard";
+import { StoryOwnerGuard } from "../../Guards/StoryOwner";
 
 @Controller("Stories")
 export class StoryController{
@@ -16,6 +17,7 @@ export class StoryController{
 
 
     @Get("Self")
+    @UseGuards(AuthGuard)
     async OwnStories(@Req() request: any){
         const UserId = request["User"];
         console.log(UserId);
@@ -59,7 +61,8 @@ export class StoryController{
         
     }
 
-    @Put(":Id")
+    @Put(":Id") 
+    @UseGuards(StoryOwnerGuard)
     @UseGuards(AuthGuard)
     async UpdateStory(@Param('Id') Id: string , @Body()story: Partial<Story>):Promise<any>{
         console.log("Update")
@@ -73,6 +76,7 @@ export class StoryController{
     }
 
     @Delete(":Id")
+    @UseGuards(StoryOwnerGuard)
     @UseGuards(AuthGuard)
     async DeleteStory(@Param("Id") Id: string):Promise<any>{
         const result = await this.repo.Delete(Id)
@@ -80,6 +84,7 @@ export class StoryController{
     }
 
     @Post(":Id/Chapters")
+    @UseGuards(StoryOwnerGuard)
     @UseGuards(AuthGuard)
     async PostChapters(
         @Body("Chapter") Chapters: Chapter, 
@@ -95,6 +100,7 @@ export class StoryController{
     }
 
     @Delete(":Id/Chapters/:ChapterId")
+    @UseGuards(StoryOwnerGuard)
     @UseGuards(AuthGuard)
     async DeleteChapter(
         @Param("Id") StoryId: string, 
@@ -110,6 +116,7 @@ export class StoryController{
     }
 
     @Put(":Id/Chapters/:ChapterId")
+    @UseGuards(StoryOwnerGuard)
     @UseGuards(AuthGuard)
     async UpdateChapter(
         @Param("Id") StoryId: string, 
