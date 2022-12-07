@@ -26,11 +26,7 @@ export class UserRepository{
         session.startTransaction();
         try {
             const CreationResult = await this.UserModel.create(dto);
-            console.log(CreationResult);
             console.log("Inserted");
-
-            //Start transaction neo4j;
-        
 
             //Commit transaction
             session.commitTransaction();
@@ -68,7 +64,10 @@ export class UserRepository{
     }
 
     async OneUser(Id: string):Promise<User | null>{
-        return this.UserModel.findById(Id);
+        return this.UserModel
+        .findById(Id)
+        .populate('FollowUserlist', ['UserName', 'Email', 'FollowUserlist'], )
+        .populate('StoryFollowedlist', ['StoryId', 'Title', 'Genres', 'PublishDate','Thumbnail'])
     }
 
     async Delete(Id: string){
@@ -126,10 +125,10 @@ export class UserRepository{
             throw new NotFoundException("Gezochte gebruiker is niet gevonden.");
         }
         
-        if(YourUser.StoryFollowedlist.includes(TargetId)){
+        if(YourUser.StoryFollowedlist.includes(new mongoose.Types.ObjectId(TargetId))){
             throw new NotFoundException("Een gebruiker volgt dit verhaal al.")
         } 
-            YourUser.StoryFollowedlist.push(TargetId);
+            YourUser.StoryFollowedlist.push(new mongoose.Types.ObjectId(TargetId));
 
             YourUser.save();
             return YourUser;

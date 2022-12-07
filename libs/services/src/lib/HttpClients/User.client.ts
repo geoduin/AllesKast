@@ -1,7 +1,7 @@
 import { ENVIRONMENT_INITIALIZER, Injectable } from "@angular/core";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { catchError, map, Observable, of, pipe, throwError } from "rxjs";
-import { EditUserVM, IdentityUser, SiteUser } from "data";
+import { EditUserVM, IdentityUser, PrivateUser, ResponseMessage, SiteUser } from "data";
 import { env } from "process";
 import { WebHttpService } from "../..";
 const httpOptions = {
@@ -36,11 +36,14 @@ export class UserClient{
         )
     }
 
-    GetOne(Id: string):Observable<IdentityUser>{
+    GetOne(Id: string):Observable<PrivateUser>{
         const url = `${this.WebRoutes.getApiEndPoint()}${this.AllEndpoint}/${Id}`;
-        return this.client.get<IdentityUser>(url, {...this.headers}).pipe(
+        console.log(url);
+        return this.client.get(url, {...this.headers}).pipe(
             map((list)=>{
-                return list;
+                const res = list as ResponseMessage;
+                console.log(list);
+                return res.result;
             })
         )
     }

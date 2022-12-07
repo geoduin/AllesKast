@@ -52,7 +52,7 @@
 </p>
         
         <!--Password change may be moved to another component-->
-        <p>
+        <p *ngIf="!IsEdit">
             <mat-form-field appearance="fill" class="example-full-width">
                 <label for="Password">Wachtwoord</label>
                 <input  matInput 
@@ -68,10 +68,26 @@
                 >
             </mat-form-field>
         </p>
-        
+        <p *ngIf="IsEdit">
+            <mat-form-field appearance="fill" class="example-full-width">
+                <label for="Password">Nieuw wachtwoord</label>
+                <input  matInput 
+                
+                type="password" 
+                name="Password" 
+                id="NewPasswordField" 
+                for="Password"
+                [(ngModel)]="User!.PasswordConfirmation"
+                #NewPasswordField="ngModel"
+                minlength="10"
+                required
+                >
+            </mat-form-field>
+        </p>
 
         <button type="submit" class="ImportantBtn" mat-raised-button [disabled]="!UserForm.valid">Bevestig</button>
     </form> 
+    
     </div>
     
 </div>  

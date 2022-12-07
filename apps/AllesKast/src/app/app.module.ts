@@ -29,6 +29,7 @@ import { StoryBtnComponent } from './features/story/story-btn/story-btn.componen
 import {
   AuthService,
   ConfigModule,
+  StoryClient,
   UserClient,
 } from '../../../../libs/services/src';
 import { environment } from '../environments/environment';
@@ -43,6 +44,10 @@ import { CommentEditComponent } from './features/comments/comment-edit/comment-e
 import { CommentDeleteComponent } from './features/comments/comment-delete/comment-delete.component';
 import { CommentCardComponent } from './features/comments/comment-card/comment-card.component';
 import { CommentListComponent } from './features/comments/comment-list/comment-list.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { WrittenlistComponent } from './features/profile/writtenlist/writtenlist.component';
+import { WarningSignComponent } from './shared/warning-sign/warning-sign.component';
+import { AuthenticationGuard } from './authGuards/authGuard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +77,9 @@ import { CommentListComponent } from './features/comments/comment-list/comment-l
     CommentDeleteComponent,
     CommentCardComponent,
     CommentListComponent,
+    ProfileComponent,
+    WrittenlistComponent,
+    WarningSignComponent,
   ],
   imports: [
     UiModule,
@@ -87,8 +95,10 @@ import { CommentListComponent } from './features/comments/comment-list/comment-l
   ],
   providers: [
     DummyRepo,
+    AuthenticationGuard,
     AuthService,
     UserClient,
+    StoryClient,
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptors, multi: true },
   ],
   bootstrap: [AppComponent],

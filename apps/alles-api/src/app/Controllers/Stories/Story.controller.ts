@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from "@nestjs/common";
 import { IdentityUser } from "data";
 import * as Jwt from 'jsonwebtoken';
 import { ChapterRepository } from "../../Data/Repositories/Chapter.Repository";
@@ -7,6 +7,7 @@ import { StoryRepository } from "../../Data/Repositories/Story.Repository";
 import { Chapter, Page } from "../../Data/Schema/PageSchema";
 import { Comments, Story } from "../../Data/Schema/Story.Schema";
 import { User } from "../../Data/Schema/UserSchema";
+import { AuthGuard } from "../../Guards/AuthGuard";
 
 @Controller("Stories")
 export class StoryController{
@@ -15,9 +16,10 @@ export class StoryController{
 
 
     @Get("Self")
-    async OwnStories(){
-        const Id = Jwt.verify("", "Key");
-        const stories = this.repo.GetStoryPerUser(Id as string);
+    async OwnStories(@Req() request: any){
+        const UserId = request["User"];
+        console.log(UserId);
+        const stories = await this.repo.GetStoryPerUser(UserId.Id);
         return {status: 201, result: stories};
     }
 
@@ -58,6 +60,7 @@ export class StoryController{
     }
 
     @Put(":Id")
+    @UseGuards(AuthGuard)
     async UpdateStory(@Param('Id') Id: string , @Body()story: Partial<Story>):Promise<any>{
         console.log("Update")
         console.log(story);
@@ -70,12 +73,14 @@ export class StoryController{
     }
 
     @Delete(":Id")
+    @UseGuards(AuthGuard)
     async DeleteStory(@Param("Id") Id: string):Promise<any>{
         const result = await this.repo.Delete(Id)
         return {status: 201, result};
     }
 
     @Post(":Id/Chapters")
+    @UseGuards(AuthGuard)
     async PostChapters(
         @Body("Chapter") Chapters: Chapter, 
         @Body("Pages") Pages: Page[],
@@ -90,6 +95,7 @@ export class StoryController{
     }
 
     @Delete(":Id/Chapters/:ChapterId")
+    @UseGuards(AuthGuard)
     async DeleteChapter(
         @Param("Id") StoryId: string, 
         @Param("ChapterId") ChapterId: string)
@@ -104,6 +110,7 @@ export class StoryController{
     }
 
     @Put(":Id/Chapters/:ChapterId")
+    @UseGuards(AuthGuard)
     async UpdateChapter(
         @Param("Id") StoryId: string, 
         @Param("ChapterId") ChapterId: string,
@@ -139,6 +146,7 @@ export class StoryController{
     }
 
     @Post(":Id/Comments")
+    @UseGuards(AuthGuard)
     async PostCommentOnStory(@Param("Id") StoryId: string, @Body() comment: Comments){
         console.log(StoryId);
         console.log(comment);
@@ -148,6 +156,7 @@ export class StoryController{
     }
 
     @Put(":Id/Comments/:CommentId")
+    @UseGuards(AuthGuard)
     async UpdateComment(@Param("Id") StoryId: string,@Param("CommentId") commentId: string, @Body() comment: Comments){
         console.log(StoryId);
         console.log(commentId);
@@ -157,6 +166,7 @@ export class StoryController{
     }
 
     @Delete(":Id/Comments/:CommentId")
+    @UseGuards(AuthGuard)
     async DeleteComment(@Param("Id") StoryId: string,@Param("CommentId") commentId: string){
         console.log(StoryId);
         console.log(commentId);

@@ -23,24 +23,26 @@ export class StoryCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authClient.HasFollowed(this.Story?.StoryId!).subscribe((v)=>{
+    this.authClient.HasFollowed(this.Story?._id!).subscribe((v)=>{
       this.DoesFollow$.next(v);
-    
     })
   }
 
   Follow(targetId: string){
     //Als een gebruiker al de andere gebruiker heeft gevolgd, voer de onvolg functie uit.
+    console.log(`Gebruiker storyId: ${targetId}`);
     this.IsDisabled = true;
     //OnVolg een verhaal als DoesFollow$ true is
+    console.log(`Volgt? ${this.DoesFollow$.getValue()}`);
     if(this.DoesFollow$.getValue()){
+      console.log('Ontvolgt een verhaal');
       this.rcd.UnFollowStory(targetId)
       .then((observed)=>{
         const o = observed.subscribe((v)=>{
           this.DoesFollow$.next(false);
           this.IsDisabled = !this.IsDisabled;
-          o.unsubscribe();
           const u = this.authClient.RefreshUser().subscribe(()=> u.unsubscribe());
+          o.unsubscribe();
         })
       })
       .catch((error)=>{
@@ -51,6 +53,7 @@ export class StoryCardComponent implements OnInit {
     //Volg een verhaal als DoesFollow$ false is
     else
     {
+      console.log('Volgt een verhaal');
       this.rcd.FollowStory(targetId)
       .then((observed)=>{
         const obs = observed.subscribe((v)=>{

@@ -20,7 +20,6 @@ export class UserEditComponent implements OnInit {
   IsEdit:boolean = true;
   constructor(
     private router: ActivatedRoute, 
-    private Db: DummyRepo, 
     private nav: Router, 
     private userClient: UserClient,
     private authService: AuthService) { }
@@ -36,7 +35,11 @@ export class UserEditComponent implements OnInit {
         //Check if user does not edit if it closes the form
         this.Pagina = "Wijziging gegevens van " + this.User?.UserName;
         this.userClient.GetOne(UserId).subscribe((u)=>{
-          this.User = u as EditUserVM;
+          this.User = {
+            ...u,
+            PasswordConfirmation: "",
+            EditPassword: true
+          };
           this.Pagina = "Wijziging gegevens van " + this.User?.UserName;
         });
       } else{
@@ -69,7 +72,6 @@ export class UserEditComponent implements OnInit {
       this.nav.navigate([".."]);
     } else{
       this.RegisterUser();
-      this.nav.navigate([".."]);
     }
     //If it is a edit page, edit user and move on to own page.
     console.log(this.User);
@@ -77,12 +79,10 @@ export class UserEditComponent implements OnInit {
   //Voegt gebruiker toe aan database.
   async RegisterUser(){
     try {
-      this.Db.AddUser(this.User!);
       this.userClient.CreateOne(this.User!)
       .pipe(
         map((result) => {
           console.log(result);
-          this.Db.AddUser(this.User!);
           console.log("Registratie voltooid");
           this.nav.navigate([".."]);
         }),
@@ -98,7 +98,6 @@ export class UserEditComponent implements OnInit {
   //Wijzigt gebruiker
   EditUser(){
     try {
-      this.Db.UpdateUser(this.User!);
       //Update commando naar de api.
       this.userClient.UpdateOne(this.User?._id!, this.User as EditUserVM).subscribe((done) => {
         console.log("Wijziging voltooid");

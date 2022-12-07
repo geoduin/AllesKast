@@ -1,0 +1,21 @@
+
+<table *ngIf="StoryList$ | async" >
+    <h2>Eigen geschreven verhalenlijst</h2>
+    <tr>
+        <th>Titel</th>
+        <th>Genre</th>
+        <th>Publicatiedatum</th>
+        <th>Schrijver</th>
+        <th>18+</th>
+        <th>Detail</th>
+    </tr>
+    <tr *ngFor="let story of StoryList$ | async"class="Shadow">
+        <td>{{story.Title}}</td>
+        <td>{{story.Genres}}</td>
+        <td>{{story.PublishDate}}</td>
+        <td>{{story.Writer!.UserName!}}</td>
+        <td>{{story.IsAdultOnly}}</td>
+        <td><a mat-raised-button routerLink="/Story/{{story.StoryId}}">Details</a></td>
+    </tr>
+   
+</table>

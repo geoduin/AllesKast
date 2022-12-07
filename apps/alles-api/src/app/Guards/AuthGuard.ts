@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate{
 
         if(!User){
             console.log("Authorized not succeeded");
-            throw new UnauthorizedException("You do not have the rights");
+            throw new UnauthorizedException("Moet ingelogd zijn");
         }
 
         console.log("You shall PASSS");

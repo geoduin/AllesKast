@@ -7,6 +7,7 @@ export const GenreList = ["Romantiek", "Actie", "Mysterie",  "Non-Fictie", "Come
 
 export interface IStory{
     //Are editable
+    _id: string | undefined
     StoryId: string | undefined
     Title: string | null | undefined
     StoryLine: string | undefined

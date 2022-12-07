@@ -1,0 +1,16 @@
+table{
+    width: 90%;
+    margin: 1em auto;
+
+}
+
+th{
+    background-color: #6B4D00;
+    color: white;
+    padding: 1em;
+}
+
+td{
+    padding: 1em;
+    background-color: white;
+}

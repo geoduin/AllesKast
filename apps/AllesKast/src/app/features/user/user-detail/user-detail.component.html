@@ -6,32 +6,32 @@
             <img src="assets/staticImages/Placeholder Image.png" alt="Comic-Afbeelding" srcset="" height="300" width="300">
             <div *ngIf="UserRights$ | async">
                 <button mat-raised-button routerLink="Edit">Wijzig gebruiker</button>
-                <User-DeleteButton [Id]='user?._id'></User-DeleteButton>
+                <User-DeleteButton [Id]='DetailUser?._id'></User-DeleteButton>
             </div>
             
         </div>
         <div class="col-8 BackGround Shadow">
             <BackBtn></BackBtn>
-            <h2>Gebruiker {{ user?.UserName }}</h2>
-            <p>Naam: {{user?.UserName}}
-                <br/>Geboortedatum: {{user?.DateOfBirth}}
-            <br/>Rol: {{user?.Role}}</p>
+            <h2>Gebruiker {{ DetailUser?.UserName }}</h2>
+            <p>Naam: {{DetailUser?.UserName}}
+                <br/>Geboortedatum: {{DetailUser?.DateOfBirth}}
+            <br/>Rol: {{DetailUser?.Role}}</p>
             <!--Dit mag alleen een admin wijzigen-->
             <div  class="col-12 EmptyList">
                 
                 <h3>Verhalen gevolgd<button mat-button>Alle gevolgde series</button></h3>
-        <!--<div *ngFor="let stories of user?.FollowedStories">
-            <p>Naam: {{stories?.Title}}</p>
-            <p>Genres: {{stories?.Genres}}</p>
-            <a routerLink="/Story/{{stories.Id}}">Details</a>
-        </div> -->
+        
 
                <div class="FlexBox">
-                    <div *ngFor="let stories of DetailUser?.FollowedStories">
+                    <div *ngFor="let stories of DetailUser?.StoryFollowedlist">
                         <app-story-card [Story]="stories"></app-story-card>
                     </div>
                 </div>
-        
+                <div class="FlexBox">
+                    <div *ngFor="let users of DetailUser?.FollowUserlist">
+                        <app-user-card [User]="users"></app-user-card>
+                    </div>
+                </div>
             </div>
             
         </div>

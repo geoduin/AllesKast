@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { IdentityUser, SiteUser } from '../../../../../../../libs/data/src';
+import { Observable, Subscription } from 'rxjs';
+import { IdentityUser, PrivateUser, ResponseMessage, SiteUser } from '../../../../../../../libs/data/src';
 import { AuthService, UserClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/DummyRepo';
 
@@ -10,30 +10,41 @@ import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/Dumm
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.css'],
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit, OnDestroy {
   
-  user: IdentityUser | undefined;
-  DetailUser: SiteUser | undefined;
+  user: PrivateUser | undefined;
+  DetailUser: PrivateUser | undefined;
   UserRights$: Observable<boolean> | undefined;
+  sub: Subscription;
   //DetailUser: IdentityUser | undefined;
   constructor(
     private route: ActivatedRoute, 
-    private Db: DummyRepo, 
     private Users: UserClient, 
     private router: Router,
     private authService: AuthService) { 
+      this.sub = new Subscription();
     }
+  ngOnDestroy(): void {
+    console.log("Gebruiker unsubbed");
+    this.sub.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params)=>{
       const Userid = params.get("UserId");
-      this.UserRights$ = this.authService.IsEditable(Userid!);
-      if(Userid){
-        this.Users.GetOne(Userid!).subscribe((u)=>{
+      console.log(Userid);
+      
+      if(Userid == 'Self'){
+        this.sub = this.Users.GetOne("Self").subscribe((u)=>{
+          this.DetailUser = u;
+          this.UserRights$ = this.authService.IsEditable(u._id!);
+        })
+      }else if(Userid){
+        this.sub = this.Users.GetOne(Userid!).subscribe((u)=>{
           this.user = u; 
-
+          this.UserRights$ = this.authService.IsEditable(u._id!);
           //As a example of followed story list
-          this.DetailUser = new SiteUser(this.user!._id!, this.user!.UserName!, this.user!.DateOfBirth!, this.user!.Email!, this.user!.Role!);
+          this.DetailUser = this.user
           //this.DetailUser.FollowedStories = this.Db.GetAllStories();
         });
       } else{

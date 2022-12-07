@@ -92,8 +92,7 @@
                 (change)="onSelectFile($event)"
                 name="Thumbnail"
                 [(ngModel)]="NewStory!.Thumbnail"
-                #Thumbnail="ngModel"
-                required>
+                #Thumbnail="ngModel">
                 <div class="ImageSelector">
                     Afbeelding geselecteerd:<br/>
                         <span *ngIf="NewStory!.Thumbnail">

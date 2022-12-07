@@ -17,6 +17,7 @@ export class UserController{
     async GetProfile(@Req() req: any){
 
         const Ids = req["User"];
+        console.log(Ids);
         //Retrieve UserId from token.
         //const token = header.get()
         const User = await this.repo.OneUser(Ids.Id);
@@ -33,7 +34,7 @@ export class UserController{
         try {
             const result = await this.repo.OneUser(Id);
             if(result){
-                return result;
+                return {status: 201,result};
             } else{
                 return {message: "User not found"}
             }
@@ -45,12 +46,13 @@ export class UserController{
     }
 
     @Put(":Id")
+    @UseGuards(AuthGuard)
     async UpdateUser(@Param('Id') Id: string , @Body()user: Partial<EditUserVM>):Promise<any>{
         console.log("Update")
         
         //Check if user sends a new password.
-        if(user.PasswordConfirmation){
-            user.Password = await Bcrypt.hash(user.Password!, 12);
+        if(user.EditPassword){
+            user.Password = await Bcrypt.hash(user.PasswordConfirmation!, 12);
         }
 
         console.log(user);
@@ -63,6 +65,7 @@ export class UserController{
     }
 
     @Delete(":Id")
+    @UseGuards(AuthGuard)
     async DeleteUser(@Param("Id") Id: string):Promise<any>{
         //Also a check if user is authorised to delete, update or edit own user.
         return this.repo.Delete(Id);

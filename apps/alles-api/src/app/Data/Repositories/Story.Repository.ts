@@ -1,8 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { IRepo } from "shared/entities";
-import { Chapter } from "../Schema/PageSchema";
 import { Story, StoryDocument } from "../Schema/Story.Schema";
 
 @Injectable()
@@ -81,6 +79,6 @@ export class StoryRepository{
     }
 
     async GetStoryPerUser(UserId: string){
-        return this.Stories.find({"Writer.Id": UserId}, {project: { Thumbnail: 0 }});
+        return this.Stories.find({"Writer._id": UserId}, {project: { Thumbnail: 0 }});
     }
 }

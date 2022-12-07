@@ -1,4 +1,4 @@
-import { Injectable, NestMiddleware } from "@nestjs/common";
+import { Injectable, NestMiddleware, NotAcceptableException } from "@nestjs/common";
 import * as Jwt from 'jsonwebtoken';
 import { environment } from "../../environments/environment";
 
@@ -23,7 +23,7 @@ export class UserMiddleWare implements NestMiddleware{
             }
             
         } catch (error) {
-            console.log("Error handling")
+            throw new NotAcceptableException("Token verificatie is misgegaan");
         }
         next();
     }

@@ -5,7 +5,7 @@
     <!--If statement voor wachtwoordveld-->
     <!--If statement voor rol-->
     <div class="EmptyList">
-        <div *ngFor="let user of UserList;">
+        <div *ngFor="let user of UserList | async ;">
             <app-user-card class="column-2" [User]="user"></app-user-card>
         </div>
     </div>

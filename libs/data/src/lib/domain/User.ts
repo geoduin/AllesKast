@@ -32,8 +32,8 @@ export class PrivateUser implements IdentityUser{
     Role: string | undefined
     DateOfBirth: Date | undefined
 
-    FollowUserlist: string[] = []
-    StoryFollowedlist: string[] = []
+    FollowUserlist: GUser[] = []
+    StoryFollowedlist: IStory[] = []
 }
 
 //The user object that everybody can see. Used to see own and other users.

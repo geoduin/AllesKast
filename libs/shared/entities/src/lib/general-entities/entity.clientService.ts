@@ -1,14 +1,32 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { ResponseMessage } from "data";
 import { catchError, map, Observable, tap, throwError } from "rxjs";
 
 export class EntityClientService<T>{
-
+    protected readonly Self = "/Self";
     protected readonly headers = new HttpHeaders({
         'Content-Type': 'application/json',
       });
 
-    constructor(private http: HttpClient,public readonly ApiEndPoint: string, public readonly EntityUrl: string){
+    constructor(public http: HttpClient,public readonly ApiEndPoint: string, public readonly EntityUrl: string){
         console.log(this.ApiEndPoint + this.EntityUrl);
+    }
+
+    
+    GetOwn(){
+        const url = this.ApiEndPoint + this.EntityUrl + this.Self;
+        console.log(url);
+        return this.http.get(url, {...this.headers}).pipe(
+            map((result: any)=>{
+                console.log(result);
+                const res = result as ResponseMessage;
+                if(res.status != 201){
+                    return [];
+                } else{
+                    return res.result
+                }
+            })
+        )
     }
 
     GetAll(content: any): Observable<T[]| null>{

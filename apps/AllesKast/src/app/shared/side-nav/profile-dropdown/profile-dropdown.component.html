@@ -9,9 +9,8 @@
       <mat-menu #menu="matMenu">
         
         <a *ngIf="(IsLoggedIn$ | async) == false" mat-menu-item  routerLink="Login">Inloggen</a>
-        <a *ngIf="IsLoggedIn$| async" mat-menu-item >Mijn gevolgde verhalen</a>
-        <a *ngIf="IsLoggedIn$| async" mat-menu-item >Mijn volgers</a>
-        <a *ngIf="IsLoggedIn$ | async" mat-menu-item >Mijn verhalen</a>
+        <a *ngIf="IsLoggedIn$| async" mat-menu-item routerLink="Profile/Stories">Mijn verhalen</a>
+        <a *ngIf="IsLoggedIn$| async" mat-menu-item routerLink="/Users/Self">Profiel</a>
         <a *ngIf="IsLoggedIn$| async" mat-menu-item (click)="LogOut()">Uitloggen</a>
       </mat-menu>
       

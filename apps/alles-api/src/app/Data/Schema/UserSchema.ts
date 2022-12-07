@@ -33,8 +33,8 @@ export class User{
     @Prop({type: [{type: mongoose.Types.ObjectId, ref: 'User', unique: true}], default: []})
     FollowUserlist!:  mongoose.Types.ObjectId[];
 
-    @Prop({ type: [{type: String, ref: 'Story', unique: true }]})
-    StoryFollowedlist!:  string[];
+    @Prop({ type: [{type: mongoose.Types.ObjectId, ref: 'Story', unique: true }], default: []})
+    StoryFollowedlist!:  mongoose.Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { IdentityUser, PrivateUser, SiteUser } from '../../../../../../../libs/data/src';
+import { GUser, IdentityUser, PrivateUser, SiteUser } from '../../../../../../../libs/data/src';
 import { AuthService, RecommendedClient } from '../../../../../../../libs/services/src';
 
 
@@ -12,7 +12,7 @@ import { AuthService, RecommendedClient } from '../../../../../../../libs/servic
 export class UserCardComponent implements OnInit {
 
   @Input()
-  User: SiteUser | undefined
+  User: GUser | undefined
   
   //Attribuut om te controleren of the knop beschikbaar is.
   //Wordt gebruikt als de gebruiker niet is ingelogd of als laadt functie.

@@ -65,7 +65,7 @@ export class AuthService{
             map((val)=>{
                 
                 if(val){
-                    return val.FollowUserlist.includes(targetId) || val.StoryFollowedlist.includes(targetId)
+                    return val.FollowUserlist.filter((s)=> s._id == targetId).length > 0 || val.StoryFollowedlist.filter((s)=> s._id == targetId).length > 0;
                 } else{
                     return false;
                 }

@@ -49,6 +49,7 @@ export class StoryEditComponent implements OnInit {
         this.Titel = "Verhaal aanmaakpagina";
         this.IsEdit = false
         this.NewStory = {
+          _id: undefined,
           StoryId: undefined,
           Title: "",
           PublishDate: new Date(),

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IdentityUser, SiteUser } from '../../../../../../../libs/data/src';
 import { UserClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/DummyRepo';
@@ -10,14 +11,12 @@ import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/Dumm
 })
 export class UserListComponent implements OnInit {
 
-  UserList: SiteUser[] = [];
+  UserList: Observable<SiteUser[]> = new Observable<SiteUser[]>();
   //UserList: IdentityUser[] = [];
-  constructor(private UserDb: DummyRepo, private userRepo: UserClient) { }
+  constructor(private userRepo: UserClient) { }
 
   ngOnInit(): void {
-    this.userRepo.GetAll().subscribe((list)=>{
-      this.UserList = list;
-    });
+    this.UserList = this.userRepo.GetAll();
   }
 
   TestButton(){
