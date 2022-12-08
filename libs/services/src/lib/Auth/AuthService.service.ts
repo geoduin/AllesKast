@@ -52,8 +52,9 @@ export class AuthService{
                     const response = res.result;
                     this.CurrentUser$.next(response);
                     this.StoreUserInLocalDb(response);
+                    return "Opgeslagen";
                 } else{
-                    this.Logout();
+                    return this.Logout();
                 }
             })
         )
@@ -167,6 +168,7 @@ export class AuthService{
         this.CurrentUser$.next(undefined);
         this.IsLoggedIn$.next(false);
         this.routers.navigate(["/"]);
+        return "Uitgelogd";
     }
 
     IsEditable(objectUserId: string):Observable<boolean>{

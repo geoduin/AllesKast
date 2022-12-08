@@ -16,9 +16,9 @@ describe('Edit user page opened', () => {
   let fixture: ComponentFixture<UserEditComponent>;
 
   //Mockservices
-  let MockUserClient:any;
-  let MockRouter:any;
-  let MockAuthService:any;
+  let MockUserClient:jasmine.SpyObj<UserClient>;
+  let MockRouter:jasmine.SpyObj<Router>;
+  let MockAuthService:jasmine.SpyObj<AuthService>;
 
   //Return observables
   let ReturnUser: Observable<PrivateUser>;
@@ -109,6 +109,8 @@ describe('Edit user page opened', () => {
 
     //Update methode pakken.
     MockUserClient.GetOne.and.returnValue(ReturnUser);
+    MockAuthService.RefreshUser.and.returnValue(of("Opgeslagen"));
+    MockUserClient.UpdateOne.and.returnValue(ReturnUserUpdated);
     component.ngOnInit();
 
     expect(component.IsEdit).toBe(true);
@@ -118,8 +120,8 @@ describe('Edit user page opened', () => {
     UserForm.PasswordConfirmation = UserForm.Password!;
 
     component.onSubmit();
-
-    MockUserClient.UpdateOne.and.returnValue(ReturnUserUpdated);
+    fixture.detectChanges();
+    
     //Submit wijziging;
     expect(MockRouter.navigate).toHaveBeenCalled();
   });
@@ -222,6 +224,11 @@ describe('Registratie van een gebruiker is geopend', () => {
 
   it('Send new user to client.', () => {
     //Laad registratie pagina.
+       //Response waarde
+    const response:any= {"message": "Creation succeeded", "result": u} 
+    const Observed = of(response);
+    MockUserClient.CreateOne.and.returnValue(Observed);
+     
     component.ngOnInit();
 
     expect(component.IsEdit).toBe(false);
@@ -234,12 +241,35 @@ describe('Registratie van een gebruiker is geopend', () => {
     component.User.Role = "REGULAR";
     component.onSubmit();
 
-    //Response waarde
-    const response:any= {"message": "Creation succeeded", "result": u} 
-    const Observed = of(response);
-    MockUserClient.CreateOne.and.returnValue(Observed);
+
     //Submit wijziging;
     fixture.detectChanges();
     expect(MockUserClient.CreateOne).toHaveBeenCalled();
+  });
+
+  it('Duplicate user data.', () => {
+    //Laad registratie pagina.
+       //Response waarde
+    const response:any= {"message": "User creation failed"} 
+    const Observed = of(response);
+    MockUserClient.CreateOne.and.returnValue(Observed);
+    TestWarning = "Foute input gegeven"
+    component.ngOnInit();
+
+    expect(component.IsEdit).toBe(false);
+
+    //Vul formulier in;
+    component.User.UserName = "Nieuwe gebruiker"
+    component.User.Email = "NieuweEmail@example.com"
+    component.User.DateOfBirth = new Date("1990-10-10");
+    component.User.Password = "GeheimWachtwoord";
+    component.User.Role = "REGULAR";
+    component.onSubmit();
+
+
+    //Submit wijziging;
+    fixture.detectChanges();
+    expect(MockUserClient.CreateOne).toHaveBeenCalled();
+    expect(component.Warning).toEqual(TestWarning)
   });
 });

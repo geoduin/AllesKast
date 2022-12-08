@@ -12,7 +12,7 @@ describe('UserDeleteBtnComponent', () => {
   let fixture: ComponentFixture<UserDeleteBtnComponent>;
 
   let MockRouter: any;
-  let MockUserClient: any;
+  let MockUserClient: jasmine.SpyObj<UserClient>;
   let u: PrivateUser;
   beforeEach(async () => {
     MockUserClient = jasmine.createSpyObj('UserClient', ['DeleteOne', 'GetAll', 'GetOne']);
@@ -40,21 +40,20 @@ describe('UserDeleteBtnComponent', () => {
     component = fixture.componentInstance; 
     fixture.detectChanges();
   });
-  xit('should delete user', () => {
+  it('should delete user', () => {
     component.Id = "12349876";
-    component.ngOnInit()
-    fixture.autoDetectChanges();
-    fixture.whenRenderingDone();
-
     const Result = {acknowledged: true, deletedCount: 1};
     const ObservableRsult:Observable<any> = of(Result);
+    MockUserClient.DeleteOne.and.returnValue(ObservableRsult);
+    component.ngOnInit()
     
     component.DeletionOfUser();
     
-    MockUserClient.DeleteOne.and.returnValue();
+    console.log(u);
     expect(MockRouter.navigate).toHaveBeenCalled();
   });
-it('should create deletebtn', () => {
+
+  it('should create deletebtn', () => {
     expect(component).toBeTruthy();
   });
 

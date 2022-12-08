@@ -67,11 +67,12 @@ export class UserClient{
         )
     }
 
-    DeleteOne(Id: string):Observable<any>{
+    DeleteOne(Id: string){
         const url = `${this.WebRoutes.getApiEndPoint()}${this.AllEndpoint}/${Id}`;
         return this.client.delete(url).pipe(
             map((user)=>{
-                return user;
+                const result = user as any;
+                return result;
             })
         )
     }

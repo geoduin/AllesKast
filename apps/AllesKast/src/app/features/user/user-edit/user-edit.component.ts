@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, map } from 'rxjs';
+import { catchError, map, Subscription } from 'rxjs';
 import { EditUserVM, IdentityUser } from '../../../../../../../libs/data/src';
 import { AuthService, UserClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/DummyRepo';
@@ -11,14 +11,14 @@ import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/Dumm
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.css']
 })
-export class UserEditComponent implements OnInit {
+export class UserEditComponent implements OnInit, OnDestroy {
   TempID: number = 1
   //For the edit of the user
   Pagina: string = ""
   //user
   User: EditUserVM; 
   IsEdit:boolean = false;
-
+  Sub: Subscription | undefined;
   Warning: string;
   constructor(
     private router: ActivatedRoute, 
@@ -28,6 +28,11 @@ export class UserEditComponent implements OnInit {
       this.Warning = "";
       this.User = { "_id": undefined, "UserName": "",  "Role": "REGULAR", "PasswordConfirmation": "", "Password": "", "Email": "", "EditPassword": false, "DateOfBirth": new Date()}
     }
+  ngOnDestroy(): void {
+    if(this.Sub){
+      this.Sub.unsubscribe();
+    }
+  }
   
   ngOnInit(): void {
     //Loads in user to edit
@@ -108,8 +113,9 @@ export class UserEditComponent implements OnInit {
       //Update commando naar de api.
       this.userClient.UpdateOne(this.User?._id!, this.User as EditUserVM).subscribe((done) => {
         console.log("Wijziging voltooid");
-        const i = this.authService.RefreshUser().subscribe(()=>{ i.unsubscribe()});
-        console.log(done);
+        this.Sub = this.authService.RefreshUser().subscribe((v)=>{ 
+          console.log(v);
+        });
         this.nav.navigate([".."]);
       });
     } catch (error) {
