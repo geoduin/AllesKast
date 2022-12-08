@@ -1,17 +1,18 @@
 import { Injectable } from "@angular/core";
-import { Chapter, ChapterPage, IdentityUser, IStory, Reaction, StoryDetail } from "data";
+import { Chapter, ChapterPage, IdentityUser, IStory, Reaction, SiteUser, StoryDetail } from "data";
 
 @Injectable()
 export class DummyRepo{
 
-    UserArray: IdentityUser[] = [
+    UserArray: SiteUser[] = [
         {
             _id: "1234",
             UserName: "Generiek1",
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
             Role:  "Student",
-            Password: undefined
+            Follow: [],
+            FollowedStories: []
         },
         {
             _id: "1236",
@@ -19,7 +20,8 @@ export class DummyRepo{
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
             Role:  "Student",
-            Password: undefined
+            Follow: [],
+            FollowedStories: []
         },
 
         {
@@ -28,7 +30,8 @@ export class DummyRepo{
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
             Role:  "Student",
-            Password: undefined
+            Follow: [],
+            FollowedStories: []
         },
         {
             _id: "1250",
@@ -36,7 +39,8 @@ export class DummyRepo{
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
             Role:  "Student",
-            Password: undefined
+            Follow: [],
+            FollowedStories: []
         },
 
         {
@@ -45,7 +49,8 @@ export class DummyRepo{
             DateOfBirth: new Date(),
             Email: "Generiek@Example.com",
             Role:  "Student",
-            Password: undefined
+            Follow: [],
+            FollowedStories: []
         },
     ]
 
@@ -136,7 +141,7 @@ export class DummyRepo{
     }
 
     GetAllDummyUsers(){
-        return this.UserArray as IdentityUser[];
+        return this.UserArray as SiteUser[];
     }
 
     /*GetAllStories(){
@@ -147,21 +152,20 @@ export class DummyRepo{
         return this.GetAllStories().filter(s => s.StoryId == id)[0];
     }
 */
-    FindOneUser(id: string): IdentityUser{
+    FindOneUser(id: string): SiteUser{
         return this.GetAllDummyUsers().filter(u => u._id == id)[0];
     }
 
-    AddUser(user: IdentityUser){
+    AddUser(user: SiteUser){
         this.UserArray.push(user);
     }
 
-    UpdateUser(user: IdentityUser){
+    UpdateUser(user: SiteUser){
         // eslint-disable-next-line prefer-const, @typescript-eslint/no-non-null-assertion
-        let CurrentUser:IdentityUser = this.FindOneUser(user._id!);
+        let CurrentUser:SiteUser = this.FindOneUser(user._id!);
         if(CurrentUser){
             //Updates user if user is found
             CurrentUser.UserName = user?.UserName;
-            CurrentUser.Password = user?.Password;
             CurrentUser.DateOfBirth =user?.DateOfBirth;
             CurrentUser.Email = user?.Email;
             
