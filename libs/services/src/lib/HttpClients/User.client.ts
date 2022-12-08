@@ -48,10 +48,10 @@ export class UserClient{
         )
     }
 
-    CreateOne(newUser: IdentityUser): Observable<IdentityUser>{
+    CreateOne(newUser: IdentityUser): Observable<any>{
         const url = `${this.WebRoutes.getApiEndPoint()}${this.RegistrationEndpoint}`;
-        return this.client.post<EditUserVM>(url, newUser).pipe(
-            map((res)=>{
+        return this.client.post(url, newUser).pipe(
+            map((res:any)=>{
                 return res;
             }),
             catchError(this.handleError)
@@ -67,9 +67,9 @@ export class UserClient{
         )
     }
 
-    DeleteOne(Id: string){
+    DeleteOne(Id: string):Observable<any>{
         const url = `${this.WebRoutes.getApiEndPoint()}${this.AllEndpoint}/${Id}`;
-        return this.client.delete<IdentityUser>(url).pipe(
+        return this.client.delete(url).pipe(
             map((user)=>{
                 return user;
             })

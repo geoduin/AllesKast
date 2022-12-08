@@ -16,8 +16,8 @@ export class UserEditComponent implements OnInit {
   //For the edit of the user
   Pagina: string = ""
   //user
-  User: EditUserVM | undefined; 
-  IsEdit:boolean = true;
+  User: EditUserVM; 
+  IsEdit:boolean = false;
 
   Warning: string;
   constructor(
@@ -26,19 +26,22 @@ export class UserEditComponent implements OnInit {
     private userClient: UserClient,
     private authService: AuthService) { 
       this.Warning = "";
+      this.User = { "_id": undefined, "UserName": "",  "Role": "REGULAR", "PasswordConfirmation": "", "Password": "", "Email": "", "EditPassword": false, "DateOfBirth": new Date()}
     }
   
   ngOnInit(): void {
     //Loads in user to edit
     this.router.paramMap.subscribe((url)=>{
       const UserId = url.get("UserId");
+      console.log(UserId);
       //If UserId is present, it will act as 
       if(UserId){
         //Sets user on editable
         this.IsEdit = true;
         //Check if user does not edit if it closes the form
-        this.Pagina = "Wijziging gegevens van " + this.User?.UserName;
+        console.log(this.Pagina);
         this.userClient.GetOne(UserId).subscribe((u)=>{
+          console.log(u);
           this.User = {
             ...u,
             PasswordConfirmation: "",
@@ -49,20 +52,11 @@ export class UserEditComponent implements OnInit {
       } else{
         //Otherwise it will receive the registration form
         //Sets user on non-editable. Is used to differiate with the edit url. 
+        console.log("Registratie formulier geopend");
         this.IsEdit = false;
         this.Pagina = "Registratieformulier"
 
-        //Will be removed when interacting with a api.
-        this.User = {
-          _id: undefined,
-          UserName: "",
-          DateOfBirth: new Date(),
-          Role: "Student",
-          Email: "",
-          Password: "",
-          PasswordConfirmation: "",
-          EditPassword: false
-        }
+        //Will be removed when interacting with a api
       }
     })
 
@@ -70,7 +64,7 @@ export class UserEditComponent implements OnInit {
 
   //Aangeroepen methode bij het drukken van de knop.
   onSubmit() {
-    console.log()
+    console.log("Start submit")
     if(this.IsEdit){
       this.EditUser();
       this.nav.navigate([".."]);
@@ -83,9 +77,11 @@ export class UserEditComponent implements OnInit {
   //Voegt gebruiker toe aan database.
   async RegisterUser(){
     try {
+      console.log("Registratie gestart");
       this.userClient.CreateOne(this.User!)
       .pipe(
         map((result) => {
+          console.log("Registratie pijp klaar")
           console.log(result);
           const res = result as unknown as any;
           if(res.message == "User creation failed"){
@@ -112,6 +108,7 @@ export class UserEditComponent implements OnInit {
       //Update commando naar de api.
       this.userClient.UpdateOne(this.User?._id!, this.User as EditUserVM).subscribe((done) => {
         console.log("Wijziging voltooid");
+        const i = this.authService.RefreshUser().subscribe(()=>{ i.unsubscribe()});
         console.log(done);
         this.nav.navigate([".."]);
       });

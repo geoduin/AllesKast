@@ -7,14 +7,13 @@ import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/Dumm
   selector: 'User-DeleteButton',
   templateUrl: './user-delete-btn.component.html',
   styleUrls: ['./user-delete-btn.component.css'],
-  standalone: true
 })
 export class UserDeleteBtnComponent implements OnInit {
 
   @Input()
   Id: string | undefined | null
 
-  constructor(private Db: DummyRepo, private router: Router, private userClient:UserClient) { }
+  constructor(private router: Router, private userClient:UserClient) { }
 
   ngOnInit(): void {
   }
@@ -23,8 +22,13 @@ export class UserDeleteBtnComponent implements OnInit {
     try{
       //If user Id is present. Delete user
       if(this.Id){
-        this.userClient.DeleteOne(this.Id).subscribe((deleted)=>{
+        console.log(`Id is ${this.Id}`);
+        this.userClient
+        .DeleteOne(this.Id)
+        .subscribe(()=>{
           console.log(`Deletion of ${this.Id}`)
+          const endresponse = "Verwijdering is voltooid";
+          console.log(endresponse);
           //Returns to homepage
           this.router.navigate([".."]); 
         });
