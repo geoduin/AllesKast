@@ -19,7 +19,7 @@ jobs:
     - name: Installeer alle packages
       run: npm i
     - name: Run tests
-    - run: nx test
+    - run: npm run test
     - name: Build file
       run: npm run buildWeb
       
