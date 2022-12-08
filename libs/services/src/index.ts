@@ -6,3 +6,4 @@ export * from './lib/Auth/AuthService.service';
 export * from './lib/HttpClients/Chapter.client';
 export * from './lib/HttpClients/Comment.client';
 export * from './lib/HttpClients/RCD.client';
+export * from './lib/Dummy/DummyRepo';

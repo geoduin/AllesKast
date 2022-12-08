@@ -80,6 +80,7 @@ import { AuthenticationGuard } from './authGuards/authGuard';
     ProfileComponent,
     WrittenlistComponent,
     WarningSignComponent,
+    UserDeleteBtnComponent,
   ],
   imports: [
     UiModule,
@@ -89,7 +90,6 @@ import { AuthenticationGuard } from './authGuards/authGuard';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    UserDeleteBtnComponent,
     ConfigModule.ForRoot({ apiEndpoint: environment.NestJSUrl }),
     LayoutModule,
   ],
