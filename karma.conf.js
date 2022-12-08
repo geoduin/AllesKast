@@ -38,11 +38,11 @@ module.exports = () => {
     logLevel: constants.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
-    customLauncher:{
-      ChromeHeadlessCI:{
+    customLaunchers: {
+      ChromeHeadlessCI: {
         base: "ChromeHeadless",
-        flags: ["--no-sandbox"]
-      }
+        flags: ["--no-sandbox"],
+      },
     },
     singleRun: true,
   };

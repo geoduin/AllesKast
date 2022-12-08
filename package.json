@@ -13,7 +13,7 @@
     "build:alles-kast:prod": "npx nx build AllesKast --prod",
     "build:alles-api:prod": "npx nx build alles-api --prod",
     "watch": "nx build --watch --configuration development",
-    "test": "nx test --code-coverage --no-watch --no-progress --browsers  Chrome",
+    "test":  "nx test --code-coverage --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "testApi": "nx run alles-api:test",
     "postinstall": "node ./decorate-angular-cli.js"
   },
