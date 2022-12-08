@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { PrivateUser } from '../../../../../../../libs/data/src';
-import { UserClient } from '../../../../../../../libs/services/src';
+import { AuthService, UserClient } from '../../../../../../../libs/services/src';
 import { UiModule } from '../../../../../../../libs/ui/src';
 
 import { UserDeleteBtnComponent } from './user-delete-btn.component';
@@ -13,9 +13,12 @@ describe('UserDeleteBtnComponent', () => {
 
   let MockRouter: any;
   let MockUserClient: jasmine.SpyObj<UserClient>;
+  let MockAuthService: jasmine.SpyObj<AuthService>;
+
   let u: PrivateUser;
   beforeEach(async () => {
     MockUserClient = jasmine.createSpyObj('UserClient', ['DeleteOne', 'GetAll', 'GetOne']);
+    MockAuthService = jasmine.createSpyObj('AuthService', ['Logout']);
     MockRouter = jasmine.createSpyObj('Router', ['navigate'])
     u = {
       _id: "12349876",
@@ -32,7 +35,8 @@ describe('UserDeleteBtnComponent', () => {
       imports: [UiModule, RouterModule],
       providers:[
         {provide: UserClient, useValue: MockUserClient},
-        {provide: Router, useValue: MockRouter}
+        {provide: Router, useValue: MockRouter},
+        {provide: AuthService, useValue: MockAuthService}
       ]
     })
     .compileComponents();
@@ -51,6 +55,7 @@ describe('UserDeleteBtnComponent', () => {
     
     console.log(u);
     expect(MockRouter.navigate).toHaveBeenCalled();
+    expect(MockAuthService.Logout).toHaveBeenCalled();
   });
 
   it('should create deletebtn', () => {

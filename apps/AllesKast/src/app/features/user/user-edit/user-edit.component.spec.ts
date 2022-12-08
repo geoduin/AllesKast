@@ -125,6 +125,28 @@ describe('Edit user page opened', () => {
     //Submit wijziging;
     expect(MockRouter.navigate).toHaveBeenCalled();
   });
+
+  it('Duplicate user data during update to client.', () => {
+
+    //Update methode pakken.
+    MockUserClient.GetOne.and.returnValue(ReturnUser);
+    MockAuthService.RefreshUser.and.returnValue(of("Opgeslagen"));
+    MockUserClient.UpdateOne.and.returnValue(of(null));
+    component.ngOnInit();
+
+    expect(component.IsEdit).toBe(true);
+    expect(component.User).toEqual(UserForm)
+
+    UserForm.Email = "NieuweEmail@example.com"
+    UserForm.PasswordConfirmation = UserForm.Password!;
+
+    component.onSubmit();
+    fixture.detectChanges();
+    
+    //Submit wijziging;
+    expect(component.Warning).toEqual("Er is iets misgegaan. Of een gebruikersnaam is al ingenomen, of er is iets anders")
+    expect(MockRouter.navigate).toHaveBeenCalledTimes(0);
+  });
 });
 
 
@@ -272,4 +294,6 @@ describe('Registratie van een gebruiker is geopend', () => {
     expect(MockUserClient.CreateOne).toHaveBeenCalled();
     expect(component.Warning).toEqual(TestWarning)
   });
+
+  
 });

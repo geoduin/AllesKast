@@ -1,5 +1,5 @@
 
-                <button class="ImportantBtn" mat-raised-button (click)="MakeComment()">Reageer</button>
+                <button *ngIf="authService.IsLoggedIn$ | async" class="ImportantBtn" mat-raised-button (click)="MakeComment()">Reageer</button>
                 <div class="row FlexBox">
                     <div  class="Comment Shadow" *ngFor="let comment of Comments">
                         <div class="Content">
@@ -7,7 +7,7 @@
                                 <div class="Own content">
             
                                 </div>
-                                <p class="m-1">Gebruiker: {{comment.UserId}}
+                                <p class="m-1">Gebruiker: {{comment.Username}}
                                 <br/>{{comment.Content}}
                                 <br/>{{comment.PublishDate!}}</p>
                                 <span *ngIf="Authorized(comment.UserId) | async">

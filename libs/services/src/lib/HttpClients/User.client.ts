@@ -60,9 +60,14 @@ export class UserClient{
 
     UpdateOne(Id: string, user: EditUserVM){
         const url = `${this.WebRoutes.getApiEndPoint()}${this.AllEndpoint}/${Id}`;
-        return this.client.put<IdentityUser>(url, user).pipe(
-            map((user)=>{
-                return user;
+        return this.client.put<ResponseMessage>(url, user).pipe(
+            map((result)=>{
+                if(result.status == 201){
+                    return result.result;
+                } else{
+                    return null;
+                }
+                
             })
         )
     }

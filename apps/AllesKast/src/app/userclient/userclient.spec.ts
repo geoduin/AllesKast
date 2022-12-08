@@ -2,7 +2,7 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { ConfigModule, DummyRepo, UserClient } from "../../../../../libs/services/src";
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from "rxjs";
-import { EditUserVM, IdentityUser, PrivateUser } from "../../../../../libs/data/src";
+import { EditUserVM, IdentityUser, PrivateUser, ResponseMessage } from "../../../../../libs/data/src";
 
 describe('Test test (1)', ()=>{
     let repo: DummyRepo;
@@ -66,7 +66,8 @@ describe('Test test (1)', ()=>{
             Email: "Test_broer@example.com",
             Role: "REGULAR"
         }
-        httpSpy.put.and.returnValue(of(responseUser));
+        const message: ResponseMessage = {status: 201, message: "miss", result: responseUser}
+        httpSpy.put.and.returnValue(of(message));
 
         service.UpdateOne("1", InsertUser).subscribe((l)=>{
             expect(l.UserName).toEqual("TestbroerWijziging");

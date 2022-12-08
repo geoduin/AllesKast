@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from "@nestjs/common";
-import { EditUserVM, IdentityUser } from "data";
+import { EditUserVM, IdentityUser, ResponseMessage } from "data";
 import { Error } from "mongoose";
 import * as Jwt from 'jsonwebtoken';
 import { UserRepository } from "../../Data/Repositories/User.Repository";
@@ -50,8 +50,7 @@ export class UserController{
 
     @Put(":Id")
     @UseGuards(AuthGuard)
-    
-    async UpdateUser(@Param('Id') Id: string , @Body()user: Partial<EditUserVM>):Promise<any>{
+    async UpdateUser(@Param('Id') Id: string , @Body()user: Partial<EditUserVM>):Promise<ResponseMessage>{
         console.log("Update")
         
         //Check if user sends a new password.
@@ -61,9 +60,10 @@ export class UserController{
 
         console.log(user);
         try {
-            return this.repo.Update(Id, user as IdentityUser);
+            const res =  await this.repo.Update(Id, user as IdentityUser);
+            return {status: 201, message: "Update voltooid", result: res}
         } catch (error) {
-            return {message: "Update failed", Failed: user}
+            return {status: 405, message: "Update failed", result: user}
         }
         
     }

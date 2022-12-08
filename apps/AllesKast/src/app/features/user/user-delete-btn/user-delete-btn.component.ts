@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserClient } from '../../../../../../../libs/services/src';
+import { AuthService, UserClient } from '../../../../../../../libs/services/src';
 import { DummyRepo } from '../../../../../../../libs/services/src/lib/Dummy/DummyRepo';
 
 @Component({
@@ -13,7 +13,7 @@ export class UserDeleteBtnComponent implements OnInit {
   @Input()
   Id: string | undefined | null
 
-  constructor(private router: Router, private userClient:UserClient) { }
+  constructor(private router: Router, private userClient:UserClient, private authClient: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -28,6 +28,7 @@ export class UserDeleteBtnComponent implements OnInit {
         .subscribe(()=>{
           console.log(`Deletion of ${this.Id}`)
           const endresponse = "Verwijdering is voltooid";
+          this.authClient.Logout();
           console.log(endresponse);
           //Returns to homepage
           this.router.navigate([".."]); 

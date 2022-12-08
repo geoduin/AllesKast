@@ -72,7 +72,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
     console.log("Start submit")
     if(this.IsEdit){
       this.EditUser();
-      this.nav.navigate([".."]);
     } else{
       this.RegisterUser();
     }
@@ -113,14 +112,20 @@ export class UserEditComponent implements OnInit, OnDestroy {
       //Update commando naar de api.
       this.userClient.UpdateOne(this.User?._id!, this.User as EditUserVM).subscribe((done) => {
         console.log("Wijziging voltooid");
-        this.Sub = this.authService.RefreshUser().subscribe((v)=>{ 
-          console.log(v);
-        });
-        this.nav.navigate([".."]);
+        if(done){
+          this.Sub = this.authService.RefreshUser().subscribe((v)=>{ 
+            console.log(v);
+          });
+          this.nav.navigate([".."]);
+        } else{
+          this.Warning = "Er is iets misgegaan. Of een gebruikersnaam is al ingenomen, of er is iets anders"
+          return
+        }
       });
     } catch (error) {
       //Fail save als het toch een null waarde meestuurt.
       console.error(error);
+      return;
     }
     
   }

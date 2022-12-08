@@ -108,7 +108,7 @@ export class StoryEditComponent implements OnInit {
     this.IsDis = true;
     this.client.UpdateOne(this.NewStory.StoryId!, this.NewStory as StoryDetail, {})
     .subscribe(()=>{
-      console.log("Nieuwe verhaal aanmaken.");
+      console.log("Verhaal wijzigen");
       this.IsDis = false;
       this.Router.navigate([".."]);
       

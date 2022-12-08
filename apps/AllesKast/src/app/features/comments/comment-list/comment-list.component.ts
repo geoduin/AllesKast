@@ -20,7 +20,7 @@ export class CommentListComponent implements OnInit {
   //Comments$ = new BehaviorSubject<IComment[] | undefined>(undefined);
 
   constructor(    
-    private authService: AuthService,
+    public authService: AuthService,
     private CommentDialog: MatDialog,
     private CommentClient: CommentClient) {
       this.StoryId = "";
