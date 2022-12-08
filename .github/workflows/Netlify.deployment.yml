@@ -20,7 +20,7 @@ jobs:
       run: npm i
     
     - name: Run tests
-    - run: npm test
+      run: npm test
     
     - name: Build file
       run: npm run buildWeb
