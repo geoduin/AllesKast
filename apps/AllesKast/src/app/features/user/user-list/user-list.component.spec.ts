@@ -8,7 +8,7 @@ import { BackBtnComponent } from '../../../shared/back-btn/back-btn.component';
 
 import { UserListComponent } from './user-list.component';
 
-describe('UserListComponent', () => {
+describe('All user list component', () => {
 
   let component: UserListComponent;
   let fixture: ComponentFixture<UserListComponent>;

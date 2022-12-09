@@ -4,7 +4,7 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from "rxjs";
 import { EditUserVM, IdentityUser, PrivateUser, ResponseMessage } from "../../../../../libs/data/src";
 
-describe('Test test (1)', ()=>{
+describe('User service tests', ()=>{
     let repo: DummyRepo;
     let service: UserClient;
     let httpSpy: jasmine.SpyObj<HttpClient>;

@@ -7,7 +7,7 @@ import { UiModule } from '../../../../../../../libs/ui/src';
 
 import { UserDeleteBtnComponent } from './user-delete-btn.component';
 
-describe('UserDeleteBtnComponent', () => {
+describe('Delete user component', () => {
   let component: UserDeleteBtnComponent;
   let fixture: ComponentFixture<UserDeleteBtnComponent>;
 

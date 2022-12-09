@@ -9,7 +9,7 @@ import { BackBtnComponent } from '../../../shared/back-btn/back-btn.component';
 
 import { UserDetailComponent } from './user-detail.component';
 
-describe('UserDetailComponent', () => {
+describe('Detail Users component', () => {
   let component: UserDetailComponent;
   let fixture: ComponentFixture<UserDetailComponent>;
 

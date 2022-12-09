@@ -11,7 +11,7 @@ import { BackBtnComponent } from '../../../shared/back-btn/back-btn.component';
 
 import { UserEditComponent } from './user-edit.component';
 
-describe('Edit user page opened', () => {
+describe('Edit user', () => {
   let component: UserEditComponent;
   let fixture: ComponentFixture<UserEditComponent>;
 
@@ -151,7 +151,7 @@ describe('Edit user page opened', () => {
 
 
 //De app opent eigenlijk een registratie component, maar bevat geen enkele logica of html-elementen, op de user edit component na.
-describe('Registratie van een gebruiker is geopend', () => {
+describe('Creation user', () => {
   let component: UserEditComponent;
   let fixture: ComponentFixture<UserEditComponent>;
 
