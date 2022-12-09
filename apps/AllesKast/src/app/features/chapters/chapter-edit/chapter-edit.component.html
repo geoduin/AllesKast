@@ -2,7 +2,6 @@
 <form #ChapForm="ngForm" (ngSubmit)="OnSubmit()" novalidate>
     <h1 *ngIf="Edit">Wijziging van hoofdstuk</h1>
     <h1 *ngIf="!Edit">Aanmaken van hoofdstuk</h1>
-    <p>{{PageHolder.size}}</p>
 
     <!--Hoofdstuk nummer-->
     <mat-form-field class="example-full-width" appearance="fill">
@@ -54,11 +53,9 @@
     <div class="col-10" *ngIf="Warning" class="invalid-feedback">
         {{Warning}}
     </div>
-    <button type="submit" mat-raised-button class="ImportantBtn" [disabled]="!ChapForm.valid">Bevestig</button>
+    <button type="submit" mat-raised-button class="ImportantBtn" [disabled]="!ChapForm.valid" [disabled]="DisAble">Bevestig</button>
 </form>
-<pre>
-    {{ ChapterForm | json}}
-</pre>
+
 <div *ngIf="Warning.length > 0" class="warning">
     {{Warning}}
 </div>

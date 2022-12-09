@@ -19,9 +19,11 @@ export class ChapterEditComponent implements OnInit {
   Warning: string;
   Edit: boolean;
   EditCreate: string;
+  DisAble: boolean;
   
   constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private ChapterClient: ChapterClient) { 
     this.Warning = "";
+    this.DisAble = false;
     this.Edit = false;
     this.EditCreate = "aanmaken van hoofdstuk";
     this.ChapterForm = {
@@ -114,8 +116,12 @@ export class ChapterEditComponent implements OnInit {
       
       if(value){
         //Als de afbeelding groter is dan 2 MB, dan wordt de hoofdstuk niet aangemaakt.
+        this.Warning = "Laden";
+        this.DisAble = true;
         this.ChapterClient
         .Create(form.StoryId, form, {}).subscribe(()=>{
+          this.DisAble = false;
+          this.Warning = "";
           this.router.navigate(["/"]);
           console.log("Een nieuw hoofdstuk is geplaatst.")
         })
@@ -129,8 +135,12 @@ export class ChapterEditComponent implements OnInit {
   Update(form: ChapterDetails){
     this.dialog.open(DialogComponent, {data:{naam: this.EditCreate}}).afterClosed().subscribe((value)=>{
       if(value){
+        this.DisAble = true;
+        this.Warning = "";
         this.ChapterClient.Update(form.StoryId, form.ChapterId!, form, {}).subscribe((value)=>{
           console.log(value);
+          this.DisAble = false;
+          this.Warning = "";
           this.router.navigate(["/"]);
         })
       }
