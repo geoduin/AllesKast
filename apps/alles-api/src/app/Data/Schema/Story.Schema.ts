@@ -16,19 +16,19 @@ export class Comments implements IComment{
     @Prop({default: uuid, type: String})
     CommentId: string | undefined;
     
-    @Prop({required: true})
+    @Prop({type: String,required: true})
     UserId!: string;
 
-    @Prop()
+    @Prop({type: String,})
     Username!: string;
     
-    @Prop({required: true})
+    @Prop({type: String,required: true})
     Title!: string;
 
-    @Prop({required: true})
+    @Prop({type: String,required: true})
     Content!: string;
     
-    @Prop({default: new Date()})
+    @Prop({type: Date, default: new Date()})
     PublishDate!: Date;
 }
 export const CommentsSchema = SchemaFactory.createForClass(Comments);
@@ -38,31 +38,31 @@ export class Story implements IStory{
     _id: string | undefined;
     
     
-    @Prop({default: uuid, index: true})
+    @Prop({type: String, default: uuid, index: true})
     StoryId!: string;
 
-    @Prop({required: true, index: true})
+    @Prop({type: String,required: true, index: true})
     Title!: string
 
-    @Prop({required: true})
+    @Prop({type: String,required: true})
     StoryLine!: string
     
     @Prop({required: true, type: Writer})
     Writer!: Writer
 
-    @Prop({required: true, default: true})
+    @Prop({type: Boolean, required: true, default: true})
     IsAdultOnly!: boolean
 
-    @Prop({required: true})
+    @Prop({type: String,required: true})
     Genres!: string
     
-    @Prop({default: new Date()})
+    @Prop({type: Date,default: new Date()})
     PublishDate!: Date
 
     @Prop({required: true, type: Image})
     Thumbnail!: Image
     
-    @Prop({default: [CommentsSchema]})
+    @Prop({type: [], default: [CommentsSchema]})
     Comments!: Comments[]
 
     ChapterList!: Chapter[] | undefined

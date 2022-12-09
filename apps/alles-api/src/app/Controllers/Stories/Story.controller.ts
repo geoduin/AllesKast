@@ -26,6 +26,7 @@ export class StoryController{
     }
 
     @Post()
+    @UseGuards(AuthGuard)
     async CreateStory(@Body() story: Story){
         try {
             console.log("User api creation started");
@@ -68,7 +69,7 @@ export class StoryController{
         console.log("Update")
         console.log(story);
         try {
-            return this.repo.Update(Id, story);
+            return await this.repo.Update(Id, story);
         } catch (error) {
             return {message: "Update failed", Failed: story}
         }
@@ -89,7 +90,6 @@ export class StoryController{
     async PostChapters(
         @Body("Chapter") Chapters: Chapter, 
         @Body("Pages") Pages: Page[],
-        @Body("Page")Page: Page,
         @Param("Id") Id: string){
         console.log(Chapters);
         //Voeg hoofdstuk toe aan verhaal;

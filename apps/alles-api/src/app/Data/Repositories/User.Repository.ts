@@ -95,7 +95,7 @@ export class UserRepository{
         }
     }
 
-    async FollowUser(YourUserId: string, TargetId: string){
+    async FollowUser(YourUserId: string, TargetId: string):Promise<any>{
         
         
         const TargetUser = await this.UserModel.findById(TargetId);
@@ -116,7 +116,7 @@ export class UserRepository{
         return YourUser;
     }
 
-    async UnfollowUser(YourUserId: string, TargetId: string){
+    async UnfollowUser(YourUserId: string, TargetId: string):Promise<any>{
         Logger.debug(`Onvolg functie door Eigen gebruiker met Id: ${YourUserId} die een gebruiker ontvolgt met Id ${TargetId}`);
         const TargetUser = await this.UserModel.findById(TargetId);
         
@@ -131,7 +131,7 @@ export class UserRepository{
 
     }
 
-    async FollowStory(YourUserId: string, TargetId: string){
+    async followStory(YourUserId: string, TargetId: string):Promise<any>{
         const YourUser = await this.UserModel.findById(YourUserId);
         if(!YourUser){
             throw new NotFoundException("Gezochte gebruiker is niet gevonden.");
@@ -147,7 +147,7 @@ export class UserRepository{
 
     }
     
-    async UnFollowStory(YourUserId: string, TargetId: string){
+    async UnFollowStory(YourUserId: string, TargetId: string):Promise<any>{
         console.log("Unfollowed gebruiker");
         const updated = await this.UserModel.findByIdAndUpdate(YourUserId, {$pull: {'StoryFollowedlist': TargetId}});
         if(!updated){

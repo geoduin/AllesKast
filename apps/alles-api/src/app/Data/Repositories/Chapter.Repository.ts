@@ -1,17 +1,15 @@
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { Chapter, ChapterSchema, Page } from "../Schema/PageSchema";
-import { Story } from "../Schema/Story.Schema";
+import { Chapter} from "../Schema/PageSchema";
 
 
 
 export class ChapterRepository{
     constructor(
-        @InjectModel(Chapter.name) private Chapters: Model<Chapter>, 
-        @InjectModel(Story.name) private Stories: Model<Story>){}
+        @InjectModel(Chapter.name) private Chapters: Model<Chapter>){}
 
 
-    async AddChapterToStory(Id:string, Chapter: Chapter){
+    async AddChapterToStory(Id:string, Chapter: Chapter):Promise<any>{
         console.log("Chapter creation started");
         console.log(Chapter);
             const push = {$push: { ChapterList: Chapter } };
@@ -23,7 +21,7 @@ export class ChapterRepository{
         
     }
 
-    async DeleteChapter(storyId: string, chapterId: string){
+    async DeleteChapter(storyId: string, chapterId: string):Promise<any>{
         //Filter
         const filter = {ChapterId : chapterId};
 
@@ -43,7 +41,7 @@ export class ChapterRepository{
         return await this.Pages.deleteMany(filter);
     }
 */
-    async UpdateChapter(storyId:string, chapterId: string, updatedChapter: Partial<Chapter>){
+    async UpdateChapter(storyId:string, chapterId: string, updatedChapter: Partial<Chapter>): Promise<any>{
         console.log("Update chapter started");
         const filter = {StoryId: storyId, "ChapterList.ChapterId": chapterId};
         console.log(filter);

@@ -70,8 +70,9 @@ export class UserController{
 
     @Delete(":Id")
     @UseGuards(AuthGuard)
-    async DeleteUser(@Param("Id") Id: string):Promise<any>{
+    async DeleteUser(@Param("Id") Id: string):Promise<ResponseMessage>{
         //Also a check if user is authorised to delete, update or edit own user.
-        return this.repo.Delete(Id);
+        const result = await this.repo.Delete(Id);
+        return {status: 201, message: "Deletion succeeded", result: true};
     }
 }

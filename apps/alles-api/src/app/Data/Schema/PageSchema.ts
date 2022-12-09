@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ChapterDetails, ComicPage, IChapter, IntfPage } from "data";
 import { HydratedDocument } from "mongoose";
 import { v4 as uuid } from 'uuid';
@@ -9,13 +9,13 @@ export type ChapterDocument = HydratedDocument<Chapter>;
 @Schema()
 export class Page implements ComicPage{
 
-    @Prop({default:uuid})
+    @Prop({type: String, default:uuid})
     PageId!: string;
 
-    @Prop({required: true})
+    @Prop({type: String,required: true})
     ImageName!: string;
 
-    @Prop({required: true})
+    @Prop({type: String,required: true})
     ComicImage!: string;
 }
 export const PageSchema = SchemaFactory.createForClass(Page);
@@ -23,22 +23,22 @@ export const PageSchema = SchemaFactory.createForClass(Page);
 @Schema()
 export class Chapter implements ChapterDetails{
     
-    @Prop({required:true})
+    @Prop({type: String,required:true})
     StoryId!:string;
 
-    @Prop({default:uuid, index: true})
+    @Prop({type: String,default:uuid, index: true})
     ChapterId!: string;
 
-    @Prop({required:true})
+    @Prop({type: String,required:true})
     ChapterTitle!: string;
 
-    @Prop({default: new Date})
+    @Prop({type: Date, default: new Date})
     PublishDate!: Date;
 
-    @Prop({default: 1})
+    @Prop({type: Number, default: 1})
     ChapterNr!: number;
 
-    @Prop()
+    @Prop({type: Object})
     Ratings!: [{ UserId: string; Rating: number; }];
     
     @Prop({type: Page})

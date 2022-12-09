@@ -35,7 +35,7 @@ export class CommentRepository{
         return await this.Stories.findOneAndUpdate(filter, PushCommand, n);
     }
 
-    async GetOne(storyId: string, commentId: string){
+    async GetOne(storyId: string, commentId: string):Promise<any>{
 
         //Filters en commandos
         const filter = {StoryId: storyId, "Comments.CommentId": commentId}

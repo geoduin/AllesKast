@@ -72,7 +72,7 @@ export class StoryRepository{
         return this.Stories.find({}, { Writer: 0, Comments: 0, ChapterList: 0, __v: 0}).exec();
     }
 
-    async GetRecommended(StoryIdList: string[]){
+    async GetRecommended(StoryIdList: string[]):Promise<any>{
         const query = {_id: { $in: StoryIdList}};
         const results = this.Stories.find(query, {ChapterList: 0}, {})
         return results;

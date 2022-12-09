@@ -55,7 +55,7 @@ export class RecommendedStoryController{
         //Push verhaalId in mongodb
         const result = await this.neo4jRepo.FollowStory(OwnId.Id, StoryId);
         //Koppel een relatie tussen gebruiker en verhaal
-        const mongoResult = await this.userRepo.FollowStory(OwnId.Id, StoryId);
+        const mongoResult = await this.userRepo.followStory(OwnId.Id, StoryId);
 
         console.log(mongoResult);
         return {status: 204, message: "Follow user succeeded", result: {neo: result, mongo: mongoResult}};

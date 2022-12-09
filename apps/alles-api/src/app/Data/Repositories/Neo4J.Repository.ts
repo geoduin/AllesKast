@@ -134,7 +134,7 @@ export class Neo4JFollowersRepository{
 
 
     //Follow functionality
-    async FollowUser(YourUserId: string, TargetUserId: string){
+    async FollowUser(YourUserId: string, TargetUserId: string):Promise<any>{
         try {
             const params = { 
                 YourParams: YourUserId,
@@ -165,7 +165,7 @@ export class Neo4JFollowersRepository{
         
     }
 
-    async UnFollowUser(YourUserId: string, TargetUserId: string){
+    async UnFollowUser(YourUserId: string, TargetUserId: string):Promise<any>{
         
         const params = { 
             YourParams: YourUserId,
@@ -182,7 +182,7 @@ export class Neo4JFollowersRepository{
         return result.records;
     }
 
-    async FollowStory(YourUserId: string, TargetStoryId: string){
+    async FollowStory(YourUserId: string, TargetStoryId: string):Promise<any>{
         const params = { 
             YourParams: YourUserId,
             TargetParams: TargetStoryId
@@ -205,7 +205,7 @@ export class Neo4JFollowersRepository{
         
     }
 
-    async UnFollowStory(YourUserId: string, TargetStoryId: string){
+    async UnFollowStory(YourUserId: string, TargetStoryId: string):Promise<any>{
         const params = { 
             YourParams: YourUserId,
             TargetParams: TargetStoryId
