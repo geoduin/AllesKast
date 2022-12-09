@@ -28,7 +28,7 @@ export class User{
     @Prop({type: String, required: true, unique: true})
     Email!: string;
     
-    @Prop({type: String, default: "Regular"})
+    @Prop({type: String, default: "REGULAR"})
     Role!: string;
 
     @Prop({type: [{type: mongoose.Types.ObjectId, ref: 'User', unique: true}], default: []})

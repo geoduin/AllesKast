@@ -50,7 +50,7 @@ export class Story implements IStory{
     @Prop({required: true, type: Writer})
     Writer!: Writer
 
-    @Prop({type: Boolean, required: true, default: true})
+    @Prop({type: Boolean, default: true})
     IsAdultOnly!: boolean
 
     @Prop({type: String,required: true})
@@ -62,7 +62,7 @@ export class Story implements IStory{
     @Prop({required: true, type: Image})
     Thumbnail!: Image
     
-    @Prop({type: [], default: [CommentsSchema]})
+    @Prop({type: [], default: []})
     Comments!: Comments[]
 
     ChapterList!: Chapter[] | undefined

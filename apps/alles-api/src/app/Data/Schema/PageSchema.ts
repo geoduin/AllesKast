@@ -41,7 +41,7 @@ export class Chapter implements ChapterDetails{
     @Prop({type: Object})
     Ratings!: [{ UserId: string; Rating: number; }];
     
-    @Prop({type: Page})
+    @Prop({type: Page, required: true})
     ChapterPage!: Page
 
     //@Prop({type: Page[], default: []})
