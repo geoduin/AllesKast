@@ -81,7 +81,8 @@ export class StoryController{
     @UseGuards(AuthGuard)
     async DeleteStory(@Param("Id") Id: string):Promise<any>{
         const result = await this.repo.Delete(Id)
-        return {status: 201, result};
+        const isDeleted = await this.chapterRepo.DeleteChaptersOfStory(Id);
+        return {status: 201, result, ChaptersDeleted: isDeleted};
     }
 
     @Post(":Id/Chapters")

@@ -29,7 +29,8 @@ describe('Story controller test', () => {
             GetOne: jest.fn(),
             Create: jest.fn(),
             Update: jest.fn(),
-            Delete: jest.fn()
+            Delete: jest.fn(),
+            
           }},
         {
           provide: ChapterRepository,
@@ -39,6 +40,7 @@ describe('Story controller test', () => {
             UpdateChapter: jest.fn(),
             GetAllChapters: jest.fn(),
             GetChapterPages: jest.fn(),
+            DeleteChaptersOfStory: jest.fn()
           }
         },
         {
@@ -91,11 +93,13 @@ describe('Story controller test', () => {
       it('Delete one', async()=>{
         get = jest.spyOn(MockStoryRepo, 'Delete')
         .mockImplementation(async(_id:string)=>{ return Element})
-
+        Delete = jest.spyOn(MockChapterRepo, 'DeleteChaptersOfStory')
+        .mockImplementation(async(id: string)=> true);
         const result = await MockStoryController.DeleteStory("1110");
 
         expect(result.status).toEqual(201);
         expect(result.result).toEqual(Element);
+        expect(result.ChaptersDeleted).toEqual(true);
       })
       it('Update one', async()=>{
         Element.Genres = "Actie"

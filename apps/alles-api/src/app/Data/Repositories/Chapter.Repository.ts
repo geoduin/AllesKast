@@ -21,6 +21,15 @@ export class ChapterRepository{
         
     }
 
+    async DeleteChaptersOfStory(storyId: string):Promise<boolean>{
+        try {
+            await this.Chapters.deleteMany({StoryId: storyId});
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
     async DeleteChapter(storyId: string, chapterId: string):Promise<any>{
         //Filter
         const filter = {ChapterId : chapterId};
