@@ -5,6 +5,7 @@
     name="loginForm" 
     (ngSubmit)="onSubmit()"  
     >
+    <h1>Inloggen</h1>
         <BackBtn></BackBtn>
         <p>
             <mat-form-field appearance="fill"  class="example-full-width">
@@ -34,7 +35,9 @@
         </p>
         
         <button mat-raised-button class="ImportantBtn">Login</button>
+        <app-warning-sign *ngIf="Warning" [Warning]="Warning"></app-warning-sign>
     </form>
+    
 </div>
     
 

@@ -1,4 +1,4 @@
-import { Body, Controller, Post} from "@nestjs/common";
+import { Body, Controller, HttpException, HttpStatus, Post} from "@nestjs/common";
 import { UserRepository } from "../../Data/Repositories/User.Repository";
 import { User } from "../../Data/Schema/UserSchema";
 import * as jwt from 'jsonwebtoken';
@@ -15,23 +15,15 @@ export class AuthController{
     async Login(@Body() loginData: LoginModel):Promise<User | any>{
         try {
             //Retrieve user from database
-            const user:any = await this.UserRepo.GetLoginUser(loginData.UserName);
-            
+            const Response:any = await this.UserRepo.GetLoginUser(loginData.UserName, loginData.Password);
+            console.log(Response);
             //If user is not found, send back 404 status back
-            if(!user){
-                throw new Error("Gebruiker niet gevonden");
+            if(!Response){
+                throw new HttpException('Ongeldige waarden ingevoerd', HttpStatus.UNAUTHORIZED)
             } else {
-                //Checks if password is valid.
-                const match = await Bcrypt.compare(loginData.Password, user.Password);
-                //Return token
-                if(match){
-                    //Sign a token.
-                    const Token = jwt.sign({Id: user._id, Role: user.Role}, process.env["JWT_KEY"]!, {expiresIn: "20d"});
-                    user.Password = undefined; 
-                    return {status: 200, result: user, Token: Token};
-                } else{
-                    throw new Error("Onjuiste gegevens ingevoerd");
-                }  
+                const user = Response.User;
+                user.Password = undefined; 
+                return {status: 200, result: user, Token: Response.Token};
             } 
         } catch (error: any) {
             return {status: 400, Message: "Retrieval failure", Error: error.message};
@@ -44,7 +36,7 @@ export class AuthController{
         //Start transaction
         console.log("User api creation started");
         //Hash wachtwoord
-        const hashedPassword = await Bcrypt.hash(user.Password, 12);
+        const hashedPassword = await Bcrypt.hash(user.Password, 9);
         //Wijst gehashed wachtwoord terug.
         user.Password = hashedPassword;
 

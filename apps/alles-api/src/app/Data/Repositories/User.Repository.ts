@@ -6,7 +6,8 @@ import { ManagedTransaction, Transaction } from "neo4j-driver";
 import { Neo4jService, TransactionWork } from "../Neo4J/neo4j.service";
 import { Chapter } from "../Schema/PageSchema";
 import { User, UserDocument } from "../Schema/UserSchema";
-
+import * as Bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class UserRepository{
 
@@ -16,8 +17,19 @@ export class UserRepository{
         
     }
 
-    async GetLoginUser(UserName: string):Promise<User | null>{
-        return this.UserModel.findOne({UserName: UserName});
+    async GetLoginUser(UserName: string, Password: string):Promise<any | null>{
+        
+        const user = await this.UserModel.findOne({UserName: UserName});
+
+        if(user){
+            //Checks if password is valid;
+            const match = await Bcrypt.compare(Password, user.Password);
+            //If true, it will give back a user with a token.
+            return match ? {User: user, Token: jwt.sign({Id: user._id, Role: user.Role}, process.env["JWT_KEY"]!, {expiresIn: "20d"})} : null;
+        } else{
+            return null;
+        }
+       
     }
 
     async Create(dto: User):Promise<User| null>{
