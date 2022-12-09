@@ -106,18 +106,24 @@ export class StoryEditComponent implements OnInit {
   UpdateStory(): void{
     //Wijzigt verhaal, exclusief hoofdstukken.
     this.IsDis = true;
+    this.Warning = "Laden"
     this.client.UpdateOne(this.NewStory.StoryId!, this.NewStory as StoryDetail, {})
     .subscribe(()=>{
       console.log("Verhaal wijzigen");
       this.IsDis = false;
+      this.Warning = "";
       this.Router.navigate([".."]);
       
     });
   }
 
   AddStory(): void{
+    this.IsDis = true;
+    this.Warning = "Laden"
     this.client.CreateOne(this.NewStory as StoryDetail, {})
             .subscribe((value)=>{
+              this.IsDis = false;
+              this.Warning = ""
               console.log("Nieuwe verhaal aanmaken.");
               this.Router.navigate([".."]);
             });
