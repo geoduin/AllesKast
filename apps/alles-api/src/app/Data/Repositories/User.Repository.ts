@@ -48,7 +48,7 @@ export class UserRepository{
         } catch (error) {
             session.abortTransaction();
             session.endSession();
-            return null;
+            throw error;
         }
         
     }
